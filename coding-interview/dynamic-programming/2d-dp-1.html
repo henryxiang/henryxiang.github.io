@@ -154,6 +154,767 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="two-dimensional-dp-problems-part-1"><a class="header" href="#two-dimensional-dp-problems-part-1">Two-Dimensional DP Problems (part 1)</a></h1>
+<h2 id="minimum-path-sum"><a class="header" href="#minimum-path-sum">Minimum Path Sum</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/minimum-path-sum">LeetCode 64. Minimum Path Sum</a></p>
+<p>Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.</p>
+<p>Note: You can only move either down or right at any point in time.</p>
+<pre><code>Example 1:
+
+Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+Output: 7
+Explanation: Because the path 1  3  1  1  1 minimizes the sum.
+
+Example 2:
+
+Input: grid = [[1,2,3],[4,5,6]]
+Output: 12
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = grid.length</li>
+<li>n = grid[i].length</li>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= grid[i][j] &lt;= 200</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">public class MinimumPathSum {
+
+	// 1. brute-force recursive solution
+	public static int minPathSum1(int[][] grid) {
+		return f1(grid, grid.length - 1, grid[0].length - 1);
+	}
+
+	// compute the minimum path sum from grid[0][0] to grid[i][j]
+	public static int f1(int[][] grid, int i, int j) {
+		if (i == 0 &amp;&amp; j == 0) {
+			return grid[0][0];
+		}
+		int up = Integer.MAX_VALUE;
+		int left = Integer.MAX_VALUE;
+		if (i - 1 &gt;= 0) {
+			up = f1(grid, i - 1, j);
+		}
+		if (j - 1 &gt;= 0) {
+			left = f1(grid, i, j - 1);
+		}
+		return grid[i][j] + Math.min(up, left);
+	}
+
+	// 2. recusive solution with memoization
+	public static int minPathSum2(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f2(grid, grid.length - 1, grid[0].length - 1, dp);
+	}
+
+	public static int f2(int[][] grid, int i, int j, int[][] dp) {
+		if (dp[i][j] != -1) {
+			return dp[i][j];
+		}
+		int ans;
+		if (i == 0 &amp;&amp; j == 0) {
+			ans = grid[0][0];
+		} else {
+			int up = Integer.MAX_VALUE;
+			int left = Integer.MAX_VALUE;
+			if (i - 1 &gt;= 0) {
+				up = f2(grid, i - 1, j, dp);
+			}
+			if (j - 1 &gt;= 0) {
+				left = f2(grid, i, j - 1, dp);
+			}
+			ans = grid[i][j] + Math.min(up, left);
+		}
+		dp[i][j] = ans;
+		return ans;
+	}
+
+	// 3. iterative bottom-up solution
+	public static int minPathSum3(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		dp[0][0] = grid[0][0];
+		for (int i = 1; i &lt; n; i++) {
+			dp[i][0] = dp[i - 1][0] + grid[i][0];
+		}
+		for (int j = 1; j &lt; m; j++) {
+			dp[0][j] = dp[0][j - 1] + grid[0][j];
+		}
+		for (int i = 1; i &lt; n; i++) {
+			for (int j = 1; j &lt; m; j++) {
+				dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+			}
+		}
+		return dp[n - 1][m - 1];
+	}
+
+	// 4. iterative solution with space optimization
+	public static int minPathSum4(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		// compressed reusable DP table, equivalent to one row of the 2D DP table
+		int[] dp = new int[m];
+		dp[0] = grid[0][0];
+		for (int j = 1; j &lt; m; j++) {
+			dp[j] = dp[j - 1] + grid[0][j];
+		}
+		for (int i = 1; i &lt; n; i++) {
+			dp[0] += grid[i][0];
+			for (int j = 1; j &lt; m; j++) { // refresh the DP table from left to right
+				dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
+			}
+		}
+		return dp[m - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=172">
+    </iframe>
+</details>
+<h2 id="word-search"><a class="header" href="#word-search">Word Search</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/word-search">LeetCode 79. Word Search</a></p>
+<p>Given an m x n grid of characters board and a string word, return true if word exists in the grid.</p>
+<p>The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.</p>
+<pre><code>Example 1:
+
+Input: 
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = ABCCED
+Output: true
+
+Example 2:
+
+Input:
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = SEE
+Output: true
+
+Example 3:
+
+Input:
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = ABCB
+Output: false
+
+Example 4:
+
+Input:
+  board = [
+    [A,T],
+    [T,A],
+    [S,S]
+  ],
+  word = ATASST
+Output: true
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = board.length</li>
+<li>n = board[i].length</li>
+<li>1 &lt;= m, n &lt;= 6</li>
+<li>1 &lt;= word.length &lt;= 15</li>
+<li>board and word consists of only lowercase and uppercase English letters.</li>
+</ul>
+<p>Follow up: Could you use search pruning to make your solution faster with a larger board?</p>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">public class WordSearch {
+
+	// Note: This problem does not have iterative solution 
+	// because the subproblem not only depend on i and j
+	// but also depend on the visited state of the board.
+	// For the same i and j, there are probably different
+	// solutions for different board state.
+
+	public static boolean exist(char[][] board, String word) {
+		char[] w = word.toCharArray();
+		for (int i = 0; i &lt; board.length; i++) {
+			for (int j = 0; j &lt; board[0].length; j++) {
+				if (f(board, i, j, w, 0)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// starting from b[i][j], is there a match with w[k..]
+	// recursive solution with backtracking
+	public static boolean f(char[][] b, int i, int j, char[] w, int k) {
+		if (k == w.length) {
+			return true;
+		}
+		// check the boundaries and character match
+		if (i &lt; 0 || i == b.length || j &lt; 0 || j == b[0].length || b[i][j] != w[k]) {
+			return false;
+		}
+		// within the boundary of b and b[i][j] == w[k]
+		char tmp = b[i][j]; // needed for backtracking
+		b[i][j] = 0; // mark b[i][j] as visited
+		boolean ans = f(b, i - 1, j, w, k + 1)  // search up
+			    || f(b, i + 1, j, w, k + 1)     // search down 
+				|| f(b, i, j - 1, w, k + 1)     // search left
+				|| f(b, i, j + 1, w, k + 1);    // search right
+		b[i][j] = tmp; // backtracking - restore the value of b[i][j]
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=2825">
+    </iframe>
+</details>
+<h2 id="longest-common-subsequence"><a class="header" href="#longest-common-subsequence">Longest Common Subsequence</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/longest-common-subsequence">LeetCode 1143. Longest Common Subsequence</a></p>
+<p>Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.</p>
+<p>A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.</p>
+<pre><code>For example, ace is a subsequence of abcde.
+</code></pre>
+<p>A common subsequence of two strings is a subsequence that is common to both strings.</p>
+<pre><code>Example 1:
+
+Input: text1 = abcde, text2 = ace 
+Output: 3  
+Explanation: The longest common subsequence is ace and its length is 3.
+
+Example 2:
+
+Input: text1 = abc, text2 = abc
+Output: 3
+Explanation: The longest common subsequence is abc and its length is 3.
+
+Example 3:
+
+Input: text1 = abc, text2 = def
+Output: 0
+Explanation: There is no such common subsequence, so the result is 0.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= text1.length, text2.length &lt;= 1000</li>
+<li>text1 and text2 consist of only lowercase English characters.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-common-subsequence/
+public class LongestCommonSubsequence {
+
+	// 0. brute-force recursive solution (naive version)
+	public static int longestCommonSubsequence1(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		return f1(s1, s2, n - 1, m - 1);
+	}
+
+	// compute the LCS for substrings s1[0..i1] and s2[0..i2]
+	public static int f1(char[] s1, char[] s2, int i1, int i2) {
+		if (i1 &lt; 0 || i2 &lt; 0) {
+			return 0;
+		}
+		int p1 = f1(s1, s2, i1 - 1, i2 - 1);		// case 1: drop both s1[i1] and s2[i2], ONLY used in case 4
+		int p2 = f1(s1, s2, i1 - 1, i2);			// case 2: drop s1[i1] but keep s2[i2]			
+		int p3 = f1(s1, s2, i1, i2 - 1);			// case 3: keep s1[i1] but drop s2[i2]
+		int p4 = s1[i1] == s2[i2] ? (p1 + 1) : 0;	// case 4: keep both s1[i1] and s2[i2] if the two characters match
+		return Math.max(Math.max(p1, p2), Math.max(p3, p4));
+	}
+
+	// 1. brute-force recursive solution (improved version)
+	// notice in solution 0, p1 &lt;= p2 and p1 &lt;= p3
+	public static int longestCommonSubsequence2(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		return f2(s1, s2, n, m);
+	}
+
+	// compute the LCS length for s1's len1-character prefix and s2's len2 prefix
+	// using length intead of array index to avoid handling negative indices
+	public static int f2(char[] s1, char[] s2, int len1, int len2) {
+		if (len1 == 0 || len2 == 0) {
+			return 0;
+		}
+		int ans;
+		if (s1[len1 - 1] == s2[len2 - 1]) {	// the last characters of two strings match
+			ans = f2(s1, s2, len1 - 1, len2 - 1) + 1;
+		} else {
+			ans = Math.max(f2(s1, s2, len1 - 1, len2), f2(s1, s2, len1, len2 - 1));
+		}
+		return ans;
+	}
+
+	// 2. recursive solution with memoization
+	public static int longestCommonSubsequence3(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		int[][] dp = new int[n + 1][m + 1];
+		for (int i = 0; i &lt;= n; i++) {
+			for (int j = 0; j &lt;= m; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f3(s1, s2, n, m, dp);
+	}
+
+	public static int f3(char[] s1, char[] s2, int len1, int len2, int[][] dp) {
+		if (len1 == 0 || len2 == 0) {
+			return 0;
+		}
+		if (dp[len1][len2] != -1) {
+			return dp[len1][len2];
+		}
+		int ans;
+		if (s1[len1 - 1] == s2[len2 - 1]) {
+			ans = f3(s1, s2, len1 - 1, len2 - 1, dp) + 1;
+		} else {
+			ans = Math.max(f3(s1, s2, len1 - 1, len2, dp), f3(s1, s2, len1, len2 - 1, dp));
+		}
+		dp[len1][len2] = ans;
+		return ans;
+	}
+
+	// 3. iterative bottom-up solution
+	public static int longestCommonSubsequence4(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		int[][] dp = new int[n + 1][m + 1];
+		for (int len1 = 1; len1 &lt;= n; len1++) {
+			for (int len2 = 1; len2 &lt;= m; len2++) {
+				if (s1[len1 - 1] == s2[len2 - 1]) {
+					dp[len1][len2] = 1 + dp[len1 - 1][len2 - 1];
+				} else {
+					dp[len1][len2] = Math.max(dp[len1 - 1][len2], dp[len1][len2 - 1]);
+				}
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 4. iterative solution + space optimization
+	public static int longestCommonSubsequence5(String str1, String str2) {
+		char[] s1, s2;
+		if (str1.length() &gt;= str2.length()) {
+			s1 = str1.toCharArray();
+			s2 = str2.toCharArray();
+		} else {
+			s1 = str2.toCharArray();
+			s2 = str1.toCharArray();
+		}
+		int n = s1.length;
+		int m = s2.length;
+		int[] dp = new int[m + 1];
+		for (int len1 = 1; len1 &lt;= n; len1++) {
+			int leftUp = 0, backup;
+			for (int len2 = 1; len2 &lt;= m; len2++) {
+				backup = dp[len2];
+				if (s1[len1 - 1] == s2[len2 - 1]) {
+					dp[len2] = 1 + leftUp;
+				} else {
+					dp[len2] = Math.max(dp[len2], dp[len2 - 1]);
+				}
+				leftUp = backup;
+			}
+		}
+		return dp[m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=3756">
+    </iframe>
+</details>
+<h2 id="longest-palindromic-subsequence"><a class="header" href="#longest-palindromic-subsequence">Longest Palindromic Subsequence</a></h2>
+<details><summary>Description:</summary>
+<hr />
+<h2>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README_EN.md
+tags:
+- String
+- Dynamic Programming</h2>
+<h1 id="516-longest-palindromic-subsequence"><a class="header" href="#516-longest-palindromic-subsequence"><a href="https://leetcode.com/problems/longest-palindromic-subsequence">516. Longest Palindromic Subsequence</a></a></h1>
+<p><a href="/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>Given a string s, find the longest palindromic subsequences length in s.</p>
+<p>A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.</p>
+<p>Example 1:</p>
+<p>Input: s = bbbab
+Output: 4
+Explanation: One possible longest palindromic subsequence is bbbb.</p>
+<p>Example 2:</p>
+<p>Input: s = cbbd
+Output: 2
+Explanation: One possible longest palindromic subsequence is bb.</p>
+<p>Constraints:</p>
+<pre><code>1 = s.length = 1000
+s consists only of lowercase English letters.
+</code></pre>
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i][j]$ as the length of the longest palindromic subsequence from the $i$-th character to the $j$-th character in string $s$. Initially, $f[i][i] = 1$, and the values of other positions are all $0$.</p>
+<p>If $s[i] = s[j]$, then $f[i][j] = f[i + 1][j - 1] + 2$; otherwise, $f[i][j] = \max(f[i + 1][j], f[i][j - 1])$.</p>
+<p>Since the value of $f[i][j]$ is related to $f[i + 1][j - 1]$, $f[i + 1][j]$, and $f[i][j - 1]$, we should enumerate $i$ from large to small, and enumerate $j$ from small to large.</p>
+<p>The answer is $f[0][n - 1]$.</p>
+<p>The time complexity is $O(n^2)$, and the space complexity is $O(n^2)$. Where $n$ is the length of the string $s$.</p>
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def longestPalindromeSubseq(self, s: str) -&gt; int:
+        n = len(s)
+        f = [[0] * n for _ in range(n)]
+        for i in range(n):
+            f[i][i] = 1
+        for i in range(n - 1, -1, -1):
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    f[i][j] = f[i + 1][j - 1] + 2
+                else:
+                    f[i][j] = max(f[i + 1][j], f[i][j - 1])
+        return f[0][-1]
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        int[][] f = new int[n][n];
+        for (int i = 0; i &lt; n; ++i) {
+            f[i][i] = 1;
+        }
+        for (int i = n - 1; i &gt;= 0; --i) {
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    f[i][j] = f[i + 1][j - 1] + 2;
+                } else {
+                    f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        int f[n][n];
+        memset(f, 0, sizeof(f));
+        for (int i = 0; i &lt; n; ++i) {
+            f[i][i] = 1;
+        }
+        for (int i = n - 1; ~i; --i) {
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s[i] == s[j]) {
+                    f[i][j] = f[i + 1][j - 1] + 2;
+                } else {
+                    f[i][j] = max(f[i + 1][j], f[i][j - 1]);
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func longestPalindromeSubseq(s string) int {
+	n := len(s)
+	f := make([][]int, n)
+	for i := range f {
+		f[i] = make([]int, n)
+		f[i][i] = 1
+	}
+	for i := n - 2; i &gt;= 0; i-- {
+		for j := i + 1; j &lt; n; j++ {
+			if s[i] == s[j] {
+				f[i][j] = f[i+1][j-1] + 2
+			} else {
+				f[i][j] = max(f[i+1][j], f[i][j-1])
+			}
+		}
+	}
+	return f[0][n-1]
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function longestPalindromeSubseq(s: string): number {
+    const n = s.length;
+    const f: number[][] = Array.from({ length: n }, () =&gt; Array(n).fill(0));
+    for (let i = 0; i &lt; n; ++i) {
+        f[i][i] = 1;
+    }
+    for (let i = n - 2; ~i; --i) {
+        for (let j = i + 1; j &lt; n; ++j) {
+            if (s[i] === s[j]) {
+                f[i][j] = f[i + 1][j - 1] + 2;
+            } else {
+                f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+            }
+        }
+    }
+    return f[0][n - 1];
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-palindromic-subsequence/
+public class LongestPalindromicSubsequence {
+
+	// Note: this problem can be converted to LCS problem by comparing the orignal string with the reversed one.
+	// Here we only discuss the DP solutions
+
+	// 1. brute-force recursive solution
+	public static int longestPalindromeSubseq1(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		return f1(s, 0, n - 1);
+	}
+
+	// compute the length of LPS for substring s[l..r]
+	public static int f1(char[] s, int l, int r) {
+		if (l == r) {
+			return 1;
+		}
+		if (l + 1 == r) {
+			return s[l] == s[r] ? 2 : 1;
+		}
+		if (s[l] == s[r]) {
+			return 2 + f1(s, l + 1, r - 1);
+		} else {
+			return Math.max(f1(s, l + 1, r), f1(s, l, r - 1));
+		}
+	}
+
+	// 2. recursive solution with memoization
+	public static int longestPalindromeSubseq2(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		return f2(s, 0, n - 1, dp);
+	}
+
+	public static int f2(char[] s, int l, int r, int[][] dp) {
+		if (l == r) {
+			return 1;
+		}
+		if (l + 1 == r) {
+			return s[l] == s[r] ? 2 : 1;
+		}
+		if (dp[l][r] != 0) {
+			return dp[l][r];
+		}
+		int ans;
+		if (s[l] == s[r]) {
+			ans = 2 + f2(s, l + 1, r - 1, dp);
+		} else {
+			ans = Math.max(f2(s, l + 1, r, dp), f2(s, l, r - 1, dp));
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 3. iterative solution
+	public static int longestPalindromeSubseq3(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int l = n - 1; l &gt;= 0; l--) {
+			dp[l][l] = 1;
+			if (l + 1 &lt; n) {
+				dp[l][l + 1] = s[l] == s[l + 1] ? 2 : 1;
+			}
+			for (int r = l + 2; r &lt; n; r++) {
+				if (s[l] == s[r]) {
+					dp[l][r] = 2 + dp[l + 1][r - 1];
+				} else {
+					dp[l][r] = Math.max(dp[l + 1][r], dp[l][r - 1]);
+				}
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+	// 4. iterative solution with space optimization
+	public static int longestPalindromeSubseq4(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[] dp = new int[n];
+		for (int l = n - 1, leftDown = 0, backup; l &gt;= 0; l--) {
+			dp[l] = 1;
+			if (l + 1 &lt; n) {
+				leftDown = dp[l + 1];
+				dp[l + 1] = s[l] == s[l + 1] ? 2 : 1;
+			}
+			for (int r = l + 2; r &lt; n; r++) {
+				backup = dp[r];
+				if (s[l] == s[r]) {
+					dp[r] = 2 + leftDown;
+				} else {
+					dp[r] = Math.max(dp[r], dp[r - 1]);
+				}
+				leftDown = backup;
+			}
+		}
+		return dp[n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=6378">
+    </iframe>
+</details>
+<h2 id="longest-increasing-path-in-a-matrix"><a class="header" href="#longest-increasing-path-in-a-matrix">Longest Increasing Path in a Matrix</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix">LeetCode 329. Longest Increasing Path in a Matrix</a></p>
+<p>Given an m x n integers matrix, return the length of the longest increasing path in matrix.</p>
+<p>From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).</p>
+<pre><code>Example 1:
+
+Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]
+Output: 4
+Explanation: The longest increasing path is [1, 2, 6, 9].
+
+Example 2:
+
+Input: matrix = [[3,4,5],[3,2,6],[2,2,1]]
+Output: 4
+Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+
+Example 3:
+
+Input: matrix = [[1]]
+Output: 1
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = matrix.length</li>
+<li>n = matrix[i].length</li>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= matrix[i][j] &lt;= 2^31 - 1</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+public class LongestIncreasingPathInMatrix {
+
+	// 1. brute-force recursive solution
+	public static int longestIncreasingPath1(int[][] grid) {
+		int ans = 0;
+		for (int i = 0; i &lt; grid.length; i++) {
+			for (int j = 0; j &lt; grid[0].length; j++) {
+				ans = Math.max(ans, f1(grid, i, j));
+			}
+		}
+		return ans;
+	}
+
+	// compute longest increasing path from grid[i][j]
+	public static int f1(int[][] grid, int i, int j) {
+		int next = 0;
+		if (i &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i - 1][j]) {
+			next = Math.max(next, f1(grid, i - 1, j));
+		}
+		if (i + 1 &lt; grid.length &amp;&amp; grid[i][j] &lt; grid[i + 1][j]) {
+			next = Math.max(next, f1(grid, i + 1, j));
+		}
+		if (j &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i][j - 1]) {
+			next = Math.max(next, f1(grid, i, j - 1));
+		}
+		if (j + 1 &lt; grid[0].length &amp;&amp; grid[i][j] &lt; grid[i][j + 1]) {
+			next = Math.max(next, f1(grid, i, j + 1));
+		}
+		return next + 1;
+	}
+
+	// recursive solution with memoization
+	public static int longestIncreasingPath2(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		int ans = 0;
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				ans = Math.max(ans, f2(grid, i, j, dp));
+			}
+		}
+		return ans;
+	}
+
+	public static int f2(int[][] grid, int i, int j, int[][] dp) {
+		if (dp[i][j] != 0) {
+			return dp[i][j];
+		}
+		int next = 0;
+		if (i &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i - 1][j]) {
+			next = Math.max(next, f2(grid, i - 1, j, dp));
+		}
+		if (i + 1 &lt; grid.length &amp;&amp; grid[i][j] &lt; grid[i + 1][j]) {
+			next = Math.max(next, f2(grid, i + 1, j, dp));
+		}
+		if (j &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i][j - 1]) {
+			next = Math.max(next, f2(grid, i, j - 1, dp));
+		}
+		if (j + 1 &lt; grid[0].length &amp;&amp; grid[i][j] &lt; grid[i][j + 1]) {
+			next = Math.max(next, f2(grid, i, j + 1, dp));
+		}
+		dp[i][j] = next + 1;
+		return next + 1;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=10078">
+    </iframe>
+</details>
 
                     </main>
 

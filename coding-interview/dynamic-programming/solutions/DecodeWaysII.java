@@ -44,7 +44,7 @@ public class DecodeWaysII {
 		return ans;
 	}
 
-	// 2. recursive solution with memoization, modulus answer
+	// 2. recursive solution with memoization, answer modulo 10^9+7
 	public static long mod = 1000000007;
 
 	public static int numDecodings2(String str) {
@@ -128,7 +128,7 @@ public class DecodeWaysII {
 		return (int) dp[0];
 	}
 
-	// 4. iterative solution with state compression
+	// 4. iterative solution with space optimization
 	public static int numDecodings4(String str) {
 		char[] s = str.toCharArray();
 		int n = s.length;

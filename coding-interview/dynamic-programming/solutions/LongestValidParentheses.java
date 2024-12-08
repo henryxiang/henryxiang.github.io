@@ -7,8 +7,8 @@ public class LongestValidParentheses {
 		int ans = 0, p;
 		for (int i = 1; i < s.length; i++) {
 			if (s[i] == ')') {
-				p = i - dp[i - 1] - 1;
-				if (p >= 0 && s[p] == '(') {
+				p = i - dp[i - 1] - 1;  // position of the matching left parenthese
+				if (p >= 0 && s[p] == '(') {  // found matching left parenthese
 					dp[i] = dp[i - 1] + 2 + (p - 1 >= 0 ? dp[p - 1] : 0);
 				}
 			}

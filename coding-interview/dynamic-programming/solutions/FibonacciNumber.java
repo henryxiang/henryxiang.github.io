@@ -55,7 +55,7 @@ public class FibonacciNumber {
 		return dp[n];
 	}
 
-    // Interative solution with state compression
+    // Interative solution with space optimization
 	public static int fib4(int n) {
 		if (n == 0) {
 			return 0;

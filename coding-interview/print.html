@@ -163,16 +163,16 @@
 </ul>
 <h2 id="bottom-up-approach-iterative-solution"><a class="header" href="#bottom-up-approach-iterative-solution">Bottom-Up Approach (Iterative Solution)</a></h2>
 <ul>
-<li>Construct the <code>State Table</code></li>
+<li>Construct the <code>State Table</code> (DP table)</li>
 <li>Design the <code>State Transition Plan</code></li>
-<li>Initialize <code>State Table</code> with base-case solutions</li>
+<li>Initialize <code>State Table</code> with the base-case solutions</li>
 <li>Fill the rest of <code>State Table</code> using the <code>State Transition Plan</code></li>
 <li>Return the final state</li>
 </ul>
 <h2 id="optimization"><a class="header" href="#optimization">Optimization</a></h2>
 <ul>
-<li>Using memoization(caching) with the recursive solution</li>
-<li>Considering state compression for the iterative solution</li>
+<li>Using memoization (caching) with the recursive solution</li>
+<li>Considering state compression (space optimization) for the iterative solution</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="one-dimentional-dp-problems"><a class="header" href="#one-dimentional-dp-problems">One-Dimentional DP Problems</a></h1>
 <h2 id="fibonacci-number"><a class="header" href="#fibonacci-number">Fibonacci Number</a></h2>
@@ -182,18 +182,24 @@
 <p>F(0) = 0, F(1) = 1
 F(n) = F(n - 1) + F(n - 2), for n  1.</p>
 <p>Given n, calculate F(n).</p>
-<p>Example 1:</p>
-<p>Input: n = 2
+<pre><code>Example 1:
+
+Input: n = 2
 Output: 1
-Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.</p>
-<p>Example 2:</p>
-<p>Input: n = 3
+Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
+
+Example 2:
+
+Input: n = 3
 Output: 2
-Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.</p>
-<p>Example 3:</p>
-<p>Input: n = 4
+Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
+
+Example 3:
+
+Input: n = 4
 Output: 3
-Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.</p>
+Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>0 &lt;= n &lt;= 30</li>
@@ -257,7 +263,7 @@ public class FibonacciNumber {
 		return dp[n];
 	}
 
-    // Interative solution with state compression
+    // Interative solution with space optimization
 	public static int fib4(int n) {
 		if (n == 0) {
 			return 0;
@@ -296,21 +302,25 @@ public class FibonacciNumber {
 <p>The passes allow that many days of consecutive travel.</p>
 <p>For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.</p>
 <p>Return the minimum number of dollars you need to travel every day in the given list of days.</p>
-<p>Example 1:</p>
-<p>Input: days = [1,4,6,7,8,20], costs = [2,7,15]
+<pre><code>Example 1:
+
+Input: days = [1,4,6,7,8,20], costs = [2,7,15]
 Output: 11
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
 On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
 On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
-In total, you spent $11 and covered all the days of your travel.</p>
-<p>Example 2:</p>
-<p>Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+In total, you spent $11 and covered all the days of your travel.
+
+Example 2:
+
+Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
 Output: 17
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
 On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
-In total, you spent $17 and covered all the days of your travel.</p>
+In total, you spent $17 and covered all the days of your travel.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= days.length &lt;= 365</li>
@@ -403,7 +413,7 @@ public class MinimumCostForTickets {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=2053">
     </iframe>
 </details>
 <h2 id="decode-ways"><a class="header" href="#decode-ways">Decode Ways</a></h2>
@@ -424,21 +434,33 @@ The grouping (1, 11, 06) is invalid because 06 is not a valid code (only 6 is va
 <p>Note: there may be strings that are impossible to decode.</p>
 <p>Given a string s containing only digits, return the number of ways to decode it. If the entire string cannot be decoded in any valid way, return 0.</p>
 <p>The test cases are generated so that the answer fits in a 32-bit integer.</p>
-<p>Example 1:</p>
-<p>Input: s = 12</p>
-<p>Output: 2</p>
-<p>Explanation:</p>
-<p>12 could be decoded as AB (1 2) or L (12).</p>
-<p>Example 2:</p>
-<p>Input: s = 226</p>
-<p>Output: 3</p>
-<p>Explanation:</p>
-<p>226 could be decoded as BZ (2 26), VF (22 6), or BBF (2 2 6).</p>
-<p>Example 3:</p>
-<p>Input: s = 06</p>
-<p>Output: 0</p>
-<p>Explanation:</p>
-<p>06 cannot be mapped to F because of the leading zero (6 is different from 06). In this case, the string is not a valid encoding, so return 0.</p>
+<pre><code>Example 1:
+
+Input: s = 12
+
+Output: 2
+
+Explanation: 12 could be decoded as AB (1 2) or L (12).
+
+Example 2:
+
+Input: s = 226
+
+Output: 3
+
+Explanation: 226 could be decoded as BZ (2 26), VF (22 6), or BBF (2 2 6).
+
+Example 3:
+
+Input: s = 06
+
+Output: 0
+
+Explanation:
+
+06 cannot be mapped to F because of the leading zero (6 is different from 06). 
+In this case, the string is not a valid encoding, so return 0.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 100</li>
@@ -518,7 +540,7 @@ public class DecodeWays {
 		return dp[0];
 	}
 
-	// 4. iterative solution + state compression
+	// 4. iterative solution + space optimization
 	public static int numDecodings4(String s) {
 		// dp[i+1]
 		int next = 1;
@@ -545,7 +567,7 @@ public class DecodeWays {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=4249">
     </iframe>
 </details>
 <h2 id="decode-ways-ii"><a class="header" href="#decode-ways-ii">Decode Ways II</a></h2>
@@ -564,24 +586,30 @@ KJF with the grouping (11 10 6)
 <p>In addition to the mapping above, an encoded message may contain the * character, which can represent any digit from 1 to 9 (0 is excluded). For example, the encoded message 1* may represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19. Decoding 1* is equivalent to decoding any of the encoded messages it can represent.</p>
 <p>Given a string s consisting of digits and * characters, return the number of ways to decode it.</p>
 <p>Since the answer may be very large, return it modulo 109 + 7.</p>
-<p>Example 1:</p>
-<p>Input: s = *
+<pre><code>Example 1:
+
+Input: s = *
 Output: 9
 Explanation: The encoded message can represent any of the encoded messages 1, 2, 3, 4, 5, 6, 7, 8, or 9.
 Each of these can be decoded to the strings A, B, C, D, E, F, G, H, and I respectively.
-Hence, there are a total of 9 ways to decode *.</p>
-<p>Example 2:</p>
-<p>Input: s = 1*
+Hence, there are a total of 9 ways to decode *.
+
+Example 2:
+
+Input: s = 1*
 Output: 18
 Explanation: The encoded message can represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19.
 Each of these encoded messages have 2 ways to be decoded (e.g. 11 can be decoded to AA or K).
-Hence, there are a total of 9 * 2 = 18 ways to decode 1*.</p>
-<p>Example 3:</p>
-<p>Input: s = 2*
+Hence, there are a total of 9 * 2 = 18 ways to decode 1*.
+
+Example 3:
+
+Input: s = 2*
 Output: 15
 Explanation: The encoded message can represent any of the encoded messages 21, 22, 23, 24, 25, 26, 27, 28, or 29.
 21, 22, 23, 24, 25, and 26 have 2 ways of being decoded, but 27, 28, and 29 only have 1 way.
-Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode 2*.</p>
+Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode 2*.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 10^5</li>
@@ -635,7 +663,7 @@ public class DecodeWaysII {
 		return ans;
 	}
 
-	// 2. recursive solution with memoization, modulus answer
+	// 2. recursive solution with memoization, answer modulo 10^9+7
 	public static long mod = 1000000007;
 
 	public static int numDecodings2(String str) {
@@ -719,7 +747,7 @@ public class DecodeWaysII {
 		return (int) dp[0];
 	}
 
-	// 4. iterative solution with state compression
+	// 4. iterative solution with space optimization
 	public static int numDecodings4(String str) {
 		char[] s = str.toCharArray();
 		int n = s.length;
@@ -763,7 +791,7 @@ public class DecodeWaysII {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=5985">
     </iframe>
 </details>
 <h2 id="ugly-number-ii"><a class="header" href="#ugly-number-ii">Ugly Number II</a></h2>
@@ -771,14 +799,18 @@ public class DecodeWaysII {
 <p><a href="https://leetcode.com/problems/ugly-number-ii" target="_blank">LeetCode Testing Link</a></p>
 <p>An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.</p>
 <p>Given an integer n, return the nth ugly number.</p>
-<p>Example 1:</p>
-<p>Input: n = 10
+<pre><code>Example 1:
+
+Input: n = 10
 Output: 12
-Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.</p>
-<p>Example 2:</p>
-<p>Input: n = 1
+Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
+
+Example 2:
+
+Input: n = 1
 Output: 1
-Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.</p>
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= n &lt;= 1690</li>
@@ -816,24 +848,30 @@ Explanation: 1 has no prime factors, therefore all of its prime factors are limi
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=7739">
     </iframe>
 </details>
 <h2 id="longest-valid-parentheses"><a class="header" href="#longest-valid-parentheses">Longest Valid Parentheses</a></h2>
 <details><summary>Description:</summary>
 <p><a href="https://leetcode.com/problems/longest-valid-parentheses" target="_blank">LeetCode Testing Link</a></p>
 <p>Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.</p>
-<p>Example 1:</p>
-<p>Input: s = (()
+<pre><code>Example 1:
+
+Input: s = (()
 Output: 2
-Explanation: The longest valid parentheses substring is ().</p>
-<p>Example 2:</p>
-<p>Input: s = )()())
+Explanation: The longest valid parentheses substring is ().
+
+Example 2:
+
+Input: s = )()())
 Output: 4
-Explanation: The longest valid parentheses substring is ()().</p>
-<p>Example 3:</p>
-<p>Input: s =
-Output: 0</p>
+Explanation: The longest valid parentheses substring is ()().
+
+Example 3:
+
+Input: s = 
+Output: 0
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>0 &lt;= s.length &lt; 3 * 10^4</li>
@@ -850,8 +888,8 @@ Output: 0</p>
 		int ans = 0, p;
 		for (int i = 1; i &lt; s.length; i++) {
 			if (s[i] == ')') {
-				p = i - dp[i - 1] - 1;
-				if (p &gt;= 0 &amp;&amp; s[p] == '(') {
+				p = i - dp[i - 1] - 1;  // position of the matching left parenthese
+				if (p &gt;= 0 &amp;&amp; s[p] == '(') {  // found matching left parenthese
 					dp[i] = dp[i - 1] + 2 + (p - 1 &gt;= 0 ? dp[p - 1] : 0);
 				}
 			}
@@ -866,7 +904,7 @@ Output: 0</p>
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=8666">
     </iframe>
 </details>
 <h2 id="unique-substring-in-wraparound-string"><a class="header" href="#unique-substring-in-wraparound-string">Unique Substring in Wraparound String</a></h2>
@@ -875,19 +913,26 @@ Output: 0</p>
 <p>We define the string base to be the infinite wraparound string of abcdefghijklmnopqrstuvwxyz, so base will look like this:</p>
 <pre><code>...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd.....
 </code></pre>
-<p>Given a string s, return the number of unique non-empty substrings of s are present in base.</p>
-<p>Example 1:</p>
-<p>Input: s = a
+<p>Given a string s, return the number of unique non-empty substrings of s are present in base,
+i.e., find the unique common substrings in both s and base.</p>
+<pre><code>Example 1:
+
+Input: s = a
 Output: 1
-Explanation: Only the substring a of s is in base.</p>
-<p>Example 2:</p>
-<p>Input: s = cac
+Explanation: Only the substring a of s is in base.
+
+Example 2:
+
+Input: s = cac
 Output: 2
-Explanation: There are two substrings (a, c) of s in base.</p>
-<p>Example 3:</p>
-<p>Input: s = zab
+Explanation: There are two substrings (a, c) of s in base.
+
+Example 3:
+
+Input: s = zab
 Output: 6
-Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</p>
+Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 10^5</li>
@@ -897,25 +942,25 @@ Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class UniqueSubstringInWraparoundString {
 
-	// 时间复杂度O(n)，n是字符串s的长度，字符串base长度为正无穷
 	public static int findSubstringInWraproundString(String str) {
 		int n = str.length();
-		int[] s = new int[n];
-		// abcde...z -&gt; 0, 1, 2, 3, 4....25
+		int[] s = new int[n]; 
+		// converting input str to int[] s
+		// a -&gt; 0, b -&gt; 1, c -&gt; 2, ... y -&gt; 24, z -&gt; 25
 		for (int i = 0; i &lt; n; i++) {
 			s[i] = str.charAt(i) - 'a';
 		}
-		// dp[0] : s中必须以'a'的子串，最大延伸长度是多少，延伸一定要跟据base串的规则
+		// dp[i] : the longest substring ending with character i in both str and base
+		// e.g., if dp[i] = 4 (abcd, bcde, xyza, and etc), then there are 4 unique common substrings 
 		int[] dp = new int[26];
-		// s : c d e....
-		//     2 3 4
 		dp[s[0]] = 1;
-		for (int i = 1, cur, pre, len = 1; i &lt; n; i++) {
+		int len = 1, // length of the longest common substring
+			cur, 	 // current character in s
+			pre;	 // previous character in s
+		for (int i = 1; i &lt; n; i++) {
 			cur = s[i];
 			pre = s[i - 1];
-			// pre cur
 			if ((pre == 25 &amp;&amp; cur == 0) || pre + 1 == cur) {
-				// (前一个字符是'z' &amp;&amp; 当前字符是'a') || 前一个字符比当前字符的ascii码少1
 				len++;
 			} else {
 				len = 1;
@@ -935,26 +980,32 @@ Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=10261">
     </iframe>
 </details>
 <h2 id="distinct-subsequences-ii"><a class="header" href="#distinct-subsequences-ii">Distinct Subsequences II</a></h2>
 <details><summary>Description:</summary>
 <p><a href="https://leetcode.com/problems/distinct-subsequences-ii" target="_blank">LeetCode Testing Link</a></p>
-<p>Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 109 + 7.
+<p>Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 10^9 + 7.
 A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters (i.e., <code>ace</code> is a subsequence of <code>abcde</code> while <code>aec</code> is not).</p>
-<p>Example 1:</p>
-<p>Input: s = abc
+<pre><code>Example 1:
+
+Input: s = abc
 Output: 7
-Explanation: The 7 distinct subsequences are a, b, c, ab, ac, bc, and abc.</p>
-<p>Example 2:</p>
-<p>Input: s = aba
+Explanation: The 7 distinct subsequences are a, b, c, ab, ac, bc, and abc.
+
+Example 2:
+
+Input: s = aba
 Output: 6
-Explanation: The 6 distinct subsequences are a, b, ab, aa, ba, and aba.</p>
-<p>Example 3:</p>
-<p>Input: s = aaa
+Explanation: The 6 distinct subsequences are a, b, ab, aa, ba, and aba.
+
+Example 3:
+
+Input: s = aaa
 Output: 3
-Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
+Explanation: The 3 distinct subsequences are a, aa and aaa.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 2000</li>
@@ -964,18 +1015,31 @@ Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class DistinctSubsequencesII {
 
-	// 时间复杂度O(n)，n是字符串s的长度
+	// a b a a
+	// 0 1 2 3
+	//    {}                      all = 1
+	// 0: {} {a}                  newAdd = 1 (all-cnt['a']); all = 2 (+=newAdd); cnt['a'] = 1 (+=newAdd)
+	// 1: {}  {a}                 newAdd = 2 (all-cnt['b']); all = 4 (+=newAdd); cnt['b'] = 2 (+=newAdd) 
+	//    {b} {ab}
+	// 2: {}   {a}  {b}  {ab}     newAdd = 3 (all-cnt['a']); all = 7 (all + newAdd); cnt['a'] = 4 (+=newAdd)
+	//    {a}* {aa} {ba} {aba}
+	// 3: {}   {a}  {b}  {ab}     newAdd = 3 (all-cnt['a']); all = 10 (all + newAdd); cnt['a'] = 7 (+=newAdd)
+	//    {aa} {ba} {aba}
+	//    {a}* {aa}* {ba}* {aba}* 
+	//    {aaa}  {baa}  {abaa}
+
 	public static int distinctSubseqII(String s) {
 		int mod = 1000000007;
 		char[] str = s.toCharArray();
-		int[] cnt = new int[26];
-		int all = 1, newAdd;
+		int[] cnt = new int[26]; // number of subsequences ending with chr - 'a'
+		int all = 1, // include empty string
+			newAdd;
 		for (char x : str) {
 			newAdd = (all - cnt[x - 'a'] + mod) % mod;
 			cnt[x - 'a'] = (cnt[x - 'a'] + newAdd) % mod;
 			all = (all + newAdd) % mod;
 		}
-		return (all - 1 + mod) % mod;
+		return (all - 1 + mod) % mod;  // exclude empty string
 	}
 
 }
@@ -984,11 +1048,1738 @@ Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=11518">
     </iframe>
 </details>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="two-dimensional-dp-problems-part-1"><a class="header" href="#two-dimensional-dp-problems-part-1">Two-Dimensional DP Problems (part 1)</a></h1>
+<h2 id="minimum-path-sum"><a class="header" href="#minimum-path-sum">Minimum Path Sum</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/minimum-path-sum">LeetCode 64. Minimum Path Sum</a></p>
+<p>Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.</p>
+<p>Note: You can only move either down or right at any point in time.</p>
+<pre><code>Example 1:
+
+Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+Output: 7
+Explanation: Because the path 1  3  1  1  1 minimizes the sum.
+
+Example 2:
+
+Input: grid = [[1,2,3],[4,5,6]]
+Output: 12
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = grid.length</li>
+<li>n = grid[i].length</li>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= grid[i][j] &lt;= 200</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">public class MinimumPathSum {
+
+	// 1. brute-force recursive solution
+	public static int minPathSum1(int[][] grid) {
+		return f1(grid, grid.length - 1, grid[0].length - 1);
+	}
+
+	// compute the minimum path sum from grid[0][0] to grid[i][j]
+	public static int f1(int[][] grid, int i, int j) {
+		if (i == 0 &amp;&amp; j == 0) {
+			return grid[0][0];
+		}
+		int up = Integer.MAX_VALUE;
+		int left = Integer.MAX_VALUE;
+		if (i - 1 &gt;= 0) {
+			up = f1(grid, i - 1, j);
+		}
+		if (j - 1 &gt;= 0) {
+			left = f1(grid, i, j - 1);
+		}
+		return grid[i][j] + Math.min(up, left);
+	}
+
+	// 2. recusive solution with memoization
+	public static int minPathSum2(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f2(grid, grid.length - 1, grid[0].length - 1, dp);
+	}
+
+	public static int f2(int[][] grid, int i, int j, int[][] dp) {
+		if (dp[i][j] != -1) {
+			return dp[i][j];
+		}
+		int ans;
+		if (i == 0 &amp;&amp; j == 0) {
+			ans = grid[0][0];
+		} else {
+			int up = Integer.MAX_VALUE;
+			int left = Integer.MAX_VALUE;
+			if (i - 1 &gt;= 0) {
+				up = f2(grid, i - 1, j, dp);
+			}
+			if (j - 1 &gt;= 0) {
+				left = f2(grid, i, j - 1, dp);
+			}
+			ans = grid[i][j] + Math.min(up, left);
+		}
+		dp[i][j] = ans;
+		return ans;
+	}
+
+	// 3. iterative bottom-up solution
+	public static int minPathSum3(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		dp[0][0] = grid[0][0];
+		for (int i = 1; i &lt; n; i++) {
+			dp[i][0] = dp[i - 1][0] + grid[i][0];
+		}
+		for (int j = 1; j &lt; m; j++) {
+			dp[0][j] = dp[0][j - 1] + grid[0][j];
+		}
+		for (int i = 1; i &lt; n; i++) {
+			for (int j = 1; j &lt; m; j++) {
+				dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+			}
+		}
+		return dp[n - 1][m - 1];
+	}
+
+	// 4. iterative solution with space optimization
+	public static int minPathSum4(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		// compressed reusable DP table, equivalent to one row of the 2D DP table
+		int[] dp = new int[m];
+		dp[0] = grid[0][0];
+		for (int j = 1; j &lt; m; j++) {
+			dp[j] = dp[j - 1] + grid[0][j];
+		}
+		for (int i = 1; i &lt; n; i++) {
+			dp[0] += grid[i][0];
+			for (int j = 1; j &lt; m; j++) { // refresh the DP table from left to right
+				dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
+			}
+		}
+		return dp[m - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=172">
+    </iframe>
+</details>
+<h2 id="word-search"><a class="header" href="#word-search">Word Search</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/word-search">LeetCode 79. Word Search</a></p>
+<p>Given an m x n grid of characters board and a string word, return true if word exists in the grid.</p>
+<p>The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.</p>
+<pre><code>Example 1:
+
+Input: 
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = ABCCED
+Output: true
+
+Example 2:
+
+Input:
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = SEE
+Output: true
+
+Example 3:
+
+Input:
+  board = [
+    [A,B,C,E],
+    [S,F,C,S],
+    [A,D,E,E]
+  ], 
+  word = ABCB
+Output: false
+
+Example 4:
+
+Input:
+  board = [
+    [A,T],
+    [T,A],
+    [S,S]
+  ],
+  word = ATASST
+Output: true
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = board.length</li>
+<li>n = board[i].length</li>
+<li>1 &lt;= m, n &lt;= 6</li>
+<li>1 &lt;= word.length &lt;= 15</li>
+<li>board and word consists of only lowercase and uppercase English letters.</li>
+</ul>
+<p>Follow up: Could you use search pruning to make your solution faster with a larger board?</p>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">public class WordSearch {
+
+	// Note: This problem does not have iterative solution 
+	// because the subproblem not only depend on i and j
+	// but also depend on the visited state of the board.
+	// For the same i and j, there are probably different
+	// solutions for different board state.
+
+	public static boolean exist(char[][] board, String word) {
+		char[] w = word.toCharArray();
+		for (int i = 0; i &lt; board.length; i++) {
+			for (int j = 0; j &lt; board[0].length; j++) {
+				if (f(board, i, j, w, 0)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// starting from b[i][j], is there a match with w[k..]
+	// recursive solution with backtracking
+	public static boolean f(char[][] b, int i, int j, char[] w, int k) {
+		if (k == w.length) {
+			return true;
+		}
+		// check the boundaries and character match
+		if (i &lt; 0 || i == b.length || j &lt; 0 || j == b[0].length || b[i][j] != w[k]) {
+			return false;
+		}
+		// within the boundary of b and b[i][j] == w[k]
+		char tmp = b[i][j]; // needed for backtracking
+		b[i][j] = 0; // mark b[i][j] as visited
+		boolean ans = f(b, i - 1, j, w, k + 1)  // search up
+			    || f(b, i + 1, j, w, k + 1)     // search down 
+				|| f(b, i, j - 1, w, k + 1)     // search left
+				|| f(b, i, j + 1, w, k + 1);    // search right
+		b[i][j] = tmp; // backtracking - restore the value of b[i][j]
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=2825">
+    </iframe>
+</details>
+<h2 id="longest-common-subsequence"><a class="header" href="#longest-common-subsequence">Longest Common Subsequence</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/longest-common-subsequence">LeetCode 1143. Longest Common Subsequence</a></p>
+<p>Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.</p>
+<p>A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.</p>
+<pre><code>For example, ace is a subsequence of abcde.
+</code></pre>
+<p>A common subsequence of two strings is a subsequence that is common to both strings.</p>
+<pre><code>Example 1:
+
+Input: text1 = abcde, text2 = ace 
+Output: 3  
+Explanation: The longest common subsequence is ace and its length is 3.
+
+Example 2:
+
+Input: text1 = abc, text2 = abc
+Output: 3
+Explanation: The longest common subsequence is abc and its length is 3.
+
+Example 3:
+
+Input: text1 = abc, text2 = def
+Output: 0
+Explanation: There is no such common subsequence, so the result is 0.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= text1.length, text2.length &lt;= 1000</li>
+<li>text1 and text2 consist of only lowercase English characters.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-common-subsequence/
+public class LongestCommonSubsequence {
+
+	// 0. brute-force recursive solution (naive version)
+	public static int longestCommonSubsequence1(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		return f1(s1, s2, n - 1, m - 1);
+	}
+
+	// compute the LCS for substrings s1[0..i1] and s2[0..i2]
+	public static int f1(char[] s1, char[] s2, int i1, int i2) {
+		if (i1 &lt; 0 || i2 &lt; 0) {
+			return 0;
+		}
+		int p1 = f1(s1, s2, i1 - 1, i2 - 1);		// case 1: drop both s1[i1] and s2[i2], ONLY used in case 4
+		int p2 = f1(s1, s2, i1 - 1, i2);			// case 2: drop s1[i1] but keep s2[i2]			
+		int p3 = f1(s1, s2, i1, i2 - 1);			// case 3: keep s1[i1] but drop s2[i2]
+		int p4 = s1[i1] == s2[i2] ? (p1 + 1) : 0;	// case 4: keep both s1[i1] and s2[i2] if the two characters match
+		return Math.max(Math.max(p1, p2), Math.max(p3, p4));
+	}
+
+	// 1. brute-force recursive solution (improved version)
+	// notice in solution 0, p1 &lt;= p2 and p1 &lt;= p3
+	public static int longestCommonSubsequence2(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		return f2(s1, s2, n, m);
+	}
+
+	// compute the LCS length for s1's len1-character prefix and s2's len2 prefix
+	// using length intead of array index to avoid handling negative indices
+	public static int f2(char[] s1, char[] s2, int len1, int len2) {
+		if (len1 == 0 || len2 == 0) {
+			return 0;
+		}
+		int ans;
+		if (s1[len1 - 1] == s2[len2 - 1]) {	// the last characters of two strings match
+			ans = f2(s1, s2, len1 - 1, len2 - 1) + 1;
+		} else {
+			ans = Math.max(f2(s1, s2, len1 - 1, len2), f2(s1, s2, len1, len2 - 1));
+		}
+		return ans;
+	}
+
+	// 2. recursive solution with memoization
+	public static int longestCommonSubsequence3(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		int[][] dp = new int[n + 1][m + 1];
+		for (int i = 0; i &lt;= n; i++) {
+			for (int j = 0; j &lt;= m; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f3(s1, s2, n, m, dp);
+	}
+
+	public static int f3(char[] s1, char[] s2, int len1, int len2, int[][] dp) {
+		if (len1 == 0 || len2 == 0) {
+			return 0;
+		}
+		if (dp[len1][len2] != -1) {
+			return dp[len1][len2];
+		}
+		int ans;
+		if (s1[len1 - 1] == s2[len2 - 1]) {
+			ans = f3(s1, s2, len1 - 1, len2 - 1, dp) + 1;
+		} else {
+			ans = Math.max(f3(s1, s2, len1 - 1, len2, dp), f3(s1, s2, len1, len2 - 1, dp));
+		}
+		dp[len1][len2] = ans;
+		return ans;
+	}
+
+	// 3. iterative bottom-up solution
+	public static int longestCommonSubsequence4(String str1, String str2) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		int[][] dp = new int[n + 1][m + 1];
+		for (int len1 = 1; len1 &lt;= n; len1++) {
+			for (int len2 = 1; len2 &lt;= m; len2++) {
+				if (s1[len1 - 1] == s2[len2 - 1]) {
+					dp[len1][len2] = 1 + dp[len1 - 1][len2 - 1];
+				} else {
+					dp[len1][len2] = Math.max(dp[len1 - 1][len2], dp[len1][len2 - 1]);
+				}
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 4. iterative solution + space optimization
+	public static int longestCommonSubsequence5(String str1, String str2) {
+		char[] s1, s2;
+		if (str1.length() &gt;= str2.length()) {
+			s1 = str1.toCharArray();
+			s2 = str2.toCharArray();
+		} else {
+			s1 = str2.toCharArray();
+			s2 = str1.toCharArray();
+		}
+		int n = s1.length;
+		int m = s2.length;
+		int[] dp = new int[m + 1];
+		for (int len1 = 1; len1 &lt;= n; len1++) {
+			int leftUp = 0, backup;
+			for (int len2 = 1; len2 &lt;= m; len2++) {
+				backup = dp[len2];
+				if (s1[len1 - 1] == s2[len2 - 1]) {
+					dp[len2] = 1 + leftUp;
+				} else {
+					dp[len2] = Math.max(dp[len2], dp[len2 - 1]);
+				}
+				leftUp = backup;
+			}
+		}
+		return dp[m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=3756">
+    </iframe>
+</details>
+<h2 id="longest-palindromic-subsequence"><a class="header" href="#longest-palindromic-subsequence">Longest Palindromic Subsequence</a></h2>
+<details><summary>Description:</summary>
+<hr />
+<h2>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README_EN.md
+tags:
+- String
+- Dynamic Programming</h2>
+<h1 id="516-longest-palindromic-subsequence"><a class="header" href="#516-longest-palindromic-subsequence"><a href="https://leetcode.com/problems/longest-palindromic-subsequence">516. Longest Palindromic Subsequence</a></a></h1>
+<p><a href="dynamic-programming//solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>Given a string s, find the longest palindromic subsequences length in s.</p>
+<p>A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.</p>
+<p>Example 1:</p>
+<p>Input: s = bbbab
+Output: 4
+Explanation: One possible longest palindromic subsequence is bbbb.</p>
+<p>Example 2:</p>
+<p>Input: s = cbbd
+Output: 2
+Explanation: One possible longest palindromic subsequence is bb.</p>
+<p>Constraints:</p>
+<pre><code>1 = s.length = 1000
+s consists only of lowercase English letters.
+</code></pre>
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i][j]$ as the length of the longest palindromic subsequence from the $i$-th character to the $j$-th character in string $s$. Initially, $f[i][i] = 1$, and the values of other positions are all $0$.</p>
+<p>If $s[i] = s[j]$, then $f[i][j] = f[i + 1][j - 1] + 2$; otherwise, $f[i][j] = \max(f[i + 1][j], f[i][j - 1])$.</p>
+<p>Since the value of $f[i][j]$ is related to $f[i + 1][j - 1]$, $f[i + 1][j]$, and $f[i][j - 1]$, we should enumerate $i$ from large to small, and enumerate $j$ from small to large.</p>
+<p>The answer is $f[0][n - 1]$.</p>
+<p>The time complexity is $O(n^2)$, and the space complexity is $O(n^2)$. Where $n$ is the length of the string $s$.</p>
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def longestPalindromeSubseq(self, s: str) -&gt; int:
+        n = len(s)
+        f = [[0] * n for _ in range(n)]
+        for i in range(n):
+            f[i][i] = 1
+        for i in range(n - 1, -1, -1):
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    f[i][j] = f[i + 1][j - 1] + 2
+                else:
+                    f[i][j] = max(f[i + 1][j], f[i][j - 1])
+        return f[0][-1]
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        int[][] f = new int[n][n];
+        for (int i = 0; i &lt; n; ++i) {
+            f[i][i] = 1;
+        }
+        for (int i = n - 1; i &gt;= 0; --i) {
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    f[i][j] = f[i + 1][j - 1] + 2;
+                } else {
+                    f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        int f[n][n];
+        memset(f, 0, sizeof(f));
+        for (int i = 0; i &lt; n; ++i) {
+            f[i][i] = 1;
+        }
+        for (int i = n - 1; ~i; --i) {
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s[i] == s[j]) {
+                    f[i][j] = f[i + 1][j - 1] + 2;
+                } else {
+                    f[i][j] = max(f[i + 1][j], f[i][j - 1]);
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func longestPalindromeSubseq(s string) int {
+	n := len(s)
+	f := make([][]int, n)
+	for i := range f {
+		f[i] = make([]int, n)
+		f[i][i] = 1
+	}
+	for i := n - 2; i &gt;= 0; i-- {
+		for j := i + 1; j &lt; n; j++ {
+			if s[i] == s[j] {
+				f[i][j] = f[i+1][j-1] + 2
+			} else {
+				f[i][j] = max(f[i+1][j], f[i][j-1])
+			}
+		}
+	}
+	return f[0][n-1]
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function longestPalindromeSubseq(s: string): number {
+    const n = s.length;
+    const f: number[][] = Array.from({ length: n }, () =&gt; Array(n).fill(0));
+    for (let i = 0; i &lt; n; ++i) {
+        f[i][i] = 1;
+    }
+    for (let i = n - 2; ~i; --i) {
+        for (let j = i + 1; j &lt; n; ++j) {
+            if (s[i] === s[j]) {
+                f[i][j] = f[i + 1][j - 1] + 2;
+            } else {
+                f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+            }
+        }
+    }
+    return f[0][n - 1];
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-palindromic-subsequence/
+public class LongestPalindromicSubsequence {
+
+	// Note: this problem can be converted to LCS problem by comparing the orignal string with the reversed one.
+	// Here we only discuss the DP solutions
+
+	// 1. brute-force recursive solution
+	public static int longestPalindromeSubseq1(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		return f1(s, 0, n - 1);
+	}
+
+	// compute the length of LPS for substring s[l..r]
+	public static int f1(char[] s, int l, int r) {
+		if (l == r) {
+			return 1;
+		}
+		if (l + 1 == r) {
+			return s[l] == s[r] ? 2 : 1;
+		}
+		if (s[l] == s[r]) {
+			return 2 + f1(s, l + 1, r - 1);
+		} else {
+			return Math.max(f1(s, l + 1, r), f1(s, l, r - 1));
+		}
+	}
+
+	// 2. recursive solution with memoization
+	public static int longestPalindromeSubseq2(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		return f2(s, 0, n - 1, dp);
+	}
+
+	public static int f2(char[] s, int l, int r, int[][] dp) {
+		if (l == r) {
+			return 1;
+		}
+		if (l + 1 == r) {
+			return s[l] == s[r] ? 2 : 1;
+		}
+		if (dp[l][r] != 0) {
+			return dp[l][r];
+		}
+		int ans;
+		if (s[l] == s[r]) {
+			ans = 2 + f2(s, l + 1, r - 1, dp);
+		} else {
+			ans = Math.max(f2(s, l + 1, r, dp), f2(s, l, r - 1, dp));
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 3. iterative solution
+	public static int longestPalindromeSubseq3(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int l = n - 1; l &gt;= 0; l--) {
+			dp[l][l] = 1;
+			if (l + 1 &lt; n) {
+				dp[l][l + 1] = s[l] == s[l + 1] ? 2 : 1;
+			}
+			for (int r = l + 2; r &lt; n; r++) {
+				if (s[l] == s[r]) {
+					dp[l][r] = 2 + dp[l + 1][r - 1];
+				} else {
+					dp[l][r] = Math.max(dp[l + 1][r], dp[l][r - 1]);
+				}
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+	// 4. iterative solution with space optimization
+	public static int longestPalindromeSubseq4(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[] dp = new int[n];
+		for (int l = n - 1, leftDown = 0, backup; l &gt;= 0; l--) {
+			dp[l] = 1;
+			if (l + 1 &lt; n) {
+				leftDown = dp[l + 1];
+				dp[l + 1] = s[l] == s[l + 1] ? 2 : 1;
+			}
+			for (int r = l + 2; r &lt; n; r++) {
+				backup = dp[r];
+				if (s[l] == s[r]) {
+					dp[r] = 2 + leftDown;
+				} else {
+					dp[r] = Math.max(dp[r], dp[r - 1]);
+				}
+				leftDown = backup;
+			}
+		}
+		return dp[n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=6378">
+    </iframe>
+</details>
+<h2 id="longest-increasing-path-in-a-matrix"><a class="header" href="#longest-increasing-path-in-a-matrix">Longest Increasing Path in a Matrix</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix">LeetCode 329. Longest Increasing Path in a Matrix</a></p>
+<p>Given an m x n integers matrix, return the length of the longest increasing path in matrix.</p>
+<p>From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).</p>
+<pre><code>Example 1:
+
+Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]
+Output: 4
+Explanation: The longest increasing path is [1, 2, 6, 9].
+
+Example 2:
+
+Input: matrix = [[3,4,5],[3,2,6],[2,2,1]]
+Output: 4
+Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+
+Example 3:
+
+Input: matrix = [[1]]
+Output: 1
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>m = matrix.length</li>
+<li>n = matrix[i].length</li>
+<li>1 &lt;= m, n &lt;= 200</li>
+<li>0 &lt;= matrix[i][j] &lt;= 2^31 - 1</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+public class LongestIncreasingPathInMatrix {
+
+	// 1. brute-force recursive solution
+	public static int longestIncreasingPath1(int[][] grid) {
+		int ans = 0;
+		for (int i = 0; i &lt; grid.length; i++) {
+			for (int j = 0; j &lt; grid[0].length; j++) {
+				ans = Math.max(ans, f1(grid, i, j));
+			}
+		}
+		return ans;
+	}
+
+	// compute longest increasing path from grid[i][j]
+	public static int f1(int[][] grid, int i, int j) {
+		int next = 0;
+		if (i &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i - 1][j]) {
+			next = Math.max(next, f1(grid, i - 1, j));
+		}
+		if (i + 1 &lt; grid.length &amp;&amp; grid[i][j] &lt; grid[i + 1][j]) {
+			next = Math.max(next, f1(grid, i + 1, j));
+		}
+		if (j &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i][j - 1]) {
+			next = Math.max(next, f1(grid, i, j - 1));
+		}
+		if (j + 1 &lt; grid[0].length &amp;&amp; grid[i][j] &lt; grid[i][j + 1]) {
+			next = Math.max(next, f1(grid, i, j + 1));
+		}
+		return next + 1;
+	}
+
+	// recursive solution with memoization
+	public static int longestIncreasingPath2(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int[][] dp = new int[n][m];
+		int ans = 0;
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				ans = Math.max(ans, f2(grid, i, j, dp));
+			}
+		}
+		return ans;
+	}
+
+	public static int f2(int[][] grid, int i, int j, int[][] dp) {
+		if (dp[i][j] != 0) {
+			return dp[i][j];
+		}
+		int next = 0;
+		if (i &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i - 1][j]) {
+			next = Math.max(next, f2(grid, i - 1, j, dp));
+		}
+		if (i + 1 &lt; grid.length &amp;&amp; grid[i][j] &lt; grid[i + 1][j]) {
+			next = Math.max(next, f2(grid, i + 1, j, dp));
+		}
+		if (j &gt; 0 &amp;&amp; grid[i][j] &lt; grid[i][j - 1]) {
+			next = Math.max(next, f2(grid, i, j - 1, dp));
+		}
+		if (j + 1 &lt; grid[0].length &amp;&amp; grid[i][j] &lt; grid[i][j + 1]) {
+			next = Math.max(next, f2(grid, i, j + 1, dp));
+		}
+		dp[i][j] = next + 1;
+		return next + 1;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/ZfCVUUWi2Y8?start=10078">
+    </iframe>
+</details>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="two-dimensional-dp-problems-part-2"><a class="header" href="#two-dimensional-dp-problems-part-2">Two-Dimensional DP Problems (part 2)</a></h1>
+<h2 id="distinct-subsequences"><a class="header" href="#distinct-subsequences">Distinct Subsequences</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/distinct-subsequences">LeetCode 115. Distinct Subsequences</a></p>
+<p>Given two strings s and t, return the number of distinct subsequences of s which equals t.</p>
+<p>The test cases are generated so that the answer fits on a 32-bit signed integer.</p>
+<pre><code>Example 1:
+
+Input: s = rabbbit, t = rabbit
+Output: 3
+Explanation:
+As shown below, there are 3 ways you can generate rabbit from s.
+rabbbit
+rabbbit
+rabbbit
+
+Example 2:
+
+Input: s = babgbag, t = bag
+Output: 5
+Explanation:
+As shown below, there are 5 ways you can generate bag from s.
+babgbag
+babgbag
+babgbag
+babgbag
+babgbag
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= s.length, t.length &lt;= 1000</li>
+<li>s and t consist of English letters.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/distinct-subsequences/
+public class DistinctSubsequences {
+
+	// 1. iterative solution using a 2D DP table
+	public static int numDistinct1(String str, String target) {
+		char[] s = str.toCharArray();
+		char[] t = target.toCharArray();
+		int n = s.length;
+		int m = t.length;
+		// dp[i][j] : number of subsequences in s[0..i] that match substring t[0..j]
+		int[][] dp = new int[n + 1][m + 1];
+		for (int i = 0; i &lt;= n; i++) {
+			dp[i][0] = 1;
+		}
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = 1; j &lt;= m; j++) {
+				dp[i][j] = dp[i - 1][j];
+				if (s[i - 1] == t[j - 1]) {
+					dp[i][j] += dp[i - 1][j - 1];
+				}
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 2. iterative solution + space optimization
+	public static int numDistinct2(String str, String target) {
+		char[] s = str.toCharArray();
+		char[] t = target.toCharArray();
+		int n = s.length;
+		int m = t.length;
+		int[] dp = new int[m + 1];
+		dp[0] = 1;
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = m; j &gt;= 1; j--) {
+				if (s[i - 1] == t[j - 1]) {
+					dp[j] += dp[j - 1];
+				}
+			}
+		}
+		return dp[m];
+	}
+
+	// 3. fix overflow error: answer % (10^9 + 7)
+	public static int numDistinct3(String str, String target) {
+		int mod = 1000000007;
+		char[] s = str.toCharArray();
+		char[] t = target.toCharArray();
+		int n = s.length;
+		int m = t.length;
+		int[] dp = new int[m + 1];
+		dp[0] = 1;
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = m; j &gt;= 1; j--) {
+				if (s[i - 1] == t[j - 1]) {
+					dp[j] = (dp[j] + dp[j - 1]) % mod;
+				}
+			}
+		}
+		return dp[m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/cDljUjSkQ3c?start=85">
+    </iframe>
+</details>
+<h2 id="edit-distance"><a class="header" href="#edit-distance">Edit Distance</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/edit-distance">LeetCode 72. Edit Distance</a></p>
+<p>Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.</p>
+<p>You have the following three operations permitted on a word:</p>
+<pre><code>Insert a character
+Delete a character
+Replace a character
+</code></pre>
+<pre><code>Example 1:
+
+Input: word1 = horse, word2 = ros
+Output: 3
+Explanation: 
+horse - rorse (replace h with r)
+rorse - rose (remove r)
+rose - ros (remove e)
+
+Example 2:
+
+Input: word1 = intention, word2 = execution
+Output: 5
+Explanation: 
+intention - inention (remove t)
+inention - enention (replace i with e)
+enention - exention (replace n with x)
+exention - exection (replace n with c)
+exection - execution (insert u)
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>0 &lt;= word1.length, word2.length &lt;= 500</li>
+<li>word1 and word2 consist of lowercase English letters.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/edit-distance/
+public class EditDistance {
+
+	public int minDistance(String word1, String word2) {
+		return editDistance2(word1, word2, 1, 1, 1);
+	}
+
+	// 0. first trial version	
+	// a : cost of insersion
+	// b : cost of deletion
+	// c : cost of substitution
+	public static int editDistance1(String str1, String str2, int a, int b, int c) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		// dp[i][j] : cost of converting s1[0..i] to s2[0..j]
+		int[][] dp = new int[n + 1][m + 1];
+		for (int i = 1; i &lt;= n; i++) {
+			dp[i][0] = i * b;
+		}
+		for (int j = 1; j &lt;= m; j++) {
+			dp[0][j] = j * a;
+		}
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = 1; j &lt;= m; j++) {
+				int p1 = Integer.MAX_VALUE;
+				if (s1[i - 1] == s2[j - 1]) {
+					p1 = dp[i - 1][j - 1];
+				}
+				int p2 = Integer.MAX_VALUE;
+				if (s1[i - 1] != s2[j - 1]) {
+					p2 = dp[i - 1][j - 1] + c;
+				}
+				int p3 = dp[i][j - 1] + a;
+				int p4 = dp[i - 1][j] + b;
+				dp[i][j] = Math.min(Math.min(p1, p2), Math.min(p3, p4));
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 1. optimized version - fast enumeration
+	// a : cost of insersion
+	// b : cost of deletion
+	// c : cost of substitution
+	public static int editDistance2(String str1, String str2, int a, int b, int c) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		// dp[i][j] : cost of converting s1[0..i] to s2[0..j]
+		int[][] dp = new int[n + 1][m + 1];
+		for (int i = 1; i &lt;= n; i++) {
+			dp[i][0] = i * b;
+		}
+		for (int j = 1; j &lt;= m; j++) {
+			dp[0][j] = j * a;
+		}
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = 1; j &lt;= m; j++) {
+				if (s1[i - 1] == s2[j - 1]) {
+					dp[i][j] = dp[i - 1][j - 1];
+				} else {
+					dp[i][j] = Math.min(Math.min(dp[i - 1][j] + b, dp[i][j - 1] + a), dp[i - 1][j - 1] + c);
+				}
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 2. solution with space optimization
+	public static int editDistance3(String str1, String str2, int a, int b, int c) {
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		int[] dp = new int[m + 1];
+		for (int j = 1; j &lt;= m; j++) {
+			dp[j] = j * a;
+		}
+		for (int i = 1, leftUp, backUp; i &lt;= n; i++) {
+			leftUp = (i - 1) * b;
+			dp[0] = i * b;
+			for (int j = 1; j &lt;= m; j++) {
+				backUp = dp[j];
+				if (s1[i - 1] == s2[j - 1]) {
+					dp[j] = leftUp;
+				} else {
+					dp[j] = Math.min(Math.min(dp[j] + b, dp[j - 1] + a), leftUp + c);
+				}
+				leftUp = backUp;
+			}
+		}
+		return dp[m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/cDljUjSkQ3c?start=1333">
+    </iframe>
+</details>
+<h2 id="interleaving-string"><a class="header" href="#interleaving-string">Interleaving String</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/interleaving-string">LeetCode 97. Interleaving String</a></p>
+<p>Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.</p>
+<p>An interleaving of two strings s and t is a configuration where s and t are divided into n and m substrings respectively, such that:</p>
+<pre><code>s = s1 + s2 + ... + sn
+t = t1 + t2 + ... + tm
+|n - m| = 1
+The interleaving is s1 + t1 + s2 + t2 + s3 + t3 + ... or t1 + s1 + t2 + s2 + t3 + s3 + ...
+</code></pre>
+<p>Note: a + b is the concatenation of strings a and b.</p>
+<pre><code>Example 1:
+
+Input: s1 = aabcc, s2 = dbbca, s3 = aadbbcbcac
+Output: true
+Explanation: One way to obtain s3 is:
+Split s1 into s1 = aa + bc + c, and s2 into s2 = dbbc + a.
+Interleaving the two splits, we get aa + dbbc + bc + a + c = aadbbcbcac.
+Since s3 can be obtained by interleaving s1 and s2, we return true.
+
+Example 2:
+
+Input: s1 = aabcc, s2 = dbbca, s3 = aadbbbaccc
+Output: false
+Explanation: Notice how it is impossible to interleave s2 with any other string to obtain s3.
+
+Example 3:
+
+Input: s1 = , s2 = , s3 = 
+Output: true
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>0 &lt;= s1.length, s2.length &lt;= 100</li>
+<li>0 &lt;= s3.length &lt;= 200</li>
+<li>s1, s2, and s3 consist of lowercase English letters.</li>
+</ul>
+<p>Follow up: Could you solve it using only O(s2.length) additional memory space?</p>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.com/problems/interleaving-string/
+public class InterleavingString {
+
+	// 1. iterative bottom up solution
+	public static boolean isInterleave1(String str1, String str2, String str3) {
+		if (str1.length() + str2.length() != str3.length()) {
+			return false;
+		}
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		char[] s3 = str3.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		// dp[i][j]: can substrings s1[0..i] and s2[0..j] interleave into s3[0..i+j]
+		boolean[][] dp = new boolean[n + 1][m + 1];
+		dp[0][0] = true;
+		for (int i = 1; i &lt;= n; i++) {
+			if (s1[i - 1] != s3[i - 1]) {
+				break;
+			}
+			dp[i][0] = true;
+		}
+		for (int j = 1; j &lt;= m; j++) {
+			if (s2[j - 1] != s3[j - 1]) {
+				break;
+			}
+			dp[0][j] = true;
+		}
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = 1; j &lt;= m; j++) {
+				dp[i][j] = (s1[i - 1] == s3[i + j - 1] &amp;&amp; dp[i - 1][j]) || (s2[j - 1] == s3[i + j - 1] &amp;&amp; dp[i][j - 1]);
+			}
+		}
+		return dp[n][m];
+	}
+
+	// 2. iterative solution with space optimization 
+	public static boolean isInterleave2(String str1, String str2, String str3) {
+		if (str1.length() + str2.length() != str3.length()) {
+			return false;
+		}
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		char[] s3 = str3.toCharArray();
+		int n = s1.length;
+		int m = s2.length;
+		boolean[] dp = new boolean[m + 1];
+		dp[0] = true;
+		for (int j = 1; j &lt;= m; j++) {
+			if (s2[j - 1] != s3[j - 1]) {
+				break;
+			}
+			dp[j] = true;
+		}
+		for (int i = 1; i &lt;= n; i++) {
+			dp[0] = s1[i - 1] == s3[i - 1] &amp;&amp; dp[0];
+			for (int j = 1; j &lt;= m; j++) {
+				dp[j] = (s1[i - 1] == s3[i + j - 1] &amp;&amp; dp[j]) || (s2[j - 1] == s3[i + j - 1] &amp;&amp; dp[j - 1]);
+			}
+		}
+		return dp[m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/cDljUjSkQ3c?start=2921">
+    </iframe>
+</details>
+<h2 id="fill-cells-use-all-colors-ways"><a class="header" href="#fill-cells-use-all-colors-ways">Fill Cells Use All Colors Ways</a></h2>
+<h2 id="minimum-delete-become-substring"><a class="header" href="#minimum-delete-become-substring">Minimum Delete Become Substring</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dp-on-intervals-part-1"><a class="header" href="#dp-on-intervals-part-1">DP on Intervals (part 1)</a></h1>
+<h2 id="minimum-insertions-to-make-a-string-palindrome"><a class="header" href="#minimum-insertions-to-make-a-string-palindrome">Minimum Insertions to Make a String Palindrome</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome">LeetCode 1312. Minimum Insertion Steps to Make a String Palindrome</a></p>
+<p>Given a string s. In one step you can insert any character at any index of the string.</p>
+<p>Return the minimum number of steps to make spalindrome.</p>
+<p>APalindrome Stringis one that reads the same backward as well as forward.</p>
+<pre><code>Example 1:
+
+Input: s = zzazz
+Output: 0
+Explanation: The string zzazz is already palindrome we do not need any insertions.
+
+Example 2:
+
+Input: s = mbadm
+Output: 2
+Explanation: String can be mbdadbm or mdbabdm.
+
+Example 3:
+
+Input: s = leetcode
+Output: 5
+Explanation: Inserting 5 characters the string becomes leetcodocteel.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= s.length &lt;= 500</li>
+<li>s consists of lowercase English letters.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+public class MinimumInsertionToPalindrome {
+
+	// 暴力尝试
+	public static int minInsertions1(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		return f1(s, 0, n - 1);
+	}
+
+	// s[l....r]这个范围上的字符串，整体都变成回文串
+	// 返回至少插入几个字符
+	public static int f1(char[] s, int l, int r) {
+		// l &lt;= r
+		if (l == r) {
+			return 0;
+		}
+		if (l + 1 == r) {
+			return s[l] == s[r] ? 0 : 1;
+		}
+		// l...r不只两个字符
+		if (s[l] == s[r]) {
+			return f1(s, l + 1, r - 1);
+		} else {
+			return Math.min(f1(s, l, r - 1), f1(s, l + 1, r)) + 1;
+		}
+	}
+
+	// 记忆化搜索
+	public static int minInsertions2(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = i; j &lt; n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f2(s, 0, n - 1, dp);
+	}
+
+	public static int f2(char[] s, int l, int r, int[][] dp) {
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		int ans;
+		if (l == r) {
+			ans = 0;
+		} else if (l + 1 == r) {
+			ans = s[l] == s[l + 1] ? 0 : 1;
+		} else {
+			if (s[l] == s[r]) {
+				ans = f2(s, l + 1, r - 1, dp);
+			} else {
+				ans = Math.min(f2(s, l, r - 1, dp), f2(s, l + 1, r, dp)) + 1;
+			}
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 严格位置依赖的动态规划
+	public static int minInsertions3(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int l = 0; l &lt; n - 1; l++) {
+			dp[l][l + 1] = s[l] == s[l + 1] ? 0 : 1;
+		}
+		for (int l = n - 3; l &gt;= 0; l--) {
+			for (int r = l + 2; r &lt; n; r++) {
+				if (s[l] == s[r]) {
+					dp[l][r] = dp[l + 1][r - 1];
+				} else {
+					dp[l][r] = Math.min(dp[l][r - 1], dp[l + 1][r]) + 1;
+				}
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+	// 空间压缩
+	// 本题有关空间压缩的实现，可以参考讲解067，题目4，最长回文子序列问题的讲解
+	// 这两个题空间压缩写法高度相似
+	// 因为之前的课多次讲过空间压缩的内容，所以这里不再赘述
+	public static int minInsertions4(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		if (n &lt; 2) {
+			return 0;
+		}
+		int[] dp = new int[n];
+		dp[n - 1] = s[n - 2] == s[n - 1] ? 0 : 1;
+		for (int l = n - 3, leftDown, backUp; l &gt;= 0; l--) {
+			leftDown = dp[l + 1];
+			dp[l + 1] = s[l] == s[l + 1] ? 0 : 1;
+			for (int r = l + 2; r &lt; n; r++) {
+				backUp = dp[r];
+				if (s[l] == s[r]) {
+					dp[r] = leftDown;
+				} else {
+					dp[r] = Math.min(dp[r - 1], dp[r]) + 1;
+				}
+				leftDown = backUp;
+			}
+		}
+		return dp[n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/73EmMoOAxIU?start=151">
+    </iframe>
+</details>
+<h2 id="predict-the-winner"><a class="header" href="#predict-the-winner">Predict the Winner</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/predict-the-winner">LeetCode 486. Predict the Winner</a></p>
+<p>You are given an integer array nums. Two players are playing a game with this array: player 1 and player 2.</p>
+<p>Player 1 and player 2 take turns, with player 1 starting first. Both players start the game with a score of 0. At each turn, the player takes one of the numbers from either end of the array (i.e., nums[0] or nums[nums.length - 1]) which reduces the size of the array by 1. The player adds the chosen number to their score. The game ends when there are no more elements in the array.</p>
+<p>Return true if Player 1 can win the game. If the scores of both players are equal, then player 1 is still the winner, and you should also return true. You may assume that both players are playing optimally.</p>
+<pre><code>Example 1:
+
+Input: nums = [1,5,2]
+Output: false
+Explanation: Initially, player 1 can choose between 1 and 2. 
+If he chooses 2 (or 1), then player 2 can choose from 1 (or 2) and 5. If player 2 chooses 5, then player 1 will be left with 1 (or 2). 
+So, final score of player 1 is 1 + 2 = 3, and player 2 is 5. 
+Hence, player 1 will never be the winner and you need to return false.
+
+Example 2:
+
+Input: nums = [1,5,233,7]
+Output: true
+Explanation: Player 1 first chooses 1. Then player 2 has to choose between 5 and 7. No matter which number player 2 choose, player 1 can choose 233.
+Finally, player 1 has more score (234) than player 2 (12), so you need to return True representing player1 can win.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= nums.length &lt;= 20</li>
+<li>0 &lt;= nums[i] &lt;= 10^7</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.cn/problems/predict-the-winner/
+public class PredictTheWinner {
+
+	// 暴力尝试
+	public static boolean predictTheWinner1(int[] nums) {
+		int sum = 0;
+		for (int num : nums) {
+			sum += num;
+		}
+		int n = nums.length;
+		int first = f1(nums, 0, n - 1);
+		int second = sum - first;
+		return first &gt;= second;
+	}
+
+	// nums[l...r]范围上的数字进行游戏，轮到玩家1
+	// 返回玩家1最终能获得多少分数，玩家1和玩家2都绝顶聪明
+	public static int f1(int[] nums, int l, int r) {
+		if (l == r) {
+			return nums[l];
+		}
+		if (l == r - 1) {
+			return Math.max(nums[l], nums[r]);
+		}
+		// l....r 不只两个数
+		// 可能性1 ：玩家1拿走nums[l] l+1...r
+		int p1 = nums[l] + Math.min(f1(nums, l + 2, r), f1(nums, l + 1, r - 1));
+		// 可能性2 ：玩家1拿走nums[r] l...r-1
+		int p2 = nums[r] + Math.min(f1(nums, l + 1, r - 1), f1(nums, l, r - 2));
+		return Math.max(p1, p2);
+	}
+
+	// 记忆化搜索
+	public static boolean predictTheWinner2(int[] nums) {
+		int sum = 0;
+		for (int num : nums) {
+			sum += num;
+		}
+		int n = nums.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = i; j &lt; n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		int first = f2(nums, 0, n - 1, dp);
+		int second = sum - first;
+		return first &gt;= second;
+	}
+
+	public static int f2(int[] nums, int l, int r, int[][] dp) {
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		int ans;
+		if (l == r) {
+			ans = nums[l];
+		} else if (l == r - 1) {
+			ans = Math.max(nums[l], nums[r]);
+		} else {
+			int p1 = nums[l] + Math.min(f2(nums, l + 2, r, dp), f2(nums, l + 1, r - 1, dp));
+			int p2 = nums[r] + Math.min(f2(nums, l + 1, r - 1, dp), f2(nums, l, r - 2, dp));
+			ans = Math.max(p1, p2);
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 严格位置依赖的动态规划
+	public static boolean predictTheWinner3(int[] nums) {
+		int sum = 0;
+		for (int num : nums) {
+			sum += num;
+		}
+		int n = nums.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n - 1; i++) {
+			dp[i][i] = nums[i];
+			dp[i][i + 1] = Math.max(nums[i], nums[i + 1]);
+		}
+		dp[n - 1][n - 1] = nums[n - 1];
+		for (int l = n - 3; l &gt;= 0; l--) {
+			for (int r = l + 2; r &lt; n; r++) {
+				dp[l][r] = Math.max(
+						nums[l] + Math.min(dp[l + 2][r], dp[l + 1][r - 1]),
+						nums[r] + Math.min(dp[l + 1][r - 1], dp[l][r - 2]));
+			}
+		}
+		int first = dp[0][n - 1];
+		int second = sum - first;
+		return first &gt;= second;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/73EmMoOAxIU?start=1394">
+    </iframe>
+</details>
+<h2 id="minimum-score-triangulation-of-polygon"><a class="header" href="#minimum-score-triangulation-of-polygon">Minimum Score Triangulation of Polygon</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/minimum-score-triangulation-of-polygon">LeetCode 1039. Minimum Score Triangulation of Polygon</a></p>
+<p>You have a convex n-sided polygon where each vertex has an integer value. You are given an integer array values where values[i] is the value of the ith vertex in clockwise order.</p>
+<p>Polygon triangulation is a process where you divide a polygon into a set of triangles and the vertices of each triangle must also be vertices of the original polygon. Note that no other shapes other than triangles are allowed in the division. This process will result in n - 2 triangles.</p>
+<p>You will triangulate the polygon. For each triangle, the weight of that triangle is the product of the values at its vertices. The total score of the triangulation is the sum of these weights over all n - 2 triangles.</p>
+<p>Return the minimum possible score that you can achieve with some triangulation of the polygon.</p>
+<pre><code>Example 1:
+
+Input: values = [1,2,3]
+
+Output: 6
+
+Explanation: The polygon is already triangulated, and the score of the only triangle is 6.
+
+Example 2:
+
+Input: values = [3,7,4,5]
+
+Output: 144
+
+Explanation: There are two triangulations, with possible scores: 3*7*5 + 4*5*7 = 245, or 3*4*5 + 3*4*7 = 144.
+The minimum score is 144.
+
+Example 3:
+
+Input: values = [1,3,1,4,1,5]
+
+Output: 13
+
+Explanation: The minimum score triangulation is 1*1*3 + 1*1*4 + 1*1*5 + 1*1*1 = 13.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>n = values.length</li>
+<li>3 &lt;= n &lt;= 50</li>
+<li>1 &lt;= values[i] &lt;= 100</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/
+public class MinimumScoreTriangulationOfPolygon {
+
+	// 记忆化搜索
+	public static int minScoreTriangulation1(int[] arr) {
+		int n = arr.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f(arr, 0, n - 1, dp);
+	}
+
+	public static int f(int[] arr, int l, int r, int[][] dp) {
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		int ans = Integer.MAX_VALUE;
+		if (l == r || l == r - 1) {
+			ans = 0;
+		} else {
+			// l....r &gt;=3
+			// 0..1..2..3..4...5
+			for (int m = l + 1; m &lt; r; m++) {
+				// l m r
+				ans = Math.min(ans, f(arr, l, m, dp) + f(arr, m, r, dp) + arr[l] * arr[m] * arr[r]);
+			}
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 严格位置依赖的动态规划
+	public static int minScoreTriangulation2(int[] arr) {
+		int n = arr.length;
+		int[][] dp = new int[n][n];
+		for (int l = n - 3; l &gt;= 0; l--) {
+			for (int r = l + 2; r &lt; n; r++) {
+				dp[l][r] = Integer.MAX_VALUE;
+				for (int m = l + 1; m &lt; r; m++) {
+					dp[l][r] = Math.min(dp[l][r], dp[l][m] + dp[m][r] + arr[l] * arr[m] * arr[r]);
+				}
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/73EmMoOAxIU?start=2526">
+    </iframe>
+</details>
+<h2 id="minimum-cost-to-cut-a-stick"><a class="header" href="#minimum-cost-to-cut-a-stick">Minimum Cost to Cut a Stick</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/minimum-cost-to-cut-a-stick">LeetCode 1547. Minimum Cost to Cut a Stick</a></p>
+<p>Given a wooden stick of length n units. The stick is labelled from 0 to n. For example, a stick of length 6 is labelled as follows:</p>
+<p>Given an integer array cuts where cuts[i] denotes a position you should perform a cut at.</p>
+<p>You should perform the cuts in order, you can change the order of the cuts as you wish.</p>
+<p>The cost of one cut is the length of the stick to be cut, the total cost is the sum of costs of all cuts. When you cut a stick, it will be split into two smaller sticks (i.e. the sum of their lengths is the length of the stick before the cut). Please refer to the first example for a better explanation.</p>
+<p>Return the minimum total cost of the cuts.</p>
+<pre><code>Example 1:
+
+Input: n = 7, cuts = [1,3,4,5]
+Output: 16
+Explanation: Using cuts order = [1, 3, 4, 5] as in the input leads to the following scenario:
+
+The first cut is done to a rod of length 7 so the cost is 7. The second cut is done to a rod of length 6 (i.e. the second part of the first cut), the third is done to a rod of length 4 and the last cut is to a rod of length 3. The total cost is 7 + 6 + 4 + 3 = 20.
+Rearranging the cuts to be [3, 5, 1, 4] for example will lead to a scenario with total cost = 16 (as shown in the example photo 7 + 4 + 3 + 2 = 16).
+
+Example 2:
+
+Input: n = 9, cuts = [5,6,1,4,2]
+Output: 22
+Explanation: If you try the given cuts ordering the cost will be 25.
+There are much ordering with total cost = 25, for example, the order [4, 6, 5, 2, 1] has total cost = 22 which is the minimum possible.
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>2 &lt;= n &lt;= 10^6</li>
+<li>1 &lt;= cuts.length &lt;= min(n - 1, 100)</li>
+<li>1 &lt;= cuts[i] &lt;= n - 1</li>
+<li>All the integers in cuts array are distinct.</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">import java.util.Arrays;
+
+// https://leetcode.cn/problems/minimum-cost-to-cut-a-stick/
+public class MinimumCostToCutAStick {
+
+	// 记忆化搜索
+	public static int minCost1(int n, int[] cuts) {
+		int m = cuts.length;
+		Arrays.sort(cuts);
+		int[] arr = new int[m + 2];
+		arr[0] = 0;
+		for (int i = 1; i &lt;= m; ++i) {
+			arr[i] = cuts[i - 1];
+		}
+		arr[m + 1] = n;
+		int[][] dp = new int[m + 2][m + 2];
+		for (int i = 1; i &lt;= m; i++) {
+			for (int j = 1; j &lt;= m; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f(arr, 1, m, dp);
+	}
+	
+	// 切点[l....r]，决定一个顺序
+	// 让切点都切完，总代价最小
+	public static int f(int[] arr, int l, int r, int[][] dp) {
+		if (l &gt; r) {
+			return 0;
+		}
+		if (l == r) {
+			return arr[r + 1] - arr[l - 1];
+		}
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		int ans = Integer.MAX_VALUE;
+		for (int k = l; k &lt;= r; k++) {
+			ans = Math.min(ans, f(arr, l, k - 1, dp) + f(arr, k + 1, r, dp));
+		}
+		ans += arr[r + 1] - arr[l - 1];
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 严格位置依赖的动态规划
+	public static int minCost2(int n, int[] cuts) {
+		int m = cuts.length;
+		Arrays.sort(cuts);
+		int[] arr = new int[m + 2];
+		arr[0] = 0;
+		for (int i = 1; i &lt;= m; ++i) {
+			arr[i] = cuts[i - 1];
+		}
+		arr[m + 1] = n;
+		int[][] dp = new int[m + 2][m + 2];
+		for (int i = 1; i &lt;= m; i++) {
+			dp[i][i] = arr[i + 1] - arr[i - 1];
+		}
+		for (int l = m - 1, next; l &gt;= 1; l--) {
+			for (int r = l + 1; r &lt;= m; r++) {
+				next = Integer.MAX_VALUE;
+				for (int k = l; k &lt;= r; k++) {
+					next = Math.min(next, dp[l][k - 1] + dp[k + 1][r]);
+				}
+				dp[l][r] = arr[r + 1] - arr[l - 1] + next;
+			}
+		}
+		return dp[1][m];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/73EmMoOAxIU?start=3405">
+    </iframe>
+</details>
+<h2 id="burst-balloons"><a class="header" href="#burst-balloons">Burst Balloons</a></h2>
+<details><summary>Description:</summary>
+<p><a href="https://leetcode.com/problems/burst-balloons">LeetCode 312. Burst Balloons</a></p>
+<p>You are given n balloons, indexed from 0 to n - 1. Each balloon is painted with a number on it represented by an array nums. You are asked to burst all the balloons.</p>
+<p>If you burst the ith balloon, you will get nums[i - 1] * nums[i] * nums[i + 1] coins. If i - 1 or i + 1 goes out of bounds of the array, then treat it as if there is a balloon with a 1 painted on it.</p>
+<p>Return the maximum coins you can collect by bursting the balloons wisely.</p>
+<pre><code>Example 1:
+
+Input: nums = [3,1,5,8]
+Output: 167
+Explanation:
+nums = [3,1,5,8] -- [3,5,8] -- [3,8] -- [8] -- []
+coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
+
+Example 2:
+
+Input: nums = [1,5]
+Output: 10
+</code></pre>
+<p>Constraints:</p>
+<ul>
+<li>n = nums.length</li>
+<li>1 &lt;= n &lt;= 300</li>
+<li>0 &lt;= nums[i] &lt;= 100</li>
+</ul>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">// https://leetcode.cn/problems/burst-balloons/
+public class BurstBalloons {
+
+	// 记忆化搜索
+	public static int maxCoins1(int[] nums) {
+		int n = nums.length;
+		// a b c d e
+		// 1 a b c d e 1
+		int[] arr = new int[n + 2];
+		arr[0] = 1;
+		arr[n + 1] = 1;
+		for (int i = 0; i &lt; n; i++) {
+			arr[i + 1] = nums[i];
+		}
+		int[][] dp = new int[n + 2][n + 2];
+		for (int i = 1; i &lt;= n; i++) {
+			for (int j = i; j &lt;= n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f(arr, 1, n, dp);
+	}
+
+	// arr[l...r]这些气球决定一个顺序，获得最大得分返回！
+	// 一定有 : arr[l-1]一定没爆！
+	// 一定有 : arr[r+1]一定没爆！
+	// 尝试每个气球最后打爆
+	public static int f(int[] arr, int l, int r, int[][] dp) {
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		int ans;
+		if (l == r) {
+			ans = arr[l - 1] * arr[l] * arr[r + 1];
+		} else {
+			// l   ....r
+			// l +1 +2 .. r
+			ans = Math.max(
+					arr[l - 1] * arr[l] * arr[r + 1] + f(arr, l + 1, r, dp), // l位置的气球最后打爆
+					arr[l - 1] * arr[r] * arr[r + 1] + f(arr, l, r - 1, dp));// r位置的气球最后打爆
+			for (int k = l + 1; k &lt; r; k++) {
+				// k位置的气球最后打爆
+				// l...k-1  k  k+1...r
+				ans = Math.max(ans, arr[l - 1] * arr[k] * arr[r + 1] + f(arr, l, k - 1, dp) + f(arr, k + 1, r, dp));
+			}
+		}
+		dp[l][r] = ans;
+		return ans;
+	}
+
+	// 严格位置依赖的动态规划
+	public static int maxCoins2(int[] nums) {
+		int n = nums.length;
+		int[] arr = new int[n + 2];
+		arr[0] = 1;
+		arr[n + 1] = 1;
+		for (int i = 0; i &lt; n; i++) {
+			arr[i + 1] = nums[i];
+		}
+		int[][] dp = new int[n + 2][n + 2];
+		for (int i = 1; i &lt;= n; i++) {
+			dp[i][i] = arr[i - 1] * arr[i] * arr[i + 1];
+		}
+		for (int l = n, ans; l &gt;= 1; l--) {
+			for (int r = l + 1; r &lt;= n; r++) {
+				ans = Math.max(arr[l - 1] * arr[l] * arr[r + 1] + dp[l + 1][r],
+						arr[l - 1] * arr[r] * arr[r + 1] + dp[l][r - 1]);
+				for (int k = l + 1; k &lt; r; k++) {
+					ans = Math.max(ans, arr[l - 1] * arr[k] * arr[r + 1] + dp[l][k - 1] + dp[k + 1][r]);
+				}
+				dp[l][r] = ans;
+			}
+		}
+		return dp[1][n];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/73EmMoOAxIU?start=4709">
+    </iframe>
+</details>
+<h2 id="boolean-evaluation"><a class="header" href="#boolean-evaluation">Boolean Evaluation</a></h2>
 
                     </main>
 

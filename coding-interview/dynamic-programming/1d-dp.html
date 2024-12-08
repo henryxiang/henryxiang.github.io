@@ -161,18 +161,24 @@
 <p>F(0) = 0, F(1) = 1
 F(n) = F(n - 1) + F(n - 2), for n  1.</p>
 <p>Given n, calculate F(n).</p>
-<p>Example 1:</p>
-<p>Input: n = 2
+<pre><code>Example 1:
+
+Input: n = 2
 Output: 1
-Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.</p>
-<p>Example 2:</p>
-<p>Input: n = 3
+Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
+
+Example 2:
+
+Input: n = 3
 Output: 2
-Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.</p>
-<p>Example 3:</p>
-<p>Input: n = 4
+Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
+
+Example 3:
+
+Input: n = 4
 Output: 3
-Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.</p>
+Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>0 &lt;= n &lt;= 30</li>
@@ -236,7 +242,7 @@ public class FibonacciNumber {
 		return dp[n];
 	}
 
-    // Interative solution with state compression
+    // Interative solution with space optimization
 	public static int fib4(int n) {
 		if (n == 0) {
 			return 0;
@@ -275,21 +281,25 @@ public class FibonacciNumber {
 <p>The passes allow that many days of consecutive travel.</p>
 <p>For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.</p>
 <p>Return the minimum number of dollars you need to travel every day in the given list of days.</p>
-<p>Example 1:</p>
-<p>Input: days = [1,4,6,7,8,20], costs = [2,7,15]
+<pre><code>Example 1:
+
+Input: days = [1,4,6,7,8,20], costs = [2,7,15]
 Output: 11
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
 On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
 On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
-In total, you spent $11 and covered all the days of your travel.</p>
-<p>Example 2:</p>
-<p>Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+In total, you spent $11 and covered all the days of your travel.
+
+Example 2:
+
+Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
 Output: 17
 Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
 On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
-In total, you spent $17 and covered all the days of your travel.</p>
+In total, you spent $17 and covered all the days of your travel.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= days.length &lt;= 365</li>
@@ -382,7 +392,7 @@ public class MinimumCostForTickets {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=2053">
     </iframe>
 </details>
 <h2 id="decode-ways"><a class="header" href="#decode-ways">Decode Ways</a></h2>
@@ -403,21 +413,33 @@ The grouping (1, 11, 06) is invalid because 06 is not a valid code (only 6 is va
 <p>Note: there may be strings that are impossible to decode.</p>
 <p>Given a string s containing only digits, return the number of ways to decode it. If the entire string cannot be decoded in any valid way, return 0.</p>
 <p>The test cases are generated so that the answer fits in a 32-bit integer.</p>
-<p>Example 1:</p>
-<p>Input: s = 12</p>
-<p>Output: 2</p>
-<p>Explanation:</p>
-<p>12 could be decoded as AB (1 2) or L (12).</p>
-<p>Example 2:</p>
-<p>Input: s = 226</p>
-<p>Output: 3</p>
-<p>Explanation:</p>
-<p>226 could be decoded as BZ (2 26), VF (22 6), or BBF (2 2 6).</p>
-<p>Example 3:</p>
-<p>Input: s = 06</p>
-<p>Output: 0</p>
-<p>Explanation:</p>
-<p>06 cannot be mapped to F because of the leading zero (6 is different from 06). In this case, the string is not a valid encoding, so return 0.</p>
+<pre><code>Example 1:
+
+Input: s = 12
+
+Output: 2
+
+Explanation: 12 could be decoded as AB (1 2) or L (12).
+
+Example 2:
+
+Input: s = 226
+
+Output: 3
+
+Explanation: 226 could be decoded as BZ (2 26), VF (22 6), or BBF (2 2 6).
+
+Example 3:
+
+Input: s = 06
+
+Output: 0
+
+Explanation:
+
+06 cannot be mapped to F because of the leading zero (6 is different from 06). 
+In this case, the string is not a valid encoding, so return 0.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 100</li>
@@ -497,7 +519,7 @@ public class DecodeWays {
 		return dp[0];
 	}
 
-	// 4. iterative solution + state compression
+	// 4. iterative solution + space optimization
 	public static int numDecodings4(String s) {
 		// dp[i+1]
 		int next = 1;
@@ -524,7 +546,7 @@ public class DecodeWays {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=4249">
     </iframe>
 </details>
 <h2 id="decode-ways-ii"><a class="header" href="#decode-ways-ii">Decode Ways II</a></h2>
@@ -543,24 +565,30 @@ KJF with the grouping (11 10 6)
 <p>In addition to the mapping above, an encoded message may contain the * character, which can represent any digit from 1 to 9 (0 is excluded). For example, the encoded message 1* may represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19. Decoding 1* is equivalent to decoding any of the encoded messages it can represent.</p>
 <p>Given a string s consisting of digits and * characters, return the number of ways to decode it.</p>
 <p>Since the answer may be very large, return it modulo 109 + 7.</p>
-<p>Example 1:</p>
-<p>Input: s = *
+<pre><code>Example 1:
+
+Input: s = *
 Output: 9
 Explanation: The encoded message can represent any of the encoded messages 1, 2, 3, 4, 5, 6, 7, 8, or 9.
 Each of these can be decoded to the strings A, B, C, D, E, F, G, H, and I respectively.
-Hence, there are a total of 9 ways to decode *.</p>
-<p>Example 2:</p>
-<p>Input: s = 1*
+Hence, there are a total of 9 ways to decode *.
+
+Example 2:
+
+Input: s = 1*
 Output: 18
 Explanation: The encoded message can represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19.
 Each of these encoded messages have 2 ways to be decoded (e.g. 11 can be decoded to AA or K).
-Hence, there are a total of 9 * 2 = 18 ways to decode 1*.</p>
-<p>Example 3:</p>
-<p>Input: s = 2*
+Hence, there are a total of 9 * 2 = 18 ways to decode 1*.
+
+Example 3:
+
+Input: s = 2*
 Output: 15
 Explanation: The encoded message can represent any of the encoded messages 21, 22, 23, 24, 25, 26, 27, 28, or 29.
 21, 22, 23, 24, 25, and 26 have 2 ways of being decoded, but 27, 28, and 29 only have 1 way.
-Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode 2*.</p>
+Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode 2*.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 10^5</li>
@@ -614,7 +642,7 @@ public class DecodeWaysII {
 		return ans;
 	}
 
-	// 2. recursive solution with memoization, modulus answer
+	// 2. recursive solution with memoization, answer modulo 10^9+7
 	public static long mod = 1000000007;
 
 	public static int numDecodings2(String str) {
@@ -698,7 +726,7 @@ public class DecodeWaysII {
 		return (int) dp[0];
 	}
 
-	// 4. iterative solution with state compression
+	// 4. iterative solution with space optimization
 	public static int numDecodings4(String str) {
 		char[] s = str.toCharArray();
 		int n = s.length;
@@ -742,7 +770,7 @@ public class DecodeWaysII {
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=5985">
     </iframe>
 </details>
 <h2 id="ugly-number-ii"><a class="header" href="#ugly-number-ii">Ugly Number II</a></h2>
@@ -750,14 +778,18 @@ public class DecodeWaysII {
 <p><a href="https://leetcode.com/problems/ugly-number-ii" target="_blank">LeetCode Testing Link</a></p>
 <p>An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.</p>
 <p>Given an integer n, return the nth ugly number.</p>
-<p>Example 1:</p>
-<p>Input: n = 10
+<pre><code>Example 1:
+
+Input: n = 10
 Output: 12
-Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.</p>
-<p>Example 2:</p>
-<p>Input: n = 1
+Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
+
+Example 2:
+
+Input: n = 1
 Output: 1
-Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.</p>
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= n &lt;= 1690</li>
@@ -795,24 +827,30 @@ Explanation: 1 has no prime factors, therefore all of its prime factors are limi
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=7739">
     </iframe>
 </details>
 <h2 id="longest-valid-parentheses"><a class="header" href="#longest-valid-parentheses">Longest Valid Parentheses</a></h2>
 <details><summary>Description:</summary>
 <p><a href="https://leetcode.com/problems/longest-valid-parentheses" target="_blank">LeetCode Testing Link</a></p>
 <p>Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.</p>
-<p>Example 1:</p>
-<p>Input: s = (()
+<pre><code>Example 1:
+
+Input: s = (()
 Output: 2
-Explanation: The longest valid parentheses substring is ().</p>
-<p>Example 2:</p>
-<p>Input: s = )()())
+Explanation: The longest valid parentheses substring is ().
+
+Example 2:
+
+Input: s = )()())
 Output: 4
-Explanation: The longest valid parentheses substring is ()().</p>
-<p>Example 3:</p>
-<p>Input: s =
-Output: 0</p>
+Explanation: The longest valid parentheses substring is ()().
+
+Example 3:
+
+Input: s = 
+Output: 0
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>0 &lt;= s.length &lt; 3 * 10^4</li>
@@ -829,8 +867,8 @@ Output: 0</p>
 		int ans = 0, p;
 		for (int i = 1; i &lt; s.length; i++) {
 			if (s[i] == ')') {
-				p = i - dp[i - 1] - 1;
-				if (p &gt;= 0 &amp;&amp; s[p] == '(') {
+				p = i - dp[i - 1] - 1;  // position of the matching left parenthese
+				if (p &gt;= 0 &amp;&amp; s[p] == '(') {  // found matching left parenthese
 					dp[i] = dp[i - 1] + 2 + (p - 1 &gt;= 0 ? dp[p - 1] : 0);
 				}
 			}
@@ -845,7 +883,7 @@ Output: 0</p>
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=8666">
     </iframe>
 </details>
 <h2 id="unique-substring-in-wraparound-string"><a class="header" href="#unique-substring-in-wraparound-string">Unique Substring in Wraparound String</a></h2>
@@ -854,19 +892,26 @@ Output: 0</p>
 <p>We define the string base to be the infinite wraparound string of abcdefghijklmnopqrstuvwxyz, so base will look like this:</p>
 <pre><code>...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd.....
 </code></pre>
-<p>Given a string s, return the number of unique non-empty substrings of s are present in base.</p>
-<p>Example 1:</p>
-<p>Input: s = a
+<p>Given a string s, return the number of unique non-empty substrings of s are present in base,
+i.e., find the unique common substrings in both s and base.</p>
+<pre><code>Example 1:
+
+Input: s = a
 Output: 1
-Explanation: Only the substring a of s is in base.</p>
-<p>Example 2:</p>
-<p>Input: s = cac
+Explanation: Only the substring a of s is in base.
+
+Example 2:
+
+Input: s = cac
 Output: 2
-Explanation: There are two substrings (a, c) of s in base.</p>
-<p>Example 3:</p>
-<p>Input: s = zab
+Explanation: There are two substrings (a, c) of s in base.
+
+Example 3:
+
+Input: s = zab
 Output: 6
-Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</p>
+Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 10^5</li>
@@ -876,25 +921,25 @@ Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class UniqueSubstringInWraparoundString {
 
-	// 时间复杂度O(n)，n是字符串s的长度，字符串base长度为正无穷
 	public static int findSubstringInWraproundString(String str) {
 		int n = str.length();
-		int[] s = new int[n];
-		// abcde...z -&gt; 0, 1, 2, 3, 4....25
+		int[] s = new int[n]; 
+		// converting input str to int[] s
+		// a -&gt; 0, b -&gt; 1, c -&gt; 2, ... y -&gt; 24, z -&gt; 25
 		for (int i = 0; i &lt; n; i++) {
 			s[i] = str.charAt(i) - 'a';
 		}
-		// dp[0] : s中必须以'a'的子串，最大延伸长度是多少，延伸一定要跟据base串的规则
+		// dp[i] : the longest substring ending with character i in both str and base
+		// e.g., if dp[i] = 4 (abcd, bcde, xyza, and etc), then there are 4 unique common substrings 
 		int[] dp = new int[26];
-		// s : c d e....
-		//     2 3 4
 		dp[s[0]] = 1;
-		for (int i = 1, cur, pre, len = 1; i &lt; n; i++) {
+		int len = 1, // length of the longest common substring
+			cur, 	 // current character in s
+			pre;	 // previous character in s
+		for (int i = 1; i &lt; n; i++) {
 			cur = s[i];
 			pre = s[i - 1];
-			// pre cur
 			if ((pre == 25 &amp;&amp; cur == 0) || pre + 1 == cur) {
-				// (前一个字符是'z' &amp;&amp; 当前字符是'a') || 前一个字符比当前字符的ascii码少1
 				len++;
 			} else {
 				len = 1;
@@ -914,26 +959,32 @@ Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.</
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=10261">
     </iframe>
 </details>
 <h2 id="distinct-subsequences-ii"><a class="header" href="#distinct-subsequences-ii">Distinct Subsequences II</a></h2>
 <details><summary>Description:</summary>
 <p><a href="https://leetcode.com/problems/distinct-subsequences-ii" target="_blank">LeetCode Testing Link</a></p>
-<p>Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 109 + 7.
+<p>Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 10^9 + 7.
 A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters (i.e., <code>ace</code> is a subsequence of <code>abcde</code> while <code>aec</code> is not).</p>
-<p>Example 1:</p>
-<p>Input: s = abc
+<pre><code>Example 1:
+
+Input: s = abc
 Output: 7
-Explanation: The 7 distinct subsequences are a, b, c, ab, ac, bc, and abc.</p>
-<p>Example 2:</p>
-<p>Input: s = aba
+Explanation: The 7 distinct subsequences are a, b, c, ab, ac, bc, and abc.
+
+Example 2:
+
+Input: s = aba
 Output: 6
-Explanation: The 6 distinct subsequences are a, b, ab, aa, ba, and aba.</p>
-<p>Example 3:</p>
-<p>Input: s = aaa
+Explanation: The 6 distinct subsequences are a, b, ab, aa, ba, and aba.
+
+Example 3:
+
+Input: s = aaa
 Output: 3
-Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
+Explanation: The 3 distinct subsequences are a, aa and aaa.
+</code></pre>
 <p>Constraints:</p>
 <ul>
 <li>1 &lt;= s.length &lt;= 2000</li>
@@ -943,18 +994,31 @@ Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class DistinctSubsequencesII {
 
-	// 时间复杂度O(n)，n是字符串s的长度
+	// a b a a
+	// 0 1 2 3
+	//    {}                      all = 1
+	// 0: {} {a}                  newAdd = 1 (all-cnt['a']); all = 2 (+=newAdd); cnt['a'] = 1 (+=newAdd)
+	// 1: {}  {a}                 newAdd = 2 (all-cnt['b']); all = 4 (+=newAdd); cnt['b'] = 2 (+=newAdd) 
+	//    {b} {ab}
+	// 2: {}   {a}  {b}  {ab}     newAdd = 3 (all-cnt['a']); all = 7 (all + newAdd); cnt['a'] = 4 (+=newAdd)
+	//    {a}* {aa} {ba} {aba}
+	// 3: {}   {a}  {b}  {ab}     newAdd = 3 (all-cnt['a']); all = 10 (all + newAdd); cnt['a'] = 7 (+=newAdd)
+	//    {aa} {ba} {aba}
+	//    {a}* {aa}* {ba}* {aba}* 
+	//    {aaa}  {baa}  {abaa}
+
 	public static int distinctSubseqII(String s) {
 		int mod = 1000000007;
 		char[] str = s.toCharArray();
-		int[] cnt = new int[26];
-		int all = 1, newAdd;
+		int[] cnt = new int[26]; // number of subsequences ending with chr - 'a'
+		int all = 1, // include empty string
+			newAdd;
 		for (char x : str) {
 			newAdd = (all - cnt[x - 'a'] + mod) % mod;
 			cnt[x - 'a'] = (cnt[x - 'a'] + newAdd) % mod;
 			all = (all + newAdd) % mod;
 		}
-		return (all - 1 + mod) % mod;
+		return (all - 1 + mod) % mod;  // exclude empty string
 	}
 
 }
@@ -963,7 +1027,7 @@ Explanation: The 3 distinct subsequences are a, aa and aaa.</p>
 <details>
     <summary>YouTube Video:</summary>
     <iframe frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=270">
+        src="https://www.youtube.com/embed/n23bxZi4ZaY?start=11518">
     </iframe>
 </details>
 

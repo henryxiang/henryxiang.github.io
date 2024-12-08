@@ -70,7 +70,7 @@ public class DecodeWays {
 		return dp[0];
 	}
 
-	// 4. iterative solution + state compression
+	// 4. iterative solution + space optimization
 	public static int numDecodings4(String s) {
 		// dp[i+1]
 		int next = 1;

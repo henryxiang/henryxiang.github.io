@@ -177,33 +177,424 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="one-dimentional-dp-problems"><a class="header" href="#one-dimentional-dp-problems">One-Dimentional DP Problems</a></h1>
 <h2 id="fibonacci-number"><a class="header" href="#fibonacci-number">Fibonacci Number</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/fibonacci-number" target="_blank">LeetCode Testing Link</a></p>
-<p>The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,</p>
-<p>F(0) = 0, F(1) = 1
-F(n) = F(n - 1) + F(n - 2), for n  1.</p>
-<p>Given n, calculate F(n).</p>
-<pre><code>Example 1:
-
-Input: n = 2
-Output: 1
-Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
-
-Example 2:
-
-Input: n = 3
-Output: 2
-Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
-
-Example 3:
-
-Input: n = 4
-Output: 3
-Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0500-0599/0509.Fibonacci%20Number/README_EN.md
+tags:
+    - Recursion
+    - Memoization
+    - Math
+    - Dynamic Programming
 </code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="509-fibonacci-number"><a class="header" href="#509-fibonacci-number"><a href="https://leetcode.com/problems/fibonacci-number">509. Fibonacci Number</a></a></h1>
+<p><a href="dynamic-programming//solution/0500-0599/0509.Fibonacci%20Number/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>The <b>Fibonacci numbers</b>, commonly denoted <code>F(n)</code> form a sequence, called the <b>Fibonacci sequence</b>, such that each number is the sum of the two preceding ones, starting from <code>0</code> and <code>1</code>. That is,</p>
+<pre>
+F(0) = 0, F(1) = 1
+F(n) = F(n - 1) + F(n - 2), for n &gt; 1.
+</pre>
+<p>Given <code>n</code>, calculate <code>F(n)</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> n = 2
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> F(2) = F(1) + F(0) = 1 + 0 = 1.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> n = 3
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> F(3) = F(2) + F(1) = 1 + 1 = 2.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> n = 4
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> F(4) = F(3) + F(2) = 2 + 1 = 3.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>0 &lt;= n &lt;= 30</li>
+	<li><code>0 &lt;= n &lt;= 30</code></li>
 </ul>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-recurrence"><a class="header" href="#solution-1-recurrence">Solution 1: Recurrence</a></h3>
+<p>We define two variables $a$ and $b$, initially $a = 0$ and $b = 1$.</p>
+<p>Next, we perform $n$ iterations. In each iteration, we update the values of $a$ and $b$ to $b$ and $a + b$, respectively.</p>
+<p>Finally, we return $a$.</p>
+<p>The time complexity is $O(n)$, where $n$ is the given integer. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def fib(self, n: int) -&gt; int:
+        a, b = 0, 1
+        for _ in range(n):
+            a, b = b, a + b
+        return a
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int fib(int n) {
+        int a = 0, b = 1;
+        while (n-- &gt; 0) {
+            int c = a + b;
+            a = b;
+            b = c;
+        }
+        return a;
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int fib(int n) {
+        int a = 0, b = 1;
+        while (n--) {
+            int c = a + b;
+            a = b;
+            b = c;
+        }
+        return a;
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func fib(n int) int {
+	a, b := 0, 1
+	for i := 0; i &lt; n; i++ {
+		a, b = b, a+b
+	}
+	return a
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function fib(n: number): number {
+    let [a, b] = [0, 1];
+    while (n--) {
+        [a, b] = [b, a + b];
+    }
+    return a;
+}
+</code></pre>
+<h4 id="rust"><a class="header" href="#rust">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn fib(n: i32) -&gt; i32 {
+        let mut a = 0;
+        let mut b = 1;
+        for _ in 0..n {
+            let t = b;
+            b = a + b;
+            a = t;
+        }
+        a
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript"><a class="header" href="#javascript">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function (n) {
+    let [a, b] = [0, 1];
+    while (n--) {
+        [a, b] = [b, a + b];
+    }
+    return a;
+};
+</code></pre>
+<h4 id="php"><a class="header" href="#php">PHP</a></h4>
+<pre><code class="language-php">class Solution {
+    /**
+     * @param Integer $n
+     * @return Integer
+     */
+    function fib($n) {
+        $a = 0;
+        $b = 1;
+        for ($i = 0; $i &lt; $n; $i++) {
+            $temp = $a;
+            $a = $b;
+            $b = $temp + $b;
+        }
+        return $a;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-matrix-exponentiation"><a class="header" href="#solution-2-matrix-exponentiation">Solution 2: Matrix Exponentiation</a></h3>
+<p>We define $\textit{Fib}(n)$ as a $1 \times 2$ matrix $\begin{bmatrix} F_n &amp; F_{n - 1} \end{bmatrix}$, where $F_n$ and $F_{n - 1}$ are the $n$-th and $(n - 1)$-th Fibonacci numbers, respectively.</p>
+<p>We want to derive $\textit{Fib}(n)$ from $\textit{Fib}(n - 1) = \begin{bmatrix} F_{n - 1} &amp; F_{n - 2} \end{bmatrix}$. In other words, we need a matrix $\textit{base}$ such that $\textit{Fib}(n - 1) \times \textit{base} = \textit{Fib}(n)$, i.e.:</p>
+<p>$$
+\begin{bmatrix}
+F_{n - 1} &amp; F_{n - 2}
+\end{bmatrix} \times \textit{base} = \begin{bmatrix} F_n &amp; F_{n - 1} \end{bmatrix}
+$$</p>
+<p>Since $F_n = F_{n - 1} + F_{n - 2}$, the first column of the matrix $\textit{base}$ is:</p>
+<p>$$
+\begin{bmatrix}
+1 \
+1
+\end{bmatrix}
+$$</p>
+<p>The second column is:</p>
+<p>$$
+\begin{bmatrix}
+1 \
+0
+\end{bmatrix}
+$$</p>
+<p>Thus, we have:</p>
+<p>$$
+\begin{bmatrix} F_{n - 1} &amp; F_{n - 2} \end{bmatrix} \times \begin{bmatrix}1 &amp; 1 \ 1 &amp; 0\end{bmatrix} = \begin{bmatrix} F_n &amp; F_{n - 1} \end{bmatrix}
+$$</p>
+<p>We define the initial matrix $res = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}$, then $F_n$ is equal to the second element of the first row of the result matrix obtained by multiplying $res$ with $\textit{base}^{n}$. We can solve this using matrix exponentiation.</p>
+<p>The time complexity is $O(\log n)$, and the space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python">import numpy as np
+
+
+class Solution:
+    def fib(self, n: int) -&gt; int:
+        factor = np.asmatrix([(1, 1), (1, 0)], np.dtype("O"))
+        res = np.asmatrix([(1, 0)], np.dtype("O"))
+        while n:
+            if n &amp; 1:
+                res = res * factor
+            factor = factor * factor
+            n &gt;&gt;= 1
+        return res[0, 1]
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int fib(int n) {
+        int[][] a = {{1, 1}, {1, 0}};
+        return pow(a, n)[0][1];
+    }
+
+    private int[][] mul(int[][] a, int[][] b) {
+        int m = a.length, n = b[0].length;
+        int[][] c = new int[m][n];
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                for (int k = 0; k &lt; b.length; ++k) {
+                    c[i][j] = c[i][j] + a[i][k] * b[k][j];
+                }
+            }
+        }
+        return c;
+    }
+
+    private int[][] pow(int[][] a, int n) {
+        int[][] res = {{1, 0}};
+        while (n &gt; 0) {
+            if ((n &amp; 1) == 1) {
+                res = mul(res, a);
+            }
+            a = mul(a, a);
+            n &gt;&gt;= 1;
+        }
+        return res;
+    }
+}
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int fib(int n) {
+        vector&lt;vector&lt;int&gt;&gt; a = {{1, 1}, {1, 0}};
+        return qpow(a, n)[0][1];
+    }
+
+    vector&lt;vector&lt;int&gt;&gt; mul(vector&lt;vector&lt;int&gt;&gt;&amp; a, vector&lt;vector&lt;int&gt;&gt;&amp; b) {
+        int m = a.size(), n = b[0].size();
+        vector&lt;vector&lt;int&gt;&gt; c(m, vector&lt;int&gt;(n));
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                for (int k = 0; k &lt; b.size(); ++k) {
+                    c[i][j] = c[i][j] + a[i][k] * b[k][j];
+                }
+            }
+        }
+        return c;
+    }
+
+    vector&lt;vector&lt;int&gt;&gt; qpow(vector&lt;vector&lt;int&gt;&gt;&amp; a, int n) {
+        vector&lt;vector&lt;int&gt;&gt; res = {{1, 0}};
+        while (n) {
+            if (n &amp; 1) {
+                res = mul(res, a);
+            }
+            a = mul(a, a);
+            n &gt;&gt;= 1;
+        }
+        return res;
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">func fib(n int) int {
+	a := [][]int{{1, 1}, {1, 0}}
+	return pow(a, n)[0][1]
+}
+
+func mul(a, b [][]int) [][]int {
+	m, n := len(a), len(b[0])
+	c := make([][]int, m)
+	for i := range c {
+		c[i] = make([]int, n)
+	}
+	for i := 0; i &lt; m; i++ {
+		for j := 0; j &lt; n; j++ {
+			for k := 0; k &lt; len(b); k++ {
+				c[i][j] = c[i][j] + a[i][k]*b[k][j]
+			}
+		}
+	}
+	return c
+}
+
+func pow(a [][]int, n int) [][]int {
+	res := [][]int{{1, 0}}
+	for n &gt; 0 {
+		if n&amp;1 == 1 {
+			res = mul(res, a)
+		}
+		a = mul(a, a)
+		n &gt;&gt;= 1
+	}
+	return res
+}
+</code></pre>
+<h4 id="typescript-1"><a class="header" href="#typescript-1">TypeScript</a></h4>
+<pre><code class="language-ts">function fib(n: number): number {
+    const a: number[][] = [
+        [1, 1],
+        [1, 0],
+    ];
+    return pow(a, n)[0][1];
+}
+
+function mul(a: number[][], b: number[][]): number[][] {
+    const [m, n] = [a.length, b[0].length];
+    const c = Array.from({ length: m }, () =&gt; Array.from({ length: n }, () =&gt; 0));
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            for (let k = 0; k &lt; b.length; ++k) {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return c;
+}
+
+function pow(a: number[][], n: number): number[][] {
+    let res = [[1, 0]];
+    while (n) {
+        if (n &amp; 1) {
+            res = mul(res, a);
+        }
+        a = mul(a, a);
+        n &gt;&gt;= 1;
+    }
+    return res;
+}
+</code></pre>
+<h4 id="rust-1"><a class="header" href="#rust-1">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn fib(n: i32) -&gt; i32 {
+        let a = vec![vec![1, 1], vec![1, 0]];
+        pow(a, n as usize)[0][1]
+    }
+}
+
+fn mul(a: Vec&lt;Vec&lt;i32&gt;&gt;, b: Vec&lt;Vec&lt;i32&gt;&gt;) -&gt; Vec&lt;Vec&lt;i32&gt;&gt; {
+    let m = a.len();
+    let n = b[0].len();
+    let mut c = vec![vec![0; n]; m];
+
+    for i in 0..m {
+        for j in 0..n {
+            for k in 0..b.len() {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    c
+}
+
+fn pow(mut a: Vec&lt;Vec&lt;i32&gt;&gt;, mut n: usize) -&gt; Vec&lt;Vec&lt;i32&gt;&gt; {
+    let mut res = vec![vec![1, 0], vec![0, 1]];
+
+    while n &gt; 0 {
+        if n &amp; 1 == 1 {
+            res = mul(res, a.clone());
+        }
+        a = mul(a.clone(), a);
+        n &gt;&gt;= 1;
+    }
+    res
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-1"><a class="header" href="#javascript-1">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function (n) {
+    const a = [
+        [1, 1],
+        [1, 0],
+    ];
+    return pow(a, n)[0][1];
+};
+
+function mul(a, b) {
+    const m = a.length,
+        n = b[0].length;
+    const c = Array.from({ length: m }, () =&gt; Array(n).fill(0));
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            for (let k = 0; k &lt; b.length; ++k) {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return c;
+}
+
+function pow(a, n) {
+    let res = [
+        [1, 0],
+        [0, 1],
+    ];
+    while (n &gt; 0) {
+        if (n &amp; 1) {
+            res = mul(res, a);
+        }
+        a = mul(a, a);
+        n &gt;&gt;= 1;
+    }
+    return res;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">import java.util.Arrays;
@@ -291,44 +682,320 @@ public class FibonacciNumber {
 </details>
 <h2 id="minimum-cost-for-tickets"><a class="header" href="#minimum-cost-for-tickets">Minimum Cost for Tickets</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/minimum-cost-for-tickets" target="_blank">LeetCode Testing Link</a></p>
-<p>You have planned some train traveling one year in advance. The days of the year in which you will travel are given as an integer array days. Each day is an integer from 1 to 365.</p>
-<p>Train tickets are sold in three different ways:</p>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/README_EN.md
+tags:
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="983-minimum-cost-for-tickets"><a class="header" href="#983-minimum-cost-for-tickets"><a href="https://leetcode.com/problems/minimum-cost-for-tickets">983. Minimum Cost For Tickets</a></a></h1>
+<p><a href="dynamic-programming//solution/0900-0999/0983.Minimum%20Cost%20For%20Tickets/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>You have planned some train traveling one year in advance. The days of the year in which you will travel are given as an integer array <code>days</code>. Each day is an integer from <code>1</code> to <code>365</code>.</p>
+<p>Train tickets are sold in <strong>three different ways</strong>:</p>
 <ul>
-<li>a 1-day pass is sold for costs[0] dollars,</li>
-<li>a 7-day pass is sold for costs[1] dollars, and</li>
-<li>a 30-day pass is sold for costs[2] dollars.</li>
+	<li>a <strong>1-day</strong> pass is sold for <code>costs[0]</code> dollars,</li>
+	<li>a <strong>7-day</strong> pass is sold for <code>costs[1]</code> dollars, and</li>
+	<li>a <strong>30-day</strong> pass is sold for <code>costs[2]</code> dollars.</li>
 </ul>
 <p>The passes allow that many days of consecutive travel.</p>
-<p>For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.</p>
-<p>Return the minimum number of dollars you need to travel every day in the given list of days.</p>
-<pre><code>Example 1:
-
-Input: days = [1,4,6,7,8,20], costs = [2,7,15]
-Output: 11
-Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
+<ul>
+	<li>For example, if we get a <strong>7-day</strong> pass on day <code>2</code>, then we can travel for <code>7</code> days: <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>, and <code>8</code>.</li>
+</ul>
+<p>Return <em>the minimum number of dollars you need to travel every day in the given list of days</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> days = [1,4,6,7,8,20], costs = [2,7,15]
+<strong>Output:</strong> 11
+<strong>Explanation:</strong> For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
 On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
 On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
 In total, you spent $11 and covered all the days of your travel.
-
-Example 2:
-
-Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
-Output: 17
-Explanation: For example, here is one way to buy passes that lets you travel your travel plan:
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+<strong>Output:</strong> 17
+<strong>Explanation:</strong> For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
 On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
 In total, you spent $17 and covered all the days of your travel.
-</code></pre>
-<p>Constraints:</p>
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>1 &lt;= days.length &lt;= 365</li>
-<li>1 &lt;= days[i] &lt;= 365</li>
-<li>days is in strictly increasing order.</li>
-<li>costs.length == 3</li>
-<li>1 &lt;= costs[i] &lt;= 1000</li>
+	<li><code>1 &lt;= days.length &lt;= 365</code></li>
+	<li><code>1 &lt;= days[i] &lt;= 365</code></li>
+	<li><code>days</code> is in strictly increasing order.</li>
+	<li><code>costs.length == 3</code></li>
+	<li><code>1 &lt;= costs[i] &lt;= 1000</code></li>
 </ul>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-memoization-search--binary-search"><a class="header" href="#solution-1-memoization-search--binary-search">Solution 1: Memoization Search + Binary Search</a></h3>
+<p>We define a function $\textit{dfs(i)}$, which represents the minimum cost required from the $i$-th trip to the last trip. Thus, the answer is $\textit{dfs(0)}$.</p>
+<p>The execution process of the function $\textit{dfs(i)}$ is as follows:</p>
+<ul>
+<li>If $i \geq n$, it means all trips have ended, return $0$;</li>
+<li>Otherwise, we need to consider three types of purchases: buying a 1-day pass, buying a 7-day pass, and buying a 30-day pass. We calculate the cost for these three purchasing methods separately and use binary search to find the index $j$ of the next trip, then recursively call $\textit{dfs(j)}$, and finally return the minimum cost among these three purchasing methods.</li>
+</ul>
+<p>To avoid repeated calculations, we use memoization search to save the results that have already been calculated.</p>
+<p>The time complexity is $O(n \times \log n)$, and the space complexity is $O(n)$. Here, $n$ represents the number of trips.</p>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -&gt; int:
+        @cache
+        def dfs(i: int) -&gt; int:
+            if i &gt;= n:
+                return 0
+            ans = inf
+            for c, v in zip(costs, valid):
+                j = bisect_left(days, days[i] + v)
+                ans = min(ans, c + dfs(j))
+            return ans
+
+        n = len(days)
+        valid = [1, 7, 30]
+        return dfs(0)
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private final int[] valid = {1, 7, 30};
+    private int[] days;
+    private int[] costs;
+    private Integer[] f;
+    private int n;
+
+    public int mincostTickets(int[] days, int[] costs) {
+        n = days.length;
+        f = new Integer[n];
+        this.days = days;
+        this.costs = costs;
+        return dfs(0);
+    }
+
+    private int dfs(int i) {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i] != null) {
+            return f[i];
+        }
+        f[i] = Integer.MAX_VALUE;
+        for (int k = 0; k &lt; 3; ++k) {
+            int j = Arrays.binarySearch(days, days[i] + valid[k]);
+            j = j &lt; 0 ? -j - 1 : j;
+            f[i] = Math.min(f[i], dfs(j) + costs[k]);
+        }
+        return f[i];
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int mincostTickets(vector&lt;int&gt;&amp; days, vector&lt;int&gt;&amp; costs) {
+        int valid[3] = {1, 7, 30};
+        int n = days.size();
+        int f[n];
+        memset(f, 0, sizeof(f));
+        function&lt;int(int)&gt; dfs = [&amp;](int i) {
+            if (i &gt;= n) {
+                return 0;
+            }
+            if (f[i]) {
+                return f[i];
+            }
+            f[i] = INT_MAX;
+            for (int k = 0; k &lt; 3; ++k) {
+                int j = lower_bound(days.begin(), days.end(), days[i] + valid[k]) - days.begin();
+                f[i] = min(f[i], dfs(j) + costs[k]);
+            }
+            return f[i];
+        };
+        return dfs(0);
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">func mincostTickets(days []int, costs []int) int {
+	valid := [3]int{1, 7, 30}
+	n := len(days)
+	f := make([]int, n)
+	var dfs func(int) int
+	dfs = func(i int) int {
+		if i &gt;= n {
+			return 0
+		}
+		if f[i] &gt; 0 {
+			return f[i]
+		}
+		f[i] = 1 &lt;&lt; 30
+		for k := 0; k &lt; 3; k++ {
+			j := sort.SearchInts(days, days[i]+valid[k])
+			f[i] = min(f[i], dfs(j)+costs[k])
+		}
+		return f[i]
+	}
+	return dfs(0)
+}
+</code></pre>
+<h4 id="typescript-2"><a class="header" href="#typescript-2">TypeScript</a></h4>
+<pre><code class="language-ts">function mincostTickets(days: number[], costs: number[]): number {
+    const n = days.length;
+    const f: number[] = Array(n).fill(0);
+    const valid: number[] = [1, 7, 30];
+    const search = (x: number): number =&gt; {
+        let [l, r] = [0, n];
+        while (l &lt; r) {
+            const mid = (l + r) &gt;&gt; 1;
+            if (days[mid] &gt;= x) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
+    };
+    const dfs = (i: number): number =&gt; {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i]) {
+            return f[i];
+        }
+        f[i] = Infinity;
+        for (let k = 0; k &lt; 3; ++k) {
+            const j = search(days[i] + valid[k]);
+            f[i] = Math.min(f[i], dfs(j) + costs[k]);
+        }
+        return f[i];
+    };
+    return dfs(0);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-dynamic-programming"><a class="header" href="#solution-2-dynamic-programming">Solution 2: Dynamic Programming</a></h3>
+<p>Let's denote the last day in the $\textit{days}$ array as $m$. We can define an array $f$ of length $m + 1$, where $f[i]$ represents the minimum cost from day $1$ to day $i$.</p>
+<p>We can calculate the value of $f[i]$ in increasing order of the dates in the $\textit{days}$ array, starting from day $1$. If day $i$ is a travel day, we can consider three purchasing options: buying a 1-day pass, buying a 7-day pass, and buying a 30-day pass. We calculate the cost for these three purchasing methods separately and take the minimum cost among these three as the value of $f[i]$. If day $i$ is not a travel day, then $f[i] = f[i - 1]$.</p>
+<p>The final answer is $f[m]$.</p>
+<p>The time complexity is $O(m)$, and the space complexity is $O(m)$. Here, $m$ represents the last day of travel.</p>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -&gt; int:
+        m = days[-1]
+        f = [0] * (m + 1)
+        valid = [1, 7, 30]
+        j = 0
+        for i in range(1, m + 1):
+            if i == days[j]:
+                f[i] = inf
+                for c, v in zip(costs, valid):
+                    f[i] = min(f[i], f[max(0, i - v)] + c)
+                j += 1
+            else:
+                f[i] = f[i - 1]
+        return f[m]
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        int m = days[days.length - 1];
+        int[] f = new int[m + 1];
+        final int[] valid = {1, 7, 30};
+        for (int i = 1, j = 0; i &lt;= m; ++i) {
+            if (i == days[j]) {
+                f[i] = Integer.MAX_VALUE;
+                for (int k = 0; k &lt; 3; ++k) {
+                    int c = costs[k], v = valid[k];
+                    f[i] = Math.min(f[i], f[Math.max(0, i - v)] + c);
+                }
+                ++j;
+            } else {
+                f[i] = f[i - 1];
+            }
+        }
+        return f[m];
+    }
+}
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int mincostTickets(vector&lt;int&gt;&amp; days, vector&lt;int&gt;&amp; costs) {
+        int m = days.back();
+        int f[m + 1];
+        f[0] = 0;
+        int valid[3] = {1, 7, 30};
+        for (int i = 1, j = 0; i &lt;= m; ++i) {
+            if (i == days[j]) {
+                f[i] = INT_MAX;
+                for (int k = 0; k &lt; 3; ++k) {
+                    int c = costs[k], v = valid[k];
+                    f[i] = min(f[i], f[max(0, i - v)] + c);
+                }
+                ++j;
+            } else {
+                f[i] = f[i - 1];
+            }
+        }
+        return f[m];
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">func mincostTickets(days []int, costs []int) int {
+	m := days[len(days)-1]
+	f := make([]int, m+1)
+	valid := [3]int{1, 7, 30}
+	for i, j := 1, 0; i &lt;= m; i++ {
+		if i == days[j] {
+			f[i] = 1 &lt;&lt; 30
+			for k, v := range valid {
+				c := costs[k]
+				f[i] = min(f[i], f[max(0, i-v)]+c)
+			}
+			j++
+		} else {
+			f[i] = f[i-1]
+		}
+	}
+	return f[m]
+}
+</code></pre>
+<h4 id="typescript-3"><a class="header" href="#typescript-3">TypeScript</a></h4>
+<pre><code class="language-ts">function mincostTickets(days: number[], costs: number[]): number {
+    const m = days.at(-1)!;
+    const f: number[] = Array(m).fill(0);
+    const valid: number[] = [1, 7, 30];
+    for (let i = 1, j = 0; i &lt;= m; ++i) {
+        if (i === days[j]) {
+            f[i] = Infinity;
+            for (let k = 0; k &lt; 3; ++k) {
+                const [c, v] = [costs[k], valid[k]];
+                f[i] = Math.min(f[i], f[Math.max(0, i - v)] + c);
+            }
+            ++j;
+        } else {
+            f[i] = f[i - 1];
+        }
+    }
+    return f[m];
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">import java.util.Arrays;
@@ -418,54 +1085,275 @@ public class MinimumCostForTickets {
 </details>
 <h2 id="decode-ways"><a class="header" href="#decode-ways">Decode Ways</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/decode-ways" target="_blank">LeetCode Testing Link</a></p>
-<p>You have intercepted a secret message encoded as a string of numbers. The message is decoded via the following mapping:</p>
-<p>1 - A
-2 - B
-...
-25 - Y
-26 - Z</p>
-<p>However, while decoding the message, you realize that there are many different ways you can decode the message because some codes are contained in other codes (2 and 5 vs 25).</p>
-<p>For example, 11106 can be decoded into:</p>
-<pre><code>AAJF with the grouping (1, 1, 10, 6)
-KJF with the grouping (11, 10, 6)
-The grouping (1, 11, 06) is invalid because 06 is not a valid code (only 6 is valid).
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0091.Decode%20Ways/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
 </code></pre>
-<p>Note: there may be strings that are impossible to decode.</p>
-<p>Given a string s containing only digits, return the number of ways to decode it. If the entire string cannot be decoded in any valid way, return 0.</p>
-<p>The test cases are generated so that the answer fits in a 32-bit integer.</p>
-<pre><code>Example 1:
-
-Input: s = 12
-
-Output: 2
-
-Explanation: 12 could be decoded as AB (1 2) or L (12).
-
-Example 2:
-
-Input: s = 226
-
-Output: 3
-
-Explanation: 226 could be decoded as BZ (2 26), VF (22 6), or BBF (2 2 6).
-
-Example 3:
-
-Input: s = 06
-
-Output: 0
-
-Explanation:
-
-06 cannot be mapped to F because of the leading zero (6 is different from 06). 
-In this case, the string is not a valid encoding, so return 0.
-</code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="91-decode-ways"><a class="header" href="#91-decode-ways"><a href="https://leetcode.com/problems/decode-ways">91. Decode Ways</a></a></h1>
+<p><a href="dynamic-programming//solution/0000-0099/0091.Decode%20Ways/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>You have intercepted a secret message encoded as a string of numbers. The message is <strong>decoded</strong> via the following mapping:</p>
+<p><code>&quot;1&quot; -&gt; &#39;A&#39;<br />
+&quot;2&quot; -&gt; &#39;B&#39;<br />
+...<br />
+&quot;25&quot; -&gt; &#39;Y&#39;<br />
+&quot;26&quot; -&gt; &#39;Z&#39;</code></p>
+<p>However, while decoding the message, you realize that there are many different ways you can decode the message because some codes are contained in other codes (<code>&quot;2&quot;</code> and <code>&quot;5&quot;</code> vs <code>&quot;25&quot;</code>).</p>
+<p>For example, <code>&quot;11106&quot;</code> can be decoded into:</p>
 <ul>
-<li>1 &lt;= s.length &lt;= 100</li>
-<li>s contains only digits and may contain leading zero(s).</li>
+	<li><code>&quot;AAJF&quot;</code> with the grouping <code>(1, 1, 10, 6)</code></li>
+	<li><code>&quot;KJF&quot;</code> with the grouping <code>(11, 10, 6)</code></li>
+	<li>The grouping <code>(1, 11, 06)</code> is invalid because <code>&quot;06&quot;</code> is not a valid code (only <code>&quot;6&quot;</code> is valid).</li>
 </ul>
+<p>Note: there may be strings that are impossible to decode.<br />
+<br />
+Given a string s containing only digits, return the <strong>number of ways</strong> to <strong>decode</strong> it. If the entire string cannot be decoded in any valid way, return <code>0</code>.</p>
+<p>The test cases are generated so that the answer fits in a <strong>32-bit</strong> integer.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;12&quot;</span></p>
+<p><strong>Output:</strong> <span class="example-io">2</span></p>
+<p><strong>Explanation:</strong></p>
+<p>&quot;12&quot; could be decoded as &quot;AB&quot; (1 2) or &quot;L&quot; (12).</p>
+</div>
+<p><strong class="example">Example 2:</strong></p>
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;226&quot;</span></p>
+<p><strong>Output:</strong> <span class="example-io">3</span></p>
+<p><strong>Explanation:</strong></p>
+<p>&quot;226&quot; could be decoded as &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), or &quot;BBF&quot; (2 2 6).</p>
+</div>
+<p><strong class="example">Example 3:</strong></p>
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;06&quot;</span></p>
+<p><strong>Output:</strong> <span class="example-io">0</span></p>
+<p><strong>Explanation:</strong></p>
+<p>&quot;06&quot; cannot be mapped to &quot;F&quot; because of the leading zero (&quot;6&quot; is different from &quot;06&quot;). In this case, the string is not a valid encoding, so return 0.</p>
+</div>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> contains only digits and may contain leading zero(s).</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i]$ to represent the number of decoding methods for the first $i$ characters of the string. Initially, $f[0]=1$, and the rest $f[i]=0$.</p>
+<p>Consider how $f[i]$ transitions.</p>
+<ul>
+<li>If the $i$th character (i.e., $s[i-1]$) forms a code on its own, it corresponds to one decoding method, i.e., $f[i]=f[i-1]$. The premise is $s[i-1] \neq 0$.</li>
+<li>If the string formed by the $i-1$th character and the $i$th character is within the range $[1,26]$, then they can be treated as a whole, corresponding to one decoding method, i.e., $f[i] = f[i] + f[i-2]$. The premise is $s[i-2] \neq 0$, and $s[i-2]s[i-1]$ is within the range $[1,26]$.</li>
+</ul>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$. Here, $n$ is the length of the string.</p>
+<!-- tabs:start -->
+<h4 id="python3-4"><a class="header" href="#python3-4">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numDecodings(self, s: str) -&gt; int:
+        n = len(s)
+        f = [1] + [0] * n
+        for i, c in enumerate(s, 1):
+            if c != "0":
+                f[i] = f[i - 1]
+            if i &gt; 1 and s[i - 2] != "0" and int(s[i - 2 : i]) &lt;= 26:
+                f[i] += f[i - 2]
+        return f[n]
+</code></pre>
+<h4 id="java-4"><a class="header" href="#java-4">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int numDecodings(String s) {
+        int n = s.length();
+        int[] f = new int[n + 1];
+        f[0] = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            if (s.charAt(i - 1) != '0') {
+                f[i] = f[i - 1];
+            }
+            if (i &gt; 1 &amp;&amp; s.charAt(i - 2) != '0' &amp;&amp; Integer.valueOf(s.substring(i - 2, i)) &lt;= 26) {
+                f[i] += f[i - 2];
+            }
+        }
+        return f[n];
+    }
+}
+</code></pre>
+<h4 id="c-4"><a class="header" href="#c-4">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int numDecodings(string s) {
+        int n = s.size();
+        int f[n + 1];
+        memset(f, 0, sizeof(f));
+        f[0] = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            if (s[i - 1] != '0') {
+                f[i] = f[i - 1];
+            }
+            if (i &gt; 1 &amp;&amp; (s[i - 2] == '1' || s[i - 2] == '2' &amp;&amp; s[i - 1] &lt;= '6')) {
+                f[i] += f[i - 2];
+            }
+        }
+        return f[n];
+    }
+};
+</code></pre>
+<h4 id="go-4"><a class="header" href="#go-4">Go</a></h4>
+<pre><code class="language-go">func numDecodings(s string) int {
+	n := len(s)
+	f := make([]int, n+1)
+	f[0] = 1
+	for i := 1; i &lt;= n; i++ {
+		if s[i-1] != '0' {
+			f[i] = f[i-1]
+		}
+		if i &gt; 1 &amp;&amp; (s[i-2] == '1' || (s[i-2] == '2' &amp;&amp; s[i-1] &lt;= '6')) {
+			f[i] += f[i-2]
+		}
+	}
+	return f[n]
+}
+</code></pre>
+<h4 id="typescript-4"><a class="header" href="#typescript-4">TypeScript</a></h4>
+<pre><code class="language-ts">function numDecodings(s: string): number {
+    const n = s.length;
+    const f: number[] = new Array(n + 1).fill(0);
+    f[0] = 1;
+    for (let i = 1; i &lt;= n; ++i) {
+        if (s[i - 1] !== '0') {
+            f[i] = f[i - 1];
+        }
+        if (i &gt; 1 &amp;&amp; (s[i - 2] === '1' || (s[i - 2] === '2' &amp;&amp; s[i - 1] &lt;= '6'))) {
+            f[i] += f[i - 2];
+        }
+    }
+    return f[n];
+}
+</code></pre>
+<h4 id="c-5"><a class="header" href="#c-5">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int NumDecodings(string s) {
+        int n = s.Length;
+        int[] f = new int[n + 1];
+        f[0] = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            if (s[i - 1] != '0') {
+                f[i] = f[i - 1];
+            }
+            if (i &gt; 1 &amp;&amp; (s[i - 2] == '1' || (s[i - 2] == '2' &amp;&amp; s[i - 1] &lt;= '6'))) {
+                f[i] += f[i - 2];
+            }
+        }
+        return f[n];
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<p>We notice that the state $f[i]$ is only related to the states $f[i-1]$ and $f[i-2]$, and is irrelevant to other states. Therefore, we can use two variables to replace these two states, reducing the original space complexity from $O(n)$ to $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-5"><a class="header" href="#python3-5">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numDecodings(self, s: str) -&gt; int:
+        f, g = 0, 1
+        for i, c in enumerate(s, 1):
+            h = g if c != "0" else 0
+            if i &gt; 1 and s[i - 2] != "0" and int(s[i - 2 : i]) &lt;= 26:
+                h += f
+            f, g = g, h
+        return g
+</code></pre>
+<h4 id="java-5"><a class="header" href="#java-5">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int numDecodings(String s) {
+        int n = s.length();
+        int f = 0, g = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            int h = s.charAt(i - 1) != '0' ? g : 0;
+            if (i &gt; 1 &amp;&amp; s.charAt(i - 2) != '0' &amp;&amp; Integer.valueOf(s.substring(i - 2, i)) &lt;= 26) {
+                h += f;
+            }
+            f = g;
+            g = h;
+        }
+        return g;
+    }
+}
+</code></pre>
+<h4 id="c-6"><a class="header" href="#c-6">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int numDecodings(string s) {
+        int n = s.size();
+        int f = 0, g = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            int h = s[i - 1] != '0' ? g : 0;
+            if (i &gt; 1 &amp;&amp; (s[i - 2] == '1' || (s[i - 2] == '2' &amp;&amp; s[i - 1] &lt;= '6'))) {
+                h += f;
+            }
+            f = g;
+            g = h;
+        }
+        return g;
+    }
+};
+</code></pre>
+<h4 id="go-5"><a class="header" href="#go-5">Go</a></h4>
+<pre><code class="language-go">func numDecodings(s string) int {
+	n := len(s)
+	f, g := 0, 1
+	for i := 1; i &lt;= n; i++ {
+		h := 0
+		if s[i-1] != '0' {
+			h = g
+		}
+		if i &gt; 1 &amp;&amp; (s[i-2] == '1' || (s[i-2] == '2' &amp;&amp; s[i-1] &lt;= '6')) {
+			h += f
+		}
+		f, g = g, h
+	}
+	return g
+}
+</code></pre>
+<h4 id="typescript-5"><a class="header" href="#typescript-5">TypeScript</a></h4>
+<pre><code class="language-ts">function numDecodings(s: string): number {
+    const n = s.length;
+    let [f, g] = [0, 1];
+    for (let i = 1; i &lt;= n; ++i) {
+        let h = s[i - 1] !== '0' ? g : 0;
+        if (i &gt; 1 &amp;&amp; (s[i - 2] === '1' || (s[i - 2] === '2' &amp;&amp; s[i - 1] &lt;= '6'))) {
+            h += f;
+        }
+        [f, g] = [g, h];
+    }
+    return g;
+}
+</code></pre>
+<h4 id="c-7"><a class="header" href="#c-7">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int NumDecodings(string s) {
+        int n = s.Length;
+        int f = 0, g = 1;
+        for (int i = 1; i &lt;= n; ++i) {
+            int h = s[i - 1] != '0' ? g : 0;
+            if (i &gt; 1 &amp;&amp; (s[i - 2] == '1' || (s[i - 2] == '2' &amp;&amp; s[i - 1] &lt;= '6'))) {
+                h += f;
+            }
+            f = g;
+            g = h;
+        }
+        return g;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">import java.util.Arrays;
@@ -572,49 +1460,208 @@ public class DecodeWays {
 </details>
 <h2 id="decode-ways-ii"><a class="header" href="#decode-ways-ii">Decode Ways II</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/decode-ways-ii" target="_blank">LeetCode Testing Link</a></p>
-<p>A message containing letters from A-Z can be encoded into numbers using the following mapping:</p>
-<p>A - 1
-B - 2
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0600-0699/0639.Decode%20Ways%20II/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="639-decode-ways-ii"><a class="header" href="#639-decode-ways-ii"><a href="https://leetcode.com/problems/decode-ways-ii">639. Decode Ways II</a></a></h1>
+<p><a href="dynamic-programming//solution/0600-0699/0639.Decode%20Ways%20II/README.html">中文文档</a></p>
+<h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
+<!-- description:start -->
+<p>A message containing letters from <code>A-Z</code> can be <strong>encoded</strong> into numbers using the following mapping:</p>
+<pre>
+&#39;A&#39; -&gt; &quot;1&quot;
+&#39;B&#39; -&gt; &quot;2&quot;
 ...
-Z - 26</p>
-<p>To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above (there may be multiple ways). For example, 11106 can be mapped into:</p>
-<pre><code>AAJF with the grouping (1 1 10 6)
-KJF with the grouping (11 10 6)
-</code></pre>
-<p>Note that the grouping (1 11 06) is invalid because 06 cannot be mapped into F since 6 is different from 06.</p>
-<p>In addition to the mapping above, an encoded message may contain the * character, which can represent any digit from 1 to 9 (0 is excluded). For example, the encoded message 1* may represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19. Decoding 1* is equivalent to decoding any of the encoded messages it can represent.</p>
-<p>Given a string s consisting of digits and * characters, return the number of ways to decode it.</p>
-<p>Since the answer may be very large, return it modulo 109 + 7.</p>
-<pre><code>Example 1:
-
-Input: s = *
-Output: 9
-Explanation: The encoded message can represent any of the encoded messages 1, 2, 3, 4, 5, 6, 7, 8, or 9.
-Each of these can be decoded to the strings A, B, C, D, E, F, G, H, and I respectively.
-Hence, there are a total of 9 ways to decode *.
-
-Example 2:
-
-Input: s = 1*
-Output: 18
-Explanation: The encoded message can represent any of the encoded messages 11, 12, 13, 14, 15, 16, 17, 18, or 19.
-Each of these encoded messages have 2 ways to be decoded (e.g. 11 can be decoded to AA or K).
-Hence, there are a total of 9 * 2 = 18 ways to decode 1*.
-
-Example 3:
-
-Input: s = 2*
-Output: 15
-Explanation: The encoded message can represent any of the encoded messages 21, 22, 23, 24, 25, 26, 27, 28, or 29.
-21, 22, 23, 24, 25, and 26 have 2 ways of being decoded, but 27, 28, and 29 only have 1 way.
-Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode 2*.
-</code></pre>
-<p>Constraints:</p>
+&#39;Z&#39; -&gt; &quot;26&quot;
+</pre>
+<p>To <strong>decode</strong> an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above (there may be multiple ways). For example, <code>&quot;11106&quot;</code> can be mapped into:</p>
 <ul>
-<li>1 &lt;= s.length &lt;= 10^5</li>
-<li>s[i] is a digit or *.</li>
+	<li><code>&quot;AAJF&quot;</code> with the grouping <code>(1 1 10 6)</code></li>
+	<li><code>&quot;KJF&quot;</code> with the grouping <code>(11 10 6)</code></li>
 </ul>
+<p>Note that the grouping <code>(1 11 06)</code> is invalid because <code>&quot;06&quot;</code> cannot be mapped into <code>&#39;F&#39;</code> since <code>&quot;6&quot;</code> is different from <code>&quot;06&quot;</code>.</p>
+<p><strong>In addition</strong> to the mapping above, an encoded message may contain the <code>&#39;*&#39;</code> character, which can represent any digit from <code>&#39;1&#39;</code> to <code>&#39;9&#39;</code> (<code>&#39;0&#39;</code> is excluded). For example, the encoded message <code>&quot;1*&quot;</code> may represent any of the encoded messages <code>&quot;11&quot;</code>, <code>&quot;12&quot;</code>, <code>&quot;13&quot;</code>, <code>&quot;14&quot;</code>, <code>&quot;15&quot;</code>, <code>&quot;16&quot;</code>, <code>&quot;17&quot;</code>, <code>&quot;18&quot;</code>, or <code>&quot;19&quot;</code>. Decoding <code>&quot;1*&quot;</code> is equivalent to decoding <strong>any</strong> of the encoded messages it can represent.</p>
+<p>Given a string <code>s</code> consisting of digits and <code>&#39;*&#39;</code> characters, return <em>the <strong>number</strong> of ways to <strong>decode</strong> it</em>.</p>
+<p>Since the answer may be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;*&quot;
+<strong>Output:</strong> 9
+<strong>Explanation:</strong> The encoded message can represent any of the encoded messages &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, or &quot;9&quot;.
+Each of these can be decoded to the strings &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, and &quot;I&quot; respectively.
+Hence, there are a total of 9 ways to decode &quot;*&quot;.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;1*&quot;
+<strong>Output:</strong> 18
+<strong>Explanation:</strong> The encoded message can represent any of the encoded messages &quot;11&quot;, &quot;12&quot;, &quot;13&quot;, &quot;14&quot;, &quot;15&quot;, &quot;16&quot;, &quot;17&quot;, &quot;18&quot;, or &quot;19&quot;.
+Each of these encoded messages have 2 ways to be decoded (e.g. &quot;11&quot; can be decoded to &quot;AA&quot; or &quot;K&quot;).
+Hence, there are a total of 9 * 2 = 18 ways to decode &quot;1*&quot;.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;2*&quot;
+<strong>Output:</strong> 15
+<strong>Explanation:</strong> The encoded message can represent any of the encoded messages &quot;21&quot;, &quot;22&quot;, &quot;23&quot;, &quot;24&quot;, &quot;25&quot;, &quot;26&quot;, &quot;27&quot;, &quot;28&quot;, or &quot;29&quot;.
+&quot;21&quot;, &quot;22&quot;, &quot;23&quot;, &quot;24&quot;, &quot;25&quot;, and &quot;26&quot; have 2 ways of being decoded, but &quot;27&quot;, &quot;28&quot;, and &quot;29&quot; only have 1 way.
+Hence, there are a total of (6 * 2) + (3 * 1) = 12 + 3 = 15 ways to decode &quot;2*&quot;.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> is a digit or <code>&#39;*&#39;</code>.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-3"><a class="header" href="#solutions-3">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1"><a class="header" href="#solution-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-6"><a class="header" href="#python3-6">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numDecodings(self, s: str) -&gt; int:
+        mod = int(1e9 + 7)
+        n = len(s)
+
+        # dp[i - 2], dp[i - 1], dp[i]
+        a, b, c = 0, 1, 0
+        for i in range(1, n + 1):
+            # 1 digit
+            if s[i - 1] == "*":
+                c = 9 * b % mod
+            elif s[i - 1] != "0":
+                c = b
+            else:
+                c = 0
+
+            # 2 digits
+            if i &gt; 1:
+                if s[i - 2] == "*" and s[i - 1] == "*":
+                    c = (c + 15 * a) % mod
+                elif s[i - 2] == "*":
+                    if s[i - 1] &gt; "6":
+                        c = (c + a) % mod
+                    else:
+                        c = (c + 2 * a) % mod
+                elif s[i - 1] == "*":
+                    if s[i - 2] == "1":
+                        c = (c + 9 * a) % mod
+                    elif s[i - 2] == "2":
+                        c = (c + 6 * a) % mod
+                elif (
+                    s[i - 2] != "0"
+                    and (ord(s[i - 2]) - ord("0")) * 10 + ord(s[i - 1]) - ord("0") &lt;= 26
+                ):
+                    c = (c + a) % mod
+
+            a, b = b, c
+
+        return c
+</code></pre>
+<h4 id="java-6"><a class="header" href="#java-6">Java</a></h4>
+<pre><code class="language-java">class Solution {
+
+    private static final int MOD = 1000000007;
+
+    public int numDecodings(String s) {
+        int n = s.length();
+        char[] cs = s.toCharArray();
+
+        // dp[i - 2], dp[i - 1], dp[i]
+        long a = 0, b = 1, c = 0;
+        for (int i = 1; i &lt;= n; i++) {
+            // 1 digit
+            if (cs[i - 1] == '*') {
+                c = 9 * b % MOD;
+            } else if (cs[i - 1] != '0') {
+                c = b;
+            } else {
+                c = 0;
+            }
+
+            // 2 digits
+            if (i &gt; 1) {
+                if (cs[i - 2] == '*' &amp;&amp; cs[i - 1] == '*') {
+                    c = (c + 15 * a) % MOD;
+                } else if (cs[i - 2] == '*') {
+                    if (cs[i - 1] &gt; '6') {
+                        c = (c + a) % MOD;
+                    } else {
+                        c = (c + 2 * a) % MOD;
+                    }
+                } else if (cs[i - 1] == '*') {
+                    if (cs[i - 2] == '1') {
+                        c = (c + 9 * a) % MOD;
+                    } else if (cs[i - 2] == '2') {
+                        c = (c + 6 * a) % MOD;
+                    }
+                } else if (cs[i - 2] != '0' &amp;&amp; (cs[i - 2] - '0') * 10 + cs[i - 1] - '0' &lt;= 26) {
+                    c = (c + a) % MOD;
+                }
+            }
+
+            a = b;
+            b = c;
+        }
+
+        return (int) c;
+    }
+}
+</code></pre>
+<h4 id="go-6"><a class="header" href="#go-6">Go</a></h4>
+<pre><code class="language-go">const mod int = 1e9 + 7
+
+func numDecodings(s string) int {
+	n := len(s)
+
+	// dp[i - 2], dp[i - 1], dp[i]
+	a, b, c := 0, 1, 0
+	for i := 1; i &lt;= n; i++ {
+		// 1 digit
+		if s[i-1] == '*' {
+			c = 9 * b % mod
+		} else if s[i-1] != '0' {
+			c = b
+		} else {
+			c = 0
+		}
+
+		// 2 digits
+		if i &gt; 1 {
+			if s[i-2] == '*' &amp;&amp; s[i-1] == '*' {
+				c = (c + 15*a) % mod
+			} else if s[i-2] == '*' {
+				if s[i-1] &gt; '6' {
+					c = (c + a) % mod
+				} else {
+					c = (c + 2*a) % mod
+				}
+			} else if s[i-1] == '*' {
+				if s[i-2] == '1' {
+					c = (c + 9*a) % mod
+				} else if s[i-2] == '2' {
+					c = (c + 6*a) % mod
+				}
+			} else if s[i-2] != '0' &amp;&amp; (s[i-2]-'0')*10+s[i-1]-'0' &lt;= 26 {
+				c = (c + a) % mod
+			}
+		}
+
+		a, b = b, c
+	}
+	return c
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">import java.util.Arrays;
@@ -796,25 +1843,268 @@ public class DecodeWaysII {
 </details>
 <h2 id="ugly-number-ii"><a class="header" href="#ugly-number-ii">Ugly Number II</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/ugly-number-ii" target="_blank">LeetCode Testing Link</a></p>
-<p>An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.</p>
-<p>Given an integer n, return the nth ugly number.</p>
-<pre><code>Example 1:
-
-Input: n = 10
-Output: 12
-Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
-
-Example 2:
-
-Input: n = 1
-Output: 1
-Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0264.Ugly%20Number%20II/README_EN.md
+tags:
+    - Hash Table
+    - Math
+    - Dynamic Programming
+    - Heap (Priority Queue)
 </code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="264-ugly-number-ii"><a class="header" href="#264-ugly-number-ii"><a href="https://leetcode.com/problems/ugly-number-ii">264. Ugly Number II</a></a></h1>
+<p><a href="dynamic-programming//solution/0200-0299/0264.Ugly%20Number%20II/README.html">中文文档</a></p>
+<h2 id="description-4"><a class="header" href="#description-4">Description</a></h2>
+<!-- description:start -->
+<p>An <strong>ugly number</strong> is a positive integer whose prime factors are limited to <code>2</code>, <code>3</code>, and <code>5</code>.</p>
+<p>Given an integer <code>n</code>, return <em>the</em> <code>n<sup>th</sup></code> <em><strong>ugly number</strong></em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> n = 10
+<strong>Output:</strong> 12
+<strong>Explanation:</strong> [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>1 &lt;= n &lt;= 1690</li>
+	<li><code>1 &lt;= n &lt;= 1690</code></li>
 </ul>
+<!-- description:end -->
+<h2 id="solutions-4"><a class="header" href="#solutions-4">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-1"><a class="header" href="#solution-1-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-7"><a class="header" href="#python3-7">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def nthUglyNumber(self, n: int) -&gt; int:
+        h = [1]
+        vis = {1}
+        ans = 1
+        for _ in range(n):
+            ans = heappop(h)
+            for v in [2, 3, 5]:
+                nxt = ans * v
+                if nxt not in vis:
+                    vis.add(nxt)
+                    heappush(h, nxt)
+        return ans
+</code></pre>
+<h4 id="java-7"><a class="header" href="#java-7">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int nthUglyNumber(int n) {
+        Set&lt;Long&gt; vis = new HashSet&lt;&gt;();
+        PriorityQueue&lt;Long&gt; q = new PriorityQueue&lt;&gt;();
+        int[] f = new int[] {2, 3, 5};
+        q.offer(1L);
+        vis.add(1L);
+        long ans = 0;
+        while (n-- &gt; 0) {
+            ans = q.poll();
+            for (int v : f) {
+                long next = ans * v;
+                if (vis.add(next)) {
+                    q.offer(next);
+                }
+            }
+        }
+        return (int) ans;
+    }
+}
+</code></pre>
+<h4 id="c-8"><a class="header" href="#c-8">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int nthUglyNumber(int n) {
+        priority_queue&lt;long, vector&lt;long&gt;, greater&lt;long&gt;&gt; q;
+        q.push(1l);
+        unordered_set&lt;long&gt; vis{{1l}};
+        long ans = 1;
+        vector&lt;int&gt; f = {2, 3, 5};
+        while (n--) {
+            ans = q.top();
+            q.pop();
+            for (int&amp; v : f) {
+                long nxt = ans * v;
+                if (!vis.count(nxt)) {
+                    vis.insert(nxt);
+                    q.push(nxt);
+                }
+            }
+        }
+        return (int) ans;
+    }
+};
+</code></pre>
+<h4 id="go-7"><a class="header" href="#go-7">Go</a></h4>
+<pre><code class="language-go">func nthUglyNumber(n int) int {
+	h := IntHeap([]int{1})
+	heap.Init(&amp;h)
+	ans := 1
+	vis := map[int]bool{1: true}
+	for n &gt; 0 {
+		ans = heap.Pop(&amp;h).(int)
+		for _, v := range []int{2, 3, 5} {
+			nxt := ans * v
+			if !vis[nxt] {
+				vis[nxt] = true
+				heap.Push(&amp;h, nxt)
+			}
+		}
+		n--
+	}
+	return ans
+}
+
+type IntHeap []int
+
+func (h IntHeap) Len() int           { return len(h) }
+func (h IntHeap) Less(i, j int) bool { return h[i] &lt; h[j] }
+func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *IntHeap) Push(x any) {
+	*h = append(*h, x.(int))
+}
+func (h *IntHeap) Pop() any {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+</code></pre>
+<h4 id="javascript-2"><a class="header" href="#javascript-2">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function (n) {
+    let dp = [1];
+    let p2 = 0,
+        p3 = 0,
+        p5 = 0;
+    for (let i = 1; i &lt; n; ++i) {
+        const next2 = dp[p2] * 2,
+            next3 = dp[p3] * 3,
+            next5 = dp[p5] * 5;
+        dp[i] = Math.min(next2, Math.min(next3, next5));
+        if (dp[i] == next2) ++p2;
+        if (dp[i] == next3) ++p3;
+        if (dp[i] == next5) ++p5;
+        dp.push(dp[i]);
+    }
+    return dp[n - 1];
+};
+</code></pre>
+<h4 id="c-9"><a class="header" href="#c-9">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int NthUglyNumber(int n) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        int p2 = 0, p3 = 0, p5 = 0;
+        for (int i = 1; i &lt; n; ++i) {
+            int next2 = dp[p2] * 2, next3 = dp[p3] * 3, next5 = dp[p5] * 5;
+            dp[i] = Math.Min(next2, Math.Min(next3, next5));
+            if (dp[i] == next2) {
+                ++p2;
+            }
+            if (dp[i] == next3) {
+                ++p3;
+            }
+            if (dp[i] == next5) {
+                ++p5;
+            }
+        }
+        return dp[n - 1];
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2"><a class="header" href="#solution-2">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-8"><a class="header" href="#python3-8">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def nthUglyNumber(self, n: int) -&gt; int:
+        dp = [1] * n
+        p2 = p3 = p5 = 0
+        for i in range(1, n):
+            next2, next3, next5 = dp[p2] * 2, dp[p3] * 3, dp[p5] * 5
+            dp[i] = min(next2, next3, next5)
+            if dp[i] == next2:
+                p2 += 1
+            if dp[i] == next3:
+                p3 += 1
+            if dp[i] == next5:
+                p5 += 1
+        return dp[-1]
+</code></pre>
+<h4 id="java-8"><a class="header" href="#java-8">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int nthUglyNumber(int n) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        int p2 = 0, p3 = 0, p5 = 0;
+        for (int i = 1; i &lt; n; ++i) {
+            int next2 = dp[p2] * 2, next3 = dp[p3] * 3, next5 = dp[p5] * 5;
+            dp[i] = Math.min(next2, Math.min(next3, next5));
+            if (dp[i] == next2) ++p2;
+            if (dp[i] == next3) ++p3;
+            if (dp[i] == next5) ++p5;
+        }
+        return dp[n - 1];
+    }
+}
+</code></pre>
+<h4 id="c-10"><a class="header" href="#c-10">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector&lt;int&gt; dp(n);
+        dp[0] = 1;
+        int p2 = 0, p3 = 0, p5 = 0;
+        for (int i = 1; i &lt; n; ++i) {
+            int next2 = dp[p2] * 2, next3 = dp[p3] * 3, next5 = dp[p5] * 5;
+            dp[i] = min(next2, min(next3, next5));
+            if (dp[i] == next2) ++p2;
+            if (dp[i] == next3) ++p3;
+            if (dp[i] == next5) ++p5;
+        }
+        return dp[n - 1];
+    }
+};
+</code></pre>
+<h4 id="go-8"><a class="header" href="#go-8">Go</a></h4>
+<pre><code class="language-go">func nthUglyNumber(n int) int {
+	dp := make([]int, n)
+	dp[0] = 1
+	p2, p3, p5 := 0, 0, 0
+	for i := 1; i &lt; n; i++ {
+		next2, next3, next5 := dp[p2]*2, dp[p3]*3, dp[p5]*5
+		dp[i] = min(next2, min(next3, next5))
+		if dp[i] == next2 {
+			p2++
+		}
+		if dp[i] == next3 {
+			p3++
+		}
+		if dp[i] == next5 {
+			p5++
+		}
+	}
+	return dp[n-1]
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class UglyNumberII {
@@ -853,30 +2143,395 @@ Explanation: 1 has no prime factors, therefore all of its prime factors are limi
 </details>
 <h2 id="longest-valid-parentheses"><a class="header" href="#longest-valid-parentheses">Longest Valid Parentheses</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/longest-valid-parentheses" target="_blank">LeetCode Testing Link</a></p>
-<p>Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed) parentheses substring.</p>
-<pre><code>Example 1:
-
-Input: s = (()
-Output: 2
-Explanation: The longest valid parentheses substring is ().
-
-Example 2:
-
-Input: s = )()())
-Output: 4
-Explanation: The longest valid parentheses substring is ()().
-
-Example 3:
-
-Input: s = 
-Output: 0
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0032.Longest%20Valid%20Parentheses/README_EN.md
+tags:
+    - Stack
+    - String
+    - Dynamic Programming
 </code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="32-longest-valid-parentheses"><a class="header" href="#32-longest-valid-parentheses"><a href="https://leetcode.com/problems/longest-valid-parentheses">32. Longest Valid Parentheses</a></a></h1>
+<p><a href="dynamic-programming//solution/0000-0099/0032.Longest%20Valid%20Parentheses/README.html">中文文档</a></p>
+<h2 id="description-5"><a class="header" href="#description-5">Description</a></h2>
+<!-- description:start -->
+<p>Given a string containing just the characters <code>&#39;(&#39;</code> and <code>&#39;)&#39;</code>, return <em>the length of the longest valid (well-formed) parentheses </em><span data-keyword="substring-nonempty"><em>substring</em></span>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;(()&quot;
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> The longest valid parentheses substring is &quot;()&quot;.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;)()())&quot;
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> The longest valid parentheses substring is &quot;()()&quot;.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;&quot;
+<strong>Output:</strong> 0
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>0 &lt;= s.length &lt; 3 * 10^4</li>
-<li>s[i] is '(', or ')'.</li>
+	<li><code>0 &lt;= s.length &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>s[i]</code> is <code>&#39;(&#39;</code>, or <code>&#39;)&#39;</code>.</li>
 </ul>
+<!-- description:end -->
+<h2 id="solutions-5"><a class="header" href="#solutions-5">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming-1"><a class="header" href="#solution-1-dynamic-programming-1">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i]$ to be the length of the longest valid parentheses that ends with $s[i-1]$, and the answer is $max(f[i])$.</p>
+<p>When $i \lt 2$, the length of the string is less than $2$, and there is no valid parentheses, so $f[i] = 0$.</p>
+<p>When $i \ge 2$, we consider the length of the longest valid parentheses that ends with $s[i-1]$, that is, $f[i]$:</p>
+<ul>
+<li>If $s[i-1]$ is a left parenthesis, then the length of the longest valid parentheses that ends with $s[i-1]$ must be $0$, so $f[i] = 0$.</li>
+<li>If $s[i-1]$ is a right parenthesis, there are the following two cases:
+<ul>
+<li>If $s[i-2]$ is a left parenthesis, then the length of the longest valid parentheses that ends with $s[i-1]$ is $f[i-2] + 2$.</li>
+<li>If $s[i-2]$ is a right parenthesis, then the length of the longest valid parentheses that ends with $s[i-1]$ is $f[i-1] + 2$, but we also need to consider whether $s[i-f[i-1]-2]$ is a left parenthesis. If it is a left parenthesis, then the length of the longest valid parentheses that ends with $s[i-1]$ is $f[i-1] + 2 + f[i-f[i-1]-2]$.</li>
+</ul>
+</li>
+</ul>
+<p>Therefore, we can get the state transition equation:</p>
+<p>$$
+\begin{cases}
+f[i] = 0, &amp; \textit{if } s[i-1] = '(',\
+f[i] = f[i-2] + 2, &amp; \textit{if } s[i-1] = ')' \textit{ and } s[i-2] = '(',\
+f[i] = f[i-1] + 2 + f[i-f[i-1]-2], &amp; \textit{if } s[i-1] = ')' \textit{ and } s[i-2] = ')' \textit{ and } s[i-f[i-1]-2] = '(',\
+\end{cases}
+$$</p>
+<p>Finally, we only need to return $max(f)$.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$, where $n$ is the length of the string.</p>
+<!-- tabs:start -->
+<h4 id="python3-9"><a class="header" href="#python3-9">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def longestValidParentheses(self, s: str) -&gt; int:
+        n = len(s)
+        f = [0] * (n + 1)
+        for i, c in enumerate(s, 1):
+            if c == ")":
+                if i &gt; 1 and s[i - 2] == "(":
+                    f[i] = f[i - 2] + 2
+                else:
+                    j = i - f[i - 1] - 1
+                    if j and s[j - 1] == "(":
+                        f[i] = f[i - 1] + 2 + f[j - 1]
+        return max(f)
+</code></pre>
+<h4 id="java-9"><a class="header" href="#java-9">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestValidParentheses(String s) {
+        int n = s.length();
+        int[] f = new int[n + 1];
+        int ans = 0;
+        for (int i = 2; i &lt;= n; ++i) {
+            if (s.charAt(i - 1) == ')') {
+                if (s.charAt(i - 2) == '(') {
+                    f[i] = f[i - 2] + 2;
+                } else {
+                    int j = i - f[i - 1] - 1;
+                    if (j &gt; 0 &amp;&amp; s.charAt(j - 1) == '(') {
+                        f[i] = f[i - 1] + 2 + f[j - 1];
+                    }
+                }
+                ans = Math.max(ans, f[i]);
+            }
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-11"><a class="header" href="#c-11">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int n = s.size();
+        int f[n + 1];
+        memset(f, 0, sizeof(f));
+        for (int i = 2; i &lt;= n; ++i) {
+            if (s[i - 1] == ')') {
+                if (s[i - 2] == '(') {
+                    f[i] = f[i - 2] + 2;
+                } else {
+                    int j = i - f[i - 1] - 1;
+                    if (j &amp;&amp; s[j - 1] == '(') {
+                        f[i] = f[i - 1] + 2 + f[j - 1];
+                    }
+                }
+            }
+        }
+        return *max_element(f, f + n + 1);
+    }
+};
+</code></pre>
+<h4 id="go-9"><a class="header" href="#go-9">Go</a></h4>
+<pre><code class="language-go">func longestValidParentheses(s string) int {
+	n := len(s)
+	f := make([]int, n+1)
+	for i := 2; i &lt;= n; i++ {
+		if s[i-1] == ')' {
+			if s[i-2] == '(' {
+				f[i] = f[i-2] + 2
+			} else if j := i - f[i-1] - 1; j &gt; 0 &amp;&amp; s[j-1] == '(' {
+				f[i] = f[i-1] + 2 + f[j-1]
+			}
+		}
+	}
+	return slices.Max(f)
+}
+</code></pre>
+<h4 id="typescript-6"><a class="header" href="#typescript-6">TypeScript</a></h4>
+<pre><code class="language-ts">function longestValidParentheses(s: string): number {
+    const n = s.length;
+    const f: number[] = new Array(n + 1).fill(0);
+    for (let i = 2; i &lt;= n; ++i) {
+        if (s[i - 1] === ')') {
+            if (s[i - 2] === '(') {
+                f[i] = f[i - 2] + 2;
+            } else {
+                const j = i - f[i - 1] - 1;
+                if (j &amp;&amp; s[j - 1] === '(') {
+                    f[i] = f[i - 1] + 2 + f[j - 1];
+                }
+            }
+        }
+    }
+    return Math.max(...f);
+}
+</code></pre>
+<h4 id="rust-2"><a class="header" href="#rust-2">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn longest_valid_parentheses(s: String) -&gt; i32 {
+        let mut ans = 0;
+        let mut f = vec![0; s.len() + 1];
+        for i in 2..=s.len() {
+            if s.chars().nth(i - 1).unwrap() == ')' {
+                if s.chars().nth(i - 2).unwrap() == '(' {
+                    f[i] = f[i - 2] + 2;
+                } else if (i as i32) - f[i - 1] - 1 &gt; 0
+                    &amp;&amp; s.chars().nth(i - (f[i - 1] as usize) - 2).unwrap() == '('
+                {
+                    f[i] = f[i - 1] + 2 + f[i - (f[i - 1] as usize) - 2];
+                }
+                ans = ans.max(f[i]);
+            }
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-3"><a class="header" href="#javascript-3">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function (s) {
+    const n = s.length;
+    const f = new Array(n + 1).fill(0);
+    for (let i = 2; i &lt;= n; ++i) {
+        if (s[i - 1] === ')') {
+            if (s[i - 2] === '(') {
+                f[i] = f[i - 2] + 2;
+            } else {
+                const j = i - f[i - 1] - 1;
+                if (j &amp;&amp; s[j - 1] === '(') {
+                    f[i] = f[i - 1] + 2 + f[j - 1];
+                }
+            }
+        }
+    }
+    return Math.max(...f);
+};
+</code></pre>
+<h4 id="c-12"><a class="header" href="#c-12">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int LongestValidParentheses(string s) {
+        int n = s.Length;
+        int[] f = new int[n + 1];
+        int ans = 0;
+        for (int i = 2; i &lt;= n; ++i) {
+            if (s[i - 1] == ')') {
+                if (s[i - 2] == '(') {
+                    f[i] = f[i - 2] + 2;
+                } else {
+                    int j = i - f[i - 1] - 1;
+                    if (j &gt; 0 &amp;&amp; s[j - 1] == '(') {
+                        f[i] = f[i - 1] + 2 + f[j - 1];
+                    }
+                }
+                ans = Math.Max(ans, f[i]);
+            }
+        }
+        return ans;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-using-stack"><a class="header" href="#solution-2-using-stack">Solution 2: Using Stack</a></h3>
+<ul>
+<li>Maintain a stack to store the indices of left parentheses. Initialize the bottom element of the stack with the value -1 to facilitate the calculation of the length of valid parentheses.</li>
+<li>Iterate through each element of the string:
+<ul>
+<li>If the character is a left parenthesis, push the index of the character onto the stack.</li>
+<li>If the character is a right parenthesis, pop an element from the stack to represent that we have found a valid pair of parentheses.
+<ul>
+<li>If the stack is empty, it means we couldn't find a left parenthesis to match the right parenthesis. In this case, push the index of the character as a new starting point.</li>
+<li>If the stack is not empty, calculate the length of the valid parentheses and update it.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Summary:</p>
+<p>The key to this algorithm is to maintain a stack to store the indices of left parentheses and then update the length of the valid substring of parentheses by pushing and popping elements.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$, where $n$ is the length of the string.</p>
+<!-- tabs:start -->
+<h4 id="python3-10"><a class="header" href="#python3-10">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def longestValidParentheses(self, s: str) -&gt; int:
+        stack = [-1]
+        ans = 0
+        for i in range(len(s)):
+            if s[i] == '(':
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    ans = max(ans, i - stack[-1])
+        return ans
+</code></pre>
+<h4 id="go-10"><a class="header" href="#go-10">Go</a></h4>
+<pre><code class="language-go">func longestValidParentheses(s string) int {
+	ans := 0
+	stack := []int{-1}
+	for i, v := range s {
+		if v == '(' {
+			stack = append(stack, i)
+		} else {
+			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				stack = append(stack, i)
+			} else {
+				if ans &lt; i-stack[len(stack)-1] {
+					ans = i - stack[len(stack)-1]
+				}
+			}
+		}
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript-7"><a class="header" href="#typescript-7">TypeScript</a></h4>
+<pre><code class="language-ts">function longestValidParentheses(s: string): number {
+    let max_length: number = 0;
+    const stack: number[] = [-1];
+    for (let i = 0; i &lt; s.length; i++) {
+        if (s.charAt(i) == '(') {
+            stack.push(i);
+        } else {
+            stack.pop();
+
+            if (stack.length === 0) {
+                stack.push(i);
+            } else {
+                max_length = Math.max(max_length, i - stack[stack.length - 1]);
+            }
+        }
+    }
+
+    return max_length;
+}
+</code></pre>
+<h4 id="rust-3"><a class="header" href="#rust-3">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn longest_valid_parentheses(s: String) -&gt; i32 {
+        let mut stack = vec![-1];
+        let mut res = 0;
+        for i in 0..s.len() {
+            if let Some('(') = s.chars().nth(i) {
+                stack.push(i as i32);
+            } else {
+                stack.pop().unwrap();
+                if stack.is_empty() {
+                    stack.push(i as i32);
+                } else {
+                    res = std::cmp::max(res, (i as i32) - stack.last().unwrap());
+                }
+            }
+        }
+        res
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-4"><a class="header" href="#javascript-4">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function (s) {
+    let ans = 0;
+    const stack = [-1];
+    for (i = 0; i &lt; s.length; i++) {
+        if (s.charAt(i) === '(') {
+            stack.push(i);
+        } else {
+            stack.pop();
+            if (stack.length === 0) {
+                stack.push(i);
+            } else {
+                ans = Math.max(ans, i - stack[stack.length - 1]);
+            }
+        }
+    }
+    return ans;
+};
+</code></pre>
+<h4 id="php-1"><a class="header" href="#php-1">PHP</a></h4>
+<pre><code class="language-php">class Solution {
+    /**
+     * @param string $s
+     * @return integer
+     */
+
+    function longestValidParentheses($s) {
+        $stack = [];
+        $maxLength = 0;
+
+        array_push($stack, -1);
+        for ($i = 0; $i &lt; strlen($s); $i++) {
+            if ($s[$i] === '(') {
+                array_push($stack, $i);
+            } else {
+                array_pop($stack);
+
+                if (empty($stack)) {
+                    array_push($stack, $i);
+                } else {
+                    $length = $i - end($stack);
+                    $maxLength = max($maxLength, $length);
+                }
+            }
+        }
+        return $maxLength;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class LongestValidParentheses {
@@ -909,35 +2564,167 @@ Output: 0
 </details>
 <h2 id="unique-substring-in-wraparound-string"><a class="header" href="#unique-substring-in-wraparound-string">Unique Substring in Wraparound String</a></h2>
 <details><summary>Description:</summary>
-<p>(https://leetcode.com/problems/unique-substrings-in-wraparound-string)</p>
-<p>We define the string base to be the infinite wraparound string of abcdefghijklmnopqrstuvwxyz, so base will look like this:</p>
-<pre><code>...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd.....
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0400-0499/0467.Unique%20Substrings%20in%20Wraparound%20String/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
 </code></pre>
-<p>Given a string s, return the number of unique non-empty substrings of s are present in base,
-i.e., find the unique common substrings in both s and base.</p>
-<pre><code>Example 1:
-
-Input: s = a
-Output: 1
-Explanation: Only the substring a of s is in base.
-
-Example 2:
-
-Input: s = cac
-Output: 2
-Explanation: There are two substrings (a, c) of s in base.
-
-Example 3:
-
-Input: s = zab
-Output: 6
-Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.
-</code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="467-unique-substrings-in-wraparound-string"><a class="header" href="#467-unique-substrings-in-wraparound-string"><a href="https://leetcode.com/problems/unique-substrings-in-wraparound-string">467. Unique Substrings in Wraparound String</a></a></h1>
+<p><a href="dynamic-programming//solution/0400-0499/0467.Unique%20Substrings%20in%20Wraparound%20String/README.html">中文文档</a></p>
+<h2 id="description-6"><a class="header" href="#description-6">Description</a></h2>
+<!-- description:start -->
+<p>We define the string <code>base</code> to be the infinite wraparound string of <code>&quot;abcdefghijklmnopqrstuvwxyz&quot;</code>, so <code>base</code> will look like this:</p>
 <ul>
-<li>1 &lt;= s.length &lt;= 10^5</li>
-<li>s consists of lowercase English letters.</li>
+	<li><code>&quot;...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd....&quot;</code>.</li>
 </ul>
+<p>Given a string <code>s</code>, return <em>the number of <strong>unique non-empty substrings</strong> of </em><code>s</code><em> are present in </em><code>base</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;a&quot;
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> Only the substring &quot;a&quot; of s is in base.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;cac&quot;
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> There are two substrings (&quot;a&quot;, &quot;c&quot;) of s in base.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;zab&quot;
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> There are six substrings (&quot;z&quot;, &quot;a&quot;, &quot;b&quot;, &quot;za&quot;, &quot;ab&quot;, and &quot;zab&quot;) of s in base.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-6"><a class="header" href="#solutions-6">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming-2"><a class="header" href="#solution-1-dynamic-programming-2">Solution 1: Dynamic Programming</a></h3>
+<p>We can define an array $f$ of length $26$, where $f[i]$ represents the length of the longest consecutive substring ending with the $i$th character. The answer is the sum of all elements in $f$.</p>
+<p>We define a variable $k$ to represent the length of the longest consecutive substring ending with the current character. We iterate through the string $s$. For each character $c$, if the difference between $c$ and the previous character $s[i - 1]$ is $1$, then we increment $k$ by $1$, otherwise, we reset $k$ to $1$. Then we update $f[c]$ to be the larger value of $f[c]$ and $k$.</p>
+<p>Finally, we return the sum of all elements in $f$.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the string $s$. The space complexity is $O(|\Sigma|)$, where $\Sigma$ is the character set, in this case, the set of lowercase letters.</p>
+<!-- tabs:start -->
+<h4 id="python3-11"><a class="header" href="#python3-11">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def findSubstringInWraproundString(self, s: str) -&gt; int:
+        f = defaultdict(int)
+        k = 0
+        for i, c in enumerate(s):
+            if i and (ord(c) - ord(s[i - 1])) % 26 == 1:
+                k += 1
+            else:
+                k = 1
+            f[c] = max(f[c], k)
+        return sum(f.values())
+</code></pre>
+<h4 id="java-10"><a class="header" href="#java-10">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int findSubstringInWraproundString(String s) {
+        int[] f = new int[26];
+        int n = s.length();
+        for (int i = 0, k = 0; i &lt; n; ++i) {
+            if (i &gt; 0 &amp;&amp; (s.charAt(i) - s.charAt(i - 1) + 26) % 26 == 1) {
+                ++k;
+            } else {
+                k = 1;
+            }
+            f[s.charAt(i) - 'a'] = Math.max(f[s.charAt(i) - 'a'], k);
+        }
+        return Arrays.stream(f).sum();
+    }
+}
+</code></pre>
+<h4 id="c-13"><a class="header" href="#c-13">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int findSubstringInWraproundString(string s) {
+        int f[26]{};
+        int n = s.length();
+        for (int i = 0, k = 0; i &lt; n; ++i) {
+            if (i &amp;&amp; (s[i] - s[i - 1] + 26) % 26 == 1) {
+                ++k;
+            } else {
+                k = 1;
+            }
+            f[s[i] - 'a'] = max(f[s[i] - 'a'], k);
+        }
+        return accumulate(begin(f), end(f), 0);
+    }
+};
+</code></pre>
+<h4 id="go-11"><a class="header" href="#go-11">Go</a></h4>
+<pre><code class="language-go">func findSubstringInWraproundString(s string) (ans int) {
+	f := [26]int{}
+	k := 0
+	for i := range s {
+		if i &gt; 0 &amp;&amp; (s[i]-s[i-1]+26)%26 == 1 {
+			k++
+		} else {
+			k = 1
+		}
+		f[s[i]-'a'] = max(f[s[i]-'a'], k)
+	}
+	for _, x := range f {
+		ans += x
+	}
+	return
+}
+</code></pre>
+<h4 id="typescript-8"><a class="header" href="#typescript-8">TypeScript</a></h4>
+<pre><code class="language-ts">function findSubstringInWraproundString(s: string): number {
+    const idx = (c: string): number =&gt; c.charCodeAt(0) - 97;
+    const f: number[] = Array(26).fill(0);
+    const n = s.length;
+    for (let i = 0, k = 0; i &lt; n; ++i) {
+        const j = idx(s[i]);
+        if (i &amp;&amp; (j - idx(s[i - 1]) + 26) % 26 === 1) {
+            ++k;
+        } else {
+            k = 1;
+        }
+        f[j] = Math.max(f[j], k);
+    }
+    return f.reduce((acc, cur) =&gt; acc + cur, 0);
+}
+</code></pre>
+<h4 id="rust-4"><a class="header" href="#rust-4">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn find_substring_in_wrapround_string(s: String) -&gt; i32 {
+        let idx = |c: u8| -&gt; usize { (c - b'a') as usize };
+        let mut f = vec![0; 26];
+        let n = s.len();
+        let s = s.as_bytes();
+        let mut k = 0;
+        for i in 0..n {
+            let j = idx(s[i]);
+            if i &gt; 0 &amp;&amp; ((j as i32) - (idx(s[i - 1]) as i32) + 26) % 26 == 1 {
+                k += 1;
+            } else {
+                k = 1;
+            }
+            f[j] = f[j].max(k);
+        }
+
+        f.iter().sum()
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class UniqueSubstringInWraparoundString {
@@ -985,32 +2772,260 @@ Explanation: There are six substrings (z, a, b, za, ab, and zab) of s in base.
 </details>
 <h2 id="distinct-subsequences-ii"><a class="header" href="#distinct-subsequences-ii">Distinct Subsequences II</a></h2>
 <details><summary>Description:</summary>
-<p><a href="https://leetcode.com/problems/distinct-subsequences-ii" target="_blank">LeetCode Testing Link</a></p>
-<p>Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 10^9 + 7.
-A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters (i.e., <code>ace</code> is a subsequence of <code>abcde</code> while <code>aec</code> is not).</p>
-<pre><code>Example 1:
-
-Input: s = abc
-Output: 7
-Explanation: The 7 distinct subsequences are a, b, c, ab, ac, bc, and abc.
-
-Example 2:
-
-Input: s = aba
-Output: 6
-Explanation: The 6 distinct subsequences are a, b, ab, aa, ba, and aba.
-
-Example 3:
-
-Input: s = aaa
-Output: 3
-Explanation: The 3 distinct subsequences are a, aa and aaa.
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0900-0999/0940.Distinct%20Subsequences%20II/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
 </code></pre>
-<p>Constraints:</p>
+<!-- problem:start -->
+<h1 id="940-distinct-subsequences-ii"><a class="header" href="#940-distinct-subsequences-ii"><a href="https://leetcode.com/problems/distinct-subsequences-ii">940. Distinct Subsequences II</a></a></h1>
+<p><a href="dynamic-programming//solution/0900-0999/0940.Distinct%20Subsequences%20II/README.html">中文文档</a></p>
+<h2 id="description-7"><a class="header" href="#description-7">Description</a></h2>
+<!-- description:start -->
+<p>Given a string s, return <em>the number of <strong>distinct non-empty subsequences</strong> of</em> <code>s</code>. Since the answer may be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>
+A <strong>subsequence</strong> of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., <code>&quot;ace&quot;</code> is a subsequence of <code>&quot;<u>a</u>b<u>c</u>d<u>e</u>&quot;</code> while <code>&quot;aec&quot;</code> is not.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;abc&quot;
+<strong>Output:</strong> 7
+<strong>Explanation:</strong> The 7 distinct subsequences are &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;ab&quot;, &quot;ac&quot;, &quot;bc&quot;, and &quot;abc&quot;.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;aba&quot;
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> The 6 distinct subsequences are &quot;a&quot;, &quot;b&quot;, &quot;ab&quot;, &quot;aa&quot;, &quot;ba&quot;, and &quot;aba&quot;.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;aaa&quot;
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The 3 distinct subsequences are &quot;a&quot;, &quot;aa&quot; and &quot;aaa&quot;.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 <ul>
-<li>1 &lt;= s.length &lt;= 2000</li>
-<li>s consists of lowercase English letters.</li>
+	<li><code>1 &lt;= s.length &lt;= 2000</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
 </ul>
+<!-- description:end -->
+<h2 id="solutions-7"><a class="header" href="#solutions-7">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-2"><a class="header" href="#solution-1-2">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-12"><a class="header" href="#python3-12">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def distinctSubseqII(self, s: str) -&gt; int:
+        mod = 10**9 + 7
+        n = len(s)
+        dp = [[0] * 26 for _ in range(n + 1)]
+        for i, c in enumerate(s, 1):
+            k = ord(c) - ord('a')
+            for j in range(26):
+                if j == k:
+                    dp[i][j] = sum(dp[i - 1]) % mod + 1
+                else:
+                    dp[i][j] = dp[i - 1][j]
+        return sum(dp[-1]) % mod
+</code></pre>
+<h4 id="java-11"><a class="header" href="#java-11">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private static final int MOD = (int) 1e9 + 7;
+
+    public int distinctSubseqII(String s) {
+        int[] dp = new int[26];
+        for (int i = 0; i &lt; s.length(); ++i) {
+            int j = s.charAt(i) - 'a';
+            dp[j] = sum(dp) + 1;
+        }
+        return sum(dp);
+    }
+
+    private int sum(int[] arr) {
+        int x = 0;
+        for (int v : arr) {
+            x = (x + v) % MOD;
+        }
+        return x;
+    }
+}
+</code></pre>
+<h4 id="c-14"><a class="header" href="#c-14">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    const int mod = 1e9 + 7;
+
+    int distinctSubseqII(string s) {
+        vector&lt;long&gt; dp(26);
+        for (char&amp; c : s) {
+            int i = c - 'a';
+            dp[i] = accumulate(dp.begin(), dp.end(), 1l) % mod;
+        }
+        return accumulate(dp.begin(), dp.end(), 0l) % mod;
+    }
+};
+</code></pre>
+<h4 id="go-12"><a class="header" href="#go-12">Go</a></h4>
+<pre><code class="language-go">func distinctSubseqII(s string) int {
+	const mod int = 1e9 + 7
+	sum := func(arr []int) int {
+		x := 0
+		for _, v := range arr {
+			x = (x + v) % mod
+		}
+		return x
+	}
+
+	dp := make([]int, 26)
+	for _, c := range s {
+		c -= 'a'
+		dp[c] = sum(dp) + 1
+	}
+	return sum(dp)
+}
+</code></pre>
+<h4 id="typescript-9"><a class="header" href="#typescript-9">TypeScript</a></h4>
+<pre><code class="language-ts">function distinctSubseqII(s: string): number {
+    const mod = 1e9 + 7;
+    const dp = new Array(26).fill(0);
+    for (const c of s) {
+        dp[c.charCodeAt(0) - 'a'.charCodeAt(0)] = dp.reduce((r, v) =&gt; (r + v) % mod, 0) + 1;
+    }
+    return dp.reduce((r, v) =&gt; (r + v) % mod, 0);
+}
+</code></pre>
+<h4 id="rust-5"><a class="header" href="#rust-5">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn distinct_subseq_ii(s: String) -&gt; i32 {
+        const MOD: i32 = (1e9 as i32) + 7;
+        let mut dp = [0; 26];
+        for u in s.as_bytes() {
+            let i = (u - &amp;b'a') as usize;
+            dp[i] = ({
+                let mut sum = 0;
+                dp.iter().for_each(|&amp;v| {
+                    sum = (sum + v) % MOD;
+                });
+                sum
+            }) + 1;
+        }
+        let mut res = 0;
+        dp.iter().for_each(|&amp;v| {
+            res = (res + v) % MOD;
+        });
+        res
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="c-15"><a class="header" href="#c-15">C</a></h4>
+<pre><code class="language-c">int distinctSubseqII(char* s) {
+    int mod = 1e9 + 7;
+    int n = strlen(s);
+    int dp[26] = {0};
+    for (int i = 0; i &lt; n; i++) {
+        int sum = 0;
+        for (int j = 0; j &lt; 26; j++) {
+            sum = (sum + dp[j]) % mod;
+        }
+        dp[s[i] - 'a'] = sum + 1;
+    }
+    int res = 0;
+    for (int i = 0; i &lt; 26; i++) {
+        res = (res + dp[i]) % mod;
+    }
+    return res;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-1"><a class="header" href="#solution-2-1">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-13"><a class="header" href="#python3-13">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def distinctSubseqII(self, s: str) -&gt; int:
+        mod = 10**9 + 7
+        dp = [0] * 26
+        for c in s:
+            i = ord(c) - ord('a')
+            dp[i] = sum(dp) % mod + 1
+        return sum(dp) % mod
+</code></pre>
+<h4 id="java-12"><a class="header" href="#java-12">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private static final int MOD = (int) 1e9 + 7;
+
+    public int distinctSubseqII(String s) {
+        int[] dp = new int[26];
+        int ans = 0;
+        for (int i = 0; i &lt; s.length(); ++i) {
+            int j = s.charAt(i) - 'a';
+            int add = (ans - dp[j] + 1) % MOD;
+            ans = (ans + add) % MOD;
+            dp[j] = (dp[j] + add) % MOD;
+        }
+        return (ans + MOD) % MOD;
+    }
+}
+</code></pre>
+<h4 id="c-16"><a class="header" href="#c-16">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    const int mod = 1e9 + 7;
+
+    int distinctSubseqII(string s) {
+        vector&lt;long&gt; dp(26);
+        long ans = 0;
+        for (char&amp; c : s) {
+            int i = c - 'a';
+            long add = ans - dp[i] + 1;
+            ans = (ans + add + mod) % mod;
+            dp[i] = (dp[i] + add) % mod;
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-13"><a class="header" href="#go-13">Go</a></h4>
+<pre><code class="language-go">func distinctSubseqII(s string) int {
+	const mod int = 1e9 + 7
+	dp := make([]int, 26)
+	ans := 0
+	for _, c := range s {
+		c -= 'a'
+		add := ans - dp[c] + 1
+		ans = (ans + add) % mod
+		dp[c] = (dp[c] + add) % mod
+	}
+	return (ans + mod) % mod
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-3"><a class="header" href="#solution-3">Solution 3</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-14"><a class="header" href="#python3-14">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def distinctSubseqII(self, s: str) -&gt; int:
+        mod = 10**9 + 7
+        dp = [0] * 26
+        ans = 0
+        for c in s:
+            i = ord(c) - ord('a')
+            add = ans - dp[i] + 1
+            ans = (ans + add) % mod
+            dp[i] += add
+        return ans
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
 </details>
 <details><summary>Solution:</summary>
 <pre><code class="language-java">public class DistinctSubsequencesII {
@@ -1474,7 +3489,7 @@ tags:
 - Dynamic Programming</h2>
 <h1 id="516-longest-palindromic-subsequence"><a class="header" href="#516-longest-palindromic-subsequence"><a href="https://leetcode.com/problems/longest-palindromic-subsequence">516. Longest Palindromic Subsequence</a></a></h1>
 <p><a href="dynamic-programming//solution/0500-0599/0516.Longest%20Palindromic%20Subsequence/README.html">中文文档</a></p>
-<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<h2 id="description-8"><a class="header" href="#description-8">Description</a></h2>
 <p>Given a string s, find the longest palindromic subsequences length in s.</p>
 <p>A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.</p>
 <p>Example 1:</p>
@@ -1489,14 +3504,14 @@ Explanation: One possible longest palindromic subsequence is bb.</p>
 <pre><code>1 = s.length = 1000
 s consists only of lowercase English letters.
 </code></pre>
-<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
-<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<h2 id="solutions-8"><a class="header" href="#solutions-8">Solutions</a></h2>
+<h3 id="solution-1-dynamic-programming-3"><a class="header" href="#solution-1-dynamic-programming-3">Solution 1: Dynamic Programming</a></h3>
 <p>We define $f[i][j]$ as the length of the longest palindromic subsequence from the $i$-th character to the $j$-th character in string $s$. Initially, $f[i][i] = 1$, and the values of other positions are all $0$.</p>
 <p>If $s[i] = s[j]$, then $f[i][j] = f[i + 1][j - 1] + 2$; otherwise, $f[i][j] = \max(f[i + 1][j], f[i][j - 1])$.</p>
 <p>Since the value of $f[i][j]$ is related to $f[i + 1][j - 1]$, $f[i + 1][j]$, and $f[i][j - 1]$, we should enumerate $i$ from large to small, and enumerate $j$ from small to large.</p>
 <p>The answer is $f[0][n - 1]$.</p>
 <p>The time complexity is $O(n^2)$, and the space complexity is $O(n^2)$. Where $n$ is the length of the string $s$.</p>
-<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<h4 id="python3-15"><a class="header" href="#python3-15">Python3</a></h4>
 <pre><code class="language-python">class Solution:
     def longestPalindromeSubseq(self, s: str) -&gt; int:
         n = len(s)
@@ -1511,7 +3526,7 @@ s consists only of lowercase English letters.
                     f[i][j] = max(f[i + 1][j], f[i][j - 1])
         return f[0][-1]
 </code></pre>
-<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<h4 id="java-13"><a class="header" href="#java-13">Java</a></h4>
 <pre><code class="language-java">class Solution {
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
@@ -1532,7 +3547,7 @@ s consists only of lowercase English letters.
     }
 }
 </code></pre>
-<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<h4 id="c-17"><a class="header" href="#c-17">C++</a></h4>
 <pre><code class="language-cpp">class Solution {
 public:
     int longestPalindromeSubseq(string s) {
@@ -1555,7 +3570,7 @@ public:
     }
 };
 </code></pre>
-<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<h4 id="go-14"><a class="header" href="#go-14">Go</a></h4>
 <pre><code class="language-go">func longestPalindromeSubseq(s string) int {
 	n := len(s)
 	f := make([][]int, n)
@@ -1575,7 +3590,7 @@ public:
 	return f[0][n-1]
 }
 </code></pre>
-<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<h4 id="typescript-10"><a class="header" href="#typescript-10">TypeScript</a></h4>
 <pre><code class="language-ts">function longestPalindromeSubseq(s: string): number {
     const n = s.length;
     const f: number[][] = Array.from({ length: n }, () =&gt; Array(n).fill(0));
@@ -2175,6 +4190,1459 @@ public class InterleavingString {
 </details>
 <h2 id="fill-cells-use-all-colors-ways"><a class="header" href="#fill-cells-use-all-colors-ways">Fill Cells Use All Colors Ways</a></h2>
 <h2 id="minimum-delete-become-substring"><a class="header" href="#minimum-delete-become-substring">Minimum Delete Become Substring</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="largest-subarray-sum-and-the-related-problems-part-1"><a class="header" href="#largest-subarray-sum-and-the-related-problems-part-1">Largest Subarray Sum and the Related Problems (part 1)</a></h1>
+<h2 id="maximumsubarray"><a class="header" href="#maximumsubarray">MaximumSubarray</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0053.Maximum%20Subarray/README_EN.md
+tags:
+    - Array
+    - Divide and Conquer
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="53-maximum-subarray"><a class="header" href="#53-maximum-subarray"><a href="https://leetcode.com/problems/maximum-subarray">53. Maximum Subarray</a></a></h1>
+<p><a href="dynamic-programming//solution/0000-0099/0053.Maximum%20Subarray/README.html">中文文档</a></p>
+<h2 id="description-9"><a class="header" href="#description-9">Description</a></h2>
+<!-- description:start -->
+<p>Given an integer array <code>nums</code>, find the <span data-keyword="subarray-nonempty">subarray</span> with the largest sum, and return <em>its sum</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [-2,1,-3,4,-1,2,1,-5,4]
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> The subarray [4,-1,2,1] has the largest sum 6.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1]
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The subarray [1] has the largest sum 1.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [5,4,-1,7,8]
+<strong>Output:</strong> 23
+<strong>Explanation:</strong> The subarray [5,4,-1,7,8] has the largest sum 23.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> If you have figured out the <code>O(n)</code> solution, try coding another solution using the <strong>divide and conquer</strong> approach, which is more subtle.</p>
+<!-- description:end -->
+<h2 id="solutions-9"><a class="header" href="#solutions-9">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming-4"><a class="header" href="#solution-1-dynamic-programming-4">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i]$ to represent the maximum sum of a contiguous subarray ending at element $\textit{nums}[i]$. Initially, $f[0] = \textit{nums}[0]$. The final answer we seek is $\max_{0 \leq i &lt; n} f[i]$.</p>
+<p>Consider $f[i]$ for $i \geq 1$. Its state transition equation is:</p>
+<p>$$
+f[i] = \max(f[i - 1] + \textit{nums}[i], \textit{nums}[i])
+$$</p>
+<p>That is:</p>
+<p>$$
+f[i] = \max(f[i - 1], 0) + \textit{nums}[i]
+$$</p>
+<p>Since $f[i]$ is only related to $f[i - 1]$, we can use a single variable $f$ to maintain the current value of $f[i]$ and perform the state transition. The answer is $\max_{0 \leq i &lt; n} f$.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array $\textit{nums}$. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-16"><a class="header" href="#python3-16">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        ans = f = nums[0]
+        for x in nums[1:]:
+            f = max(f, 0) + x
+            ans = max(ans, f)
+        return ans
+</code></pre>
+<h4 id="java-14"><a class="header" href="#java-14">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubArray(int[] nums) {
+        int ans = nums[0];
+        for (int i = 1, f = nums[0]; i &lt; nums.length; ++i) {
+            f = Math.max(f, 0) + nums[i];
+            ans = Math.max(ans, f);
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-18"><a class="header" href="#c-18">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) {
+        int ans = nums[0], f = nums[0];
+        for (int i = 1; i &lt; nums.size(); ++i) {
+            f = max(f, 0) + nums[i];
+            ans = max(ans, f);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-15"><a class="header" href="#go-15">Go</a></h4>
+<pre><code class="language-go">func maxSubArray(nums []int) int {
+	ans, f := nums[0], nums[0]
+	for _, x := range nums[1:] {
+		f = max(f, 0) + x
+		ans = max(ans, f)
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript-11"><a class="header" href="#typescript-11">TypeScript</a></h4>
+<pre><code class="language-ts">function maxSubArray(nums: number[]): number {
+    let [ans, f] = [nums[0], nums[0]];
+    for (let i = 1; i &lt; nums.length; ++i) {
+        f = Math.max(f, 0) + nums[i];
+        ans = Math.max(ans, f);
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust-6"><a class="header" href="#rust-6">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn max_sub_array(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        let mut ans = nums[0];
+        let mut f = nums[0];
+        for i in 1..n {
+            f = f.max(0) + nums[i];
+            ans = ans.max(f);
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-5"><a class="header" href="#javascript-5">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let [ans, f] = [nums[0], nums[0]];
+    for (let i = 1; i &lt; nums.length; ++i) {
+        f = Math.max(f, 0) + nums[i];
+        ans = Math.max(ans, f);
+    }
+    return ans;
+};
+</code></pre>
+<h4 id="c-19"><a class="header" href="#c-19">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int MaxSubArray(int[] nums) {
+        int ans = nums[0], f = nums[0];
+        for (int i = 1; i &lt; nums.Length; ++i) {
+            f = Math.Max(f, 0) + nums[i];
+            ans = Math.Max(ans, f);
+        }
+        return ans;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-2"><a class="header" href="#solution-2-2">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-17"><a class="header" href="#python3-17">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        def crossMaxSub(nums, left, mid, right):
+            lsum = rsum = 0
+            lmx = rmx = -inf
+            for i in range(mid, left - 1, -1):
+                lsum += nums[i]
+                lmx = max(lmx, lsum)
+            for i in range(mid + 1, right + 1):
+                rsum += nums[i]
+                rmx = max(rmx, rsum)
+            return lmx + rmx
+
+        def maxSub(nums, left, right):
+            if left == right:
+                return nums[left]
+            mid = (left + right) &gt;&gt; 1
+            lsum = maxSub(nums, left, mid)
+            rsum = maxSub(nums, mid + 1, right)
+            csum = crossMaxSub(nums, left, mid, right)
+            return max(lsum, rsum, csum)
+
+        left, right = 0, len(nums) - 1
+        return maxSub(nums, left, right)
+</code></pre>
+<h4 id="java-15"><a class="header" href="#java-15">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubArray(int[] nums) {
+        return maxSub(nums, 0, nums.length - 1);
+    }
+
+    private int maxSub(int[] nums, int left, int right) {
+        if (left == right) {
+            return nums[left];
+        }
+        int mid = (left + right) &gt;&gt;&gt; 1;
+        int lsum = maxSub(nums, left, mid);
+        int rsum = maxSub(nums, mid + 1, right);
+        return Math.max(Math.max(lsum, rsum), crossMaxSub(nums, left, mid, right));
+    }
+
+    private int crossMaxSub(int[] nums, int left, int mid, int right) {
+        int lsum = 0, rsum = 0;
+        int lmx = Integer.MIN_VALUE, rmx = Integer.MIN_VALUE;
+        for (int i = mid; i &gt;= left; --i) {
+            lsum += nums[i];
+            lmx = Math.max(lmx, lsum);
+        }
+        for (int i = mid + 1; i &lt;= right; ++i) {
+            rsum += nums[i];
+            rmx = Math.max(rmx, rsum);
+        }
+        return lmx + rmx;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 子数组最大累加和
+// 给你一个整数数组 nums
+// 返回非空子数组的最大累加和
+// 测试链接 : https://leetcode.com/problems/maximum-subarray/
+public class Code01_MaximumSubarray {
+
+	// 动态规划
+	public static int maxSubArray1(int[] nums) {
+		int n = nums.length;
+		// dp[i] : 子数组必须以i位置的数做结尾，往左能延伸出来的最大累加和
+		int[] dp = new int[n];
+		dp[0] = nums[0];
+		int ans = nums[0];
+		for (int i = 1; i &lt; n; i++) {
+			dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+			ans = Math.max(ans, dp[i]);
+		}
+		return ans;
+	}
+
+	// 空间压缩
+	public static int maxSubArray2(int[] nums) {
+		int n = nums.length;
+		int ans = nums[0];
+		for (int i = 1, pre = nums[0]; i &lt; n; i++) {
+			pre = Math.max(nums[i], pre + nums[i]);
+			ans = Math.max(ans, pre);
+		}
+		return ans;
+	}
+
+	// 如下代码为附加问题的实现
+	// 子数组中找到拥有最大累加和的子数组
+	// 并返回如下三个信息:
+	// 1) 最大累加和子数组的开头left
+	// 2) 最大累加和子数组的结尾right
+	// 3) 最大累加和子数组的累加和sum
+	// 如果不止一个子数组拥有最大累加和，那么找到哪一个都可以
+	public static int left;
+
+	public static int right;
+
+	public static int sum;
+
+	// 找到拥有最大累加和的子数组
+	// 更新好全局变量left、right、sum
+	// 上游调用函数可以直接使用这三个变量
+	// 相当于返回了三个值
+	public static void extra(int[] nums) {
+		sum = Integer.MIN_VALUE;
+		for (int l = 0, r = 0, pre = Integer.MIN_VALUE; r &lt; nums.length; r++) {
+			if (pre &gt;= 0) {
+				// 吸收前面的累加和有利可图
+				// 那就不换开头
+				pre += nums[r];
+			} else {
+				// 吸收前面的累加和已经无利可图
+				// 那就换开头
+				pre = nums[r];
+				l = r;
+			}
+			if (pre &gt; sum) {
+				sum = pre;
+				left = l;
+				right = r;
+			}
+		}
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=75">
+    </iframe>
+</details>
+<h2 id="houserobber"><a class="header" href="#houserobber">HouseRobber</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0198.House%20Robber/README_EN.md
+tags:
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="198-house-robber"><a class="header" href="#198-house-robber"><a href="https://leetcode.com/problems/house-robber">198. House Robber</a></a></h1>
+<p><a href="dynamic-programming//solution/0100-0199/0198.House%20Robber/README.html">中文文档</a></p>
+<h2 id="description-10"><a class="header" href="#description-10">Description</a></h2>
+<!-- description:start -->
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and <b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>
+<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <b>without alerting the police</b></em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3,1]
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,7,9,3,1]
+<strong>Output:</strong> 12
+<strong>Explanation:</strong> Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+Total amount you can rob = 2 + 9 + 1 = 12.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>0 &lt;= nums[i] &lt;= 400</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-10"><a class="header" href="#solutions-10">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-memoization-search"><a class="header" href="#solution-1-memoization-search">Solution 1: Memoization Search</a></h3>
+<p>We design a function $\textit{dfs}(i)$, which represents the maximum amount of money that can be stolen starting from the $i$-th house. Thus, the answer is $\textit{dfs}(0)$.</p>
+<p>The execution process of the function $\textit{dfs}(i)$ is as follows:</p>
+<ul>
+<li>If $i \ge \textit{len}(\textit{nums})$, it means all houses have been considered, and we directly return $0$;</li>
+<li>Otherwise, consider stealing from the $i$-th house, then $\textit{dfs}(i) = \textit{nums}[i] + \textit{dfs}(i+2)$; if not stealing from the $i$-th house, then $\textit{dfs}(i) = \textit{dfs}(i+1)$.</li>
+<li>Return $\max(\textit{nums}[i] + \textit{dfs}(i+2), \textit{dfs}(i+1))$.</li>
+</ul>
+<p>To avoid repeated calculations, we use memoization search. The result of $\textit{dfs}(i)$ is saved in an array or hash table. Before each calculation, we first check if it has been calculated. If so, we directly return the result.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$, where $n$ is the length of the array.</p>
+<!-- tabs:start -->
+<h4 id="python3-18"><a class="header" href="#python3-18">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        @cache
+        def dfs(i: int) -&gt; int:
+            if i &gt;= len(nums):
+                return 0
+            return max(nums[i] + dfs(i + 2), dfs(i + 1))
+
+        return dfs(0)
+</code></pre>
+<h4 id="java-16"><a class="header" href="#java-16">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private Integer[] f;
+    private int[] nums;
+
+    public int rob(int[] nums) {
+        this.nums = nums;
+        f = new Integer[nums.length];
+        return dfs(0);
+    }
+
+    private int dfs(int i) {
+        if (i &gt;= nums.length) {
+            return 0;
+        }
+        if (f[i] == null) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    }
+}
+</code></pre>
+<h4 id="c-20"><a class="header" href="#c-20">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int f[n];
+        memset(f, -1, sizeof(f));
+        auto dfs = [&amp;](auto&amp;&amp; dfs, int i) -&gt; int {
+            if (i &gt;= n) {
+                return 0;
+            }
+            if (f[i] &lt; 0) {
+                f[i] = max(nums[i] + dfs(dfs, i + 2), dfs(dfs, i + 1));
+            }
+            return f[i];
+        };
+        return dfs(dfs, 0);
+    }
+};
+</code></pre>
+<h4 id="go-16"><a class="header" href="#go-16">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	f := make([]int, n)
+	for i := range f {
+		f[i] = -1
+	}
+	var dfs func(int) int
+	dfs = func(i int) int {
+		if i &gt;= n {
+			return 0
+		}
+		if f[i] &lt; 0 {
+			f[i] = max(nums[i]+dfs(i+2), dfs(i+1))
+		}
+		return f[i]
+	}
+	return dfs(0)
+}
+</code></pre>
+<h4 id="typescript-12"><a class="header" href="#typescript-12">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    const f: number[] = Array(n).fill(-1);
+    const dfs = (i: number): number =&gt; {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i] &lt; 0) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    };
+    return dfs(0);
+}
+</code></pre>
+<h4 id="rust-7"><a class="header" href="#rust-7">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        fn dfs(i: usize, nums: &amp;Vec&lt;i32&gt;, f: &amp;mut Vec&lt;i32&gt;) -&gt; i32 {
+            if i &gt;= nums.len() {
+                return 0;
+            }
+            if f[i] &lt; 0 {
+                f[i] = (nums[i] + dfs(i + 2, nums, f)).max(dfs(i + 1, nums, f));
+            }
+            f[i]
+        }
+
+        let n = nums.len();
+        let mut f = vec![-1; n];
+        dfs(0, &amp;nums, &amp;mut f)
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-6"><a class="header" href="#javascript-6">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    const n = nums.length;
+    const f = Array(n).fill(-1);
+    const dfs = i =&gt; {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i] &lt; 0) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    };
+    return dfs(0);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-dynamic-programming-1"><a class="header" href="#solution-2-dynamic-programming-1">Solution 2: Dynamic Programming</a></h3>
+<p>We define $f[i]$ as the maximum total amount that can be robbed from the first $i$ houses, initially $f[0]=0$, $f[1]=nums[0]$.</p>
+<p>Consider the case where $i \gt 1$, the $i$th house has two options:</p>
+<ul>
+<li>Do not rob the $i$th house, the total amount of robbery is $f[i-1]$;</li>
+<li>Rob the $i$th house, the total amount of robbery is $f[i-2]+nums[i-1]$;</li>
+</ul>
+<p>Therefore, we can get the state transition equation:</p>
+<p>$$
+f[i]=
+\begin{cases}
+0, &amp; i=0 \
+nums[0], &amp; i=1 \
+\max(f[i-1],f[i-2]+nums[i-1]), &amp; i \gt 1
+\end{cases}
+$$</p>
+<p>The final answer is $f[n]$, where $n$ is the length of the array.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$. Where $n$ is the length of the array.</p>
+<!-- tabs:start -->
+<h4 id="python3-19"><a class="header" href="#python3-19">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        n = len(nums)
+        f = [0] * (n + 1)
+        f[1] = nums[0]
+        for i in range(2, n + 1):
+            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1])
+        return f[n]
+</code></pre>
+<h4 id="java-17"><a class="header" href="#java-17">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] f = new int[n + 1];
+        f[1] = nums[0];
+        for (int i = 2; i &lt;= n; ++i) {
+            f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+        }
+        return f[n];
+    }
+}
+</code></pre>
+<h4 id="c-21"><a class="header" href="#c-21">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int f[n + 1];
+        memset(f, 0, sizeof(f));
+        f[1] = nums[0];
+        for (int i = 2; i &lt;= n; ++i) {
+            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1]);
+        }
+        return f[n];
+    }
+};
+</code></pre>
+<h4 id="go-17"><a class="header" href="#go-17">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	f := make([]int, n+1)
+	f[1] = nums[0]
+	for i := 2; i &lt;= n; i++ {
+		f[i] = max(f[i-1], f[i-2]+nums[i-1])
+	}
+	return f[n]
+}
+</code></pre>
+<h4 id="typescript-13"><a class="header" href="#typescript-13">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    const f: number[] = Array(n + 1).fill(0);
+    f[1] = nums[0];
+    for (let i = 2; i &lt;= n; ++i) {
+        f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+    }
+    return f[n];
+}
+</code></pre>
+<h4 id="rust-8"><a class="header" href="#rust-8">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        let mut f = vec![0; n + 1];
+        f[1] = nums[0];
+        for i in 2..=n {
+            f[i] = f[i - 1].max(f[i - 2] + nums[i - 1]);
+        }
+        f[n]
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-7"><a class="header" href="#javascript-7">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    const n = nums.length;
+    const f = Array(n + 1).fill(0);
+    f[1] = nums[0];
+    for (let i = 2; i &lt;= n; ++i) {
+        f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+    }
+    return f[n];
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-3-dynamic-programming-space-optimization"><a class="header" href="#solution-3-dynamic-programming-space-optimization">Solution 3: Dynamic Programming (Space Optimization)</a></h3>
+<p>We notice that when $i \gt 2$, $f[i]$ is only related to $f[i-1]$ and $f[i-2]$. Therefore, we can use two variables instead of an array to reduce the space complexity to $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-20"><a class="header" href="#python3-20">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        f = g = 0
+        for x in nums:
+            f, g = max(f, g), f + x
+        return max(f, g)
+</code></pre>
+<h4 id="java-18"><a class="header" href="#java-18">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int f = 0, g = 0;
+        for (int x : nums) {
+            int ff = Math.max(f, g);
+            g = f + x;
+            f = ff;
+        }
+        return Math.max(f, g);
+    }
+}
+</code></pre>
+<h4 id="c-22"><a class="header" href="#c-22">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int f = 0, g = 0;
+        for (int&amp; x : nums) {
+            int ff = max(f, g);
+            g = f + x;
+            f = ff;
+        }
+        return max(f, g);
+    }
+};
+</code></pre>
+<h4 id="go-18"><a class="header" href="#go-18">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	f, g := 0, 0
+	for _, x := range nums {
+		f, g = max(f, g), f+x
+	}
+	return max(f, g)
+}
+</code></pre>
+<h4 id="typescript-14"><a class="header" href="#typescript-14">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    let [f, g] = [0, 0];
+    for (const x of nums) {
+        [f, g] = [Math.max(f, g), f + x];
+    }
+    return Math.max(f, g);
+}
+</code></pre>
+<h4 id="rust-9"><a class="header" href="#rust-9">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let mut f = [0, 0];
+        for x in nums {
+            f = [f[0].max(f[1]), f[0] + x];
+        }
+        f[0].max(f[1])
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-8"><a class="header" href="#javascript-8">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    let [f, g] = [0, 0];
+    for (const x of nums) {
+        [f, g] = [Math.max(f, g), f + x];
+    }
+    return Math.max(f, g);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 数组中不能选相邻元素的最大累加和
+// 给定一个数组，可以随意选择数字
+// 但是不能选择相邻的数字，返回能得到的最大累加和
+// 测试链接 : https://leetcode.com/problems/house-robber/
+public class Code02_HouseRobber {
+
+	// 动态规划
+	public static int rob1(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		if (n == 2) {
+			return Math.max(nums[0], nums[1]);
+		}
+		// dp[i] : nums[0...i]范围上可以随意选择数字，但是不能选相邻数，能得到的最大累加和
+		int[] dp = new int[n];
+		dp[0] = nums[0];
+		dp[1] = Math.max(nums[0], nums[1]);
+		for (int i = 2; i &lt; n; i++) {
+			dp[i] = Math.max(dp[i - 1], Math.max(nums[i], dp[i - 2] + nums[i]));
+		}
+		return dp[n - 1];
+	}
+
+	// 空间压缩
+	public static int rob2(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		if (n == 2) {
+			return Math.max(nums[0], nums[1]);
+		}
+		int prepre = nums[0];
+		int pre = Math.max(nums[0], nums[1]);
+		for (int i = 2, cur; i &lt; n; i++) {
+			cur = Math.max(pre, Math.max(nums[i], prepre + nums[i]));
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=1685">
+    </iframe>
+</details>
+<h2 id="maximumsumcircularsubarray"><a class="header" href="#maximumsumcircularsubarray">MaximumSumCircularSubarray</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0900-0999/0918.Maximum%20Sum%20Circular%20Subarray/README_EN.md
+tags:
+    - Queue
+    - Array
+    - Divide and Conquer
+    - Dynamic Programming
+    - Monotonic Queue
+</code></pre>
+<!-- problem:start -->
+<h1 id="918-maximum-sum-circular-subarray"><a class="header" href="#918-maximum-sum-circular-subarray"><a href="https://leetcode.com/problems/maximum-sum-circular-subarray">918. Maximum Sum Circular Subarray</a></a></h1>
+<p><a href="dynamic-programming//solution/0900-0999/0918.Maximum%20Sum%20Circular%20Subarray/README.html">中文文档</a></p>
+<h2 id="description-11"><a class="header" href="#description-11">Description</a></h2>
+<!-- description:start -->
+<p>Given a <strong>circular integer array</strong> <code>nums</code> of length <code>n</code>, return <em>the maximum possible sum of a non-empty <strong>subarray</strong> of </em><code>nums</code>.</p>
+<p>A <strong>circular array</strong> means the end of the array connects to the beginning of the array. Formally, the next element of <code>nums[i]</code> is <code>nums[(i + 1) % n]</code> and the previous element of <code>nums[i]</code> is <code>nums[(i - 1 + n) % n]</code>.</p>
+<p>A <strong>subarray</strong> may only include each element of the fixed buffer <code>nums</code> at most once. Formally, for a subarray <code>nums[i], nums[i + 1], ..., nums[j]</code>, there does not exist <code>i &lt;= k1</code>, <code>k2 &lt;= j</code> with <code>k1 % n == k2 % n</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,-2,3,-2]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> Subarray [3] has maximum sum 3.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [5,-3,5]
+<strong>Output:</strong> 10
+<strong>Explanation:</strong> Subarray [5,5] has maximum sum 5 + 5 = 10.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [-3,-2,-3]
+<strong>Output:</strong> -2
+<strong>Explanation:</strong> Subarray [-2] has maximum sum -2.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>n == nums.length</code></li>
+	<li><code>1 &lt;= n &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>-3 * 10<sup>4</sup> &lt;= nums[i] &lt;= 3 * 10<sup>4</sup></code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-11"><a class="header" href="#solutions-11">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-maintain-prefix-maximum"><a class="header" href="#solution-1-maintain-prefix-maximum">Solution 1: Maintain Prefix Maximum</a></h3>
+<p>The maximum sum of a circular subarray can be divided into two cases:</p>
+<ul>
+<li>Case 1: The subarray with the maximum sum does not include the circular part, which is the ordinary maximum subarray sum;</li>
+<li>Case 2: The subarray with the maximum sum includes the circular part, which can be transformed into: the total sum of the array minus the minimum subarray sum.</li>
+</ul>
+<p>Therefore, we maintain the following variables:</p>
+<ul>
+<li>The minimum prefix sum $pmi$, initially $0$;</li>
+<li>The maximum prefix sum $pmx$, initially $-\infty$;</li>
+<li>The prefix sum $s$, initially $0$;</li>
+<li>The minimum subarray sum $smi$, initially $\infty$;</li>
+<li>The answer $ans$, initially $-\infty$.</li>
+</ul>
+<p>Next, we only need to traverse the array $nums$. For the current element $x$ we are traversing, we perform the following update operations:</p>
+<ul>
+<li>Update the prefix sum $s = s + x$;</li>
+<li>Update the answer $ans = \max(ans, s - pmi)$, which is the answer for Case 1 (the prefix sum $s$ minus the minimum prefix sum $pmi$ can give the maximum subarray sum);</li>
+<li>Update $smi = \min(smi, s - pmx)$, which is the minimum subarray sum for Case 2;</li>
+<li>Update $pmi = \min(pmi, s)$, which is the minimum prefix sum;</li>
+<li>Update $pmx = \max(pmx, s)$, which is the maximum prefix sum.</li>
+</ul>
+<p>After the traversal, we return the maximum value of $ans$ and $s - smi$ as the answer.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-21"><a class="header" href="#python3-21">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -&gt; int:
+        pmi, pmx = 0, -inf
+        ans, s, smi = -inf, 0, inf
+        for x in nums:
+            s += x
+            ans = max(ans, s - pmi)
+            smi = min(smi, s - pmx)
+            pmi = min(pmi, s)
+            pmx = max(pmx, s)
+        return max(ans, s - smi)
+</code></pre>
+<h4 id="java-19"><a class="header" href="#java-19">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubarraySumCircular(int[] nums) {
+        final int inf = 1 &lt;&lt; 30;
+        int pmi = 0, pmx = -inf;
+        int ans = -inf, s = 0, smi = inf;
+        for (int x : nums) {
+            s += x;
+            ans = Math.max(ans, s - pmi);
+            smi = Math.min(smi, s - pmx);
+            pmi = Math.min(pmi, s);
+            pmx = Math.max(pmx, s);
+        }
+        return Math.max(ans, s - smi);
+    }
+}
+</code></pre>
+<h4 id="c-23"><a class="header" href="#c-23">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int maxSubarraySumCircular(vector&lt;int&gt;&amp; nums) {
+        const int inf = 1 &lt;&lt; 30;
+        int pmi = 0, pmx = -inf;
+        int ans = -inf, s = 0, smi = inf;
+        for (int x : nums) {
+            s += x;
+            ans = max(ans, s - pmi);
+            smi = min(smi, s - pmx);
+            pmi = min(pmi, s);
+            pmx = max(pmx, s);
+        }
+        return max(ans, s - smi);
+    }
+};
+</code></pre>
+<h4 id="go-19"><a class="header" href="#go-19">Go</a></h4>
+<pre><code class="language-go">func maxSubarraySumCircular(nums []int) int {
+	const inf = 1 &lt;&lt; 30
+	pmi, pmx := 0, -inf
+	ans, s, smi := -inf, 0, inf
+	for _, x := range nums {
+		s += x
+		ans = max(ans, s-pmi)
+		smi = min(smi, s-pmx)
+		pmi = min(pmi, s)
+		pmx = max(pmx, s)
+	}
+	return max(ans, s-smi)
+}
+</code></pre>
+<h4 id="typescript-15"><a class="header" href="#typescript-15">TypeScript</a></h4>
+<pre><code class="language-ts">function maxSubarraySumCircular(nums: number[]): number {
+    let [pmi, pmx] = [0, -Infinity];
+    let [ans, s, smi] = [-Infinity, 0, Infinity];
+    for (const x of nums) {
+        s += x;
+        ans = Math.max(ans, s - pmi);
+        smi = Math.min(smi, s - pmx);
+        pmi = Math.min(pmi, s);
+        pmx = Math.max(pmx, s);
+    }
+    return Math.max(ans, s - smi);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 环形数组的子数组最大累加和
+// 给定一个数组nums，长度为n
+// nums是一个环形数组，下标0和下标n-1是连在一起的
+// 返回环形数组中，子数组最大累加和
+// 测试链接 : https://leetcode.com/problems/maximum-sum-circular-subarray/
+public class Code03_MaximumSumCircularSubarray {
+
+	public static int maxSubarraySumCircular(int[] nums) {
+		int n = nums.length, all = nums[0], maxsum = nums[0], minsum = nums[0];
+		for (int i = 1, maxpre = nums[0], minpre = nums[0]; i &lt; n; i++) {
+			all += nums[i];
+			maxpre = Math.max(nums[i], nums[i] + maxpre);
+			maxsum = Math.max(maxsum, maxpre);
+			minpre = Math.min(nums[i], nums[i] + minpre);
+			minsum = Math.min(minsum, minpre);
+		}
+		// 1) maxsum
+		// 2) all - minsum
+		return all == minsum ? maxsum : Math.max(maxsum, all - minsum);
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=2320">
+    </iframe>
+</details>
+<h2 id="houserobberii"><a class="header" href="#houserobberii">HouseRobberII</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0213.House%20Robber%20II/README_EN.md
+tags:
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="213-house-robber-ii"><a class="header" href="#213-house-robber-ii"><a href="https://leetcode.com/problems/house-robber-ii">213. House Robber II</a></a></h1>
+<p><a href="dynamic-programming//solution/0200-0299/0213.House%20Robber%20II/README.html">中文文档</a></p>
+<h2 id="description-12"><a class="header" href="#description-12">Description</a></h2>
+<!-- description:start -->
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are <strong>arranged in a circle.</strong> That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and&nbsp;<b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>
+<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <strong>without alerting the police</strong></em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,3,2]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3,1]
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3]
+<strong>Output:</strong> 3
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-12"><a class="header" href="#solutions-12">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming-5"><a class="header" href="#solution-1-dynamic-programming-5">Solution 1: Dynamic Programming</a></h3>
+<p>The circular arrangement means that at most one of the first and last houses can be chosen for theft, so this circular arrangement problem can be reduced to two single-row house problems.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-22"><a class="header" href="#python3-22">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        def _rob(nums):
+            f = g = 0
+            for x in nums:
+                f, g = max(f, g), f + x
+            return max(f, g)
+
+        if len(nums) == 1:
+            return nums[0]
+        return max(_rob(nums[1:]), _rob(nums[:-1]))
+</code></pre>
+<h4 id="java-20"><a class="header" href="#java-20">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) {
+            return nums[0];
+        }
+        return Math.max(rob(nums, 0, n - 2), rob(nums, 1, n - 1));
+    }
+
+    private int rob(int[] nums, int l, int r) {
+        int f = 0, g = 0;
+        for (; l &lt;= r; ++l) {
+            int ff = Math.max(f, g);
+            g = f + nums[l];
+            f = ff;
+        }
+        return Math.max(f, g);
+    }
+}
+</code></pre>
+<h4 id="c-24"><a class="header" href="#c-24">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        if (n == 1) {
+            return nums[0];
+        }
+        return max(robRange(nums, 0, n - 2), robRange(nums, 1, n - 1));
+    }
+
+    int robRange(vector&lt;int&gt;&amp; nums, int l, int r) {
+        int f = 0, g = 0;
+        for (; l &lt;= r; ++l) {
+            int ff = max(f, g);
+            g = f + nums[l];
+            f = ff;
+        }
+        return max(f, g);
+    }
+};
+</code></pre>
+<h4 id="go-20"><a class="header" href="#go-20">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	return max(robRange(nums, 0, n-2), robRange(nums, 1, n-1))
+}
+
+func robRange(nums []int, l, r int) int {
+	f, g := 0, 0
+	for _, x := range nums[l : r+1] {
+		f, g = max(f, g), f+x
+	}
+	return max(f, g)
+}
+</code></pre>
+<h4 id="typescript-16"><a class="header" href="#typescript-16">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    if (n === 1) {
+        return nums[0];
+    }
+    const robRange = (l: number, r: number): number =&gt; {
+        let [f, g] = [0, 0];
+        for (; l &lt;= r; ++l) {
+            [f, g] = [Math.max(f, g), f + nums[l]];
+        }
+        return Math.max(f, g);
+    };
+    return Math.max(robRange(0, n - 2), robRange(1, n - 1));
+}
+</code></pre>
+<h4 id="rust-10"><a class="header" href="#rust-10">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        if n == 1 {
+            return nums[0];
+        }
+        let rob_range = |l, r| {
+            let mut f = [0, 0];
+            for i in l..r {
+                f = [f[0].max(f[1]), f[0] + nums[i]];
+            }
+            f[0].max(f[1])
+        };
+        rob_range(0, n - 1).max(rob_range(1, n))
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 环形数组中不能选相邻元素的最大累加和
+// 给定一个数组nums，长度为n
+// nums是一个环形数组，下标0和下标n-1是连在一起的
+// 可以随意选择数字，但是不能选择相邻的数字
+// 返回能得到的最大累加和
+// 测试链接 : https://leetcode.com/problems/house-robber-ii/
+public class Code04_HouseRobberII {
+
+	public static int rob(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		return Math.max(best(nums, 1, n - 1), nums[0] + best(nums, 2, n - 2));
+	}
+
+	// nums[l....r]范围上，没有环形的概念
+	// 返回 : 可以随意选择数字，但不能选择相邻数字的情况下，最大累加和
+	public static int best(int[] nums, int l, int r) {
+		if (l &gt; r) {
+			return 0;
+		}
+		if (l == r) {
+			return nums[l];
+		}
+		if (l + 1 == r) {
+			return Math.max(nums[l], nums[r]);
+		}
+		int prepre = nums[l];
+		int pre = Math.max(nums[l], nums[l + 1]);
+		for (int i = l + 2, cur; i &lt;= r; i++) {
+			cur = Math.max(pre, nums[i] + Math.max(0, prepre));
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=2960">
+    </iframe>
+</details>
+<h2 id="houserobberiv"><a class="header" href="#houserobberiv">HouseRobberIV</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/2500-2599/2560.House%20Robber%20IV/README_EN.md
+rating: 2081
+source: Weekly Contest 331 Q3
+tags:
+    - Array
+    - Binary Search
+</code></pre>
+<!-- problem:start -->
+<h1 id="2560-house-robber-iv"><a class="header" href="#2560-house-robber-iv"><a href="https://leetcode.com/problems/house-robber-iv">2560. House Robber IV</a></a></h1>
+<p><a href="dynamic-programming//solution/2500-2599/2560.House%20Robber%20IV/README.html">中文文档</a></p>
+<h2 id="description-13"><a class="header" href="#description-13">Description</a></h2>
+<!-- description:start -->
+<p>There are several consecutive houses along a street, each of which has some money inside. There is also a robber, who wants to steal money from the homes, but he <strong>refuses to steal from adjacent homes</strong>.</p>
+<p>The <strong>capability</strong> of the robber is the maximum amount of money he steals from one house of all the houses he robbed.</p>
+<p>You are given an integer array <code>nums</code> representing how much money is stashed in each house. More formally, the <code>i<sup>th</sup></code> house from the left has <code>nums[i]</code> dollars.</p>
+<p>You are also given an integer <code>k</code>, representing the <strong>minimum</strong> number of houses the robber will steal from. It is always possible to steal at least <code>k</code> houses.</p>
+<p>Return <em>the <strong>minimum</strong> capability of the robber out of all the possible ways to steal at least </em><code>k</code><em> houses</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,3,5,9], k = 2
+<strong>Output:</strong> 5
+<strong>Explanation:</strong> 
+There are three ways to rob at least 2 houses:
+- Rob the houses at indices 0 and 2. Capability is max(nums[0], nums[2]) = 5.
+- Rob the houses at indices 0 and 3. Capability is max(nums[0], nums[3]) = 9.
+- Rob the houses at indices 1 and 3. Capability is max(nums[1], nums[3]) = 9.
+Therefore, we return min(5, 9, 9) = 5.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,7,9,3,1], k = 2
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> There are 7 ways to rob the houses. The way which leads to minimum capability is to rob the house at index 0 and 4. Return max(nums[0], nums[4]) = 2.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li><code>1 &lt;= k &lt;= (nums.length + 1)/2</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-13"><a class="header" href="#solutions-13">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-binary-search--greedy"><a class="header" href="#solution-1-binary-search--greedy">Solution 1: Binary Search + Greedy</a></h3>
+<p>The problem is asking for the minimum stealing ability of the thief. We can use binary search to enumerate the stealing ability of the thief. For the enumerated ability $x$, we can use a greedy approach to determine whether the thief can steal at least $k$ houses. Specifically, we traverse the array from left to right. For the current house $i$ we are traversing, if $nums[i] \leq x$ and the difference between the index of $i$ and the last stolen house is greater than $1$, then the thief can steal house $i$. Otherwise, the thief cannot steal house $i$. We accumulate the number of stolen houses. If the number of stolen houses is greater than or equal to $k$, it means that the thief can steal at least $k$ houses, and at this time, the stealing ability $x$ of the thief might be the minimum. Otherwise, the stealing ability $x$ of the thief is not the minimum.</p>
+<p>The time complexity is $O(n \times \log m)$, and the space complexity is $O(1)$. Where $n$ and $m$ are the length of the array $nums$ and the maximum value in the array $nums$, respectively.</p>
+<!-- tabs:start -->
+<h4 id="python3-23"><a class="header" href="#python3-23">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def minCapability(self, nums: List[int], k: int) -&gt; int:
+        def f(x):
+            cnt, j = 0, -2
+            for i, v in enumerate(nums):
+                if v &gt; x or i == j + 1:
+                    continue
+                cnt += 1
+                j = i
+            return cnt &gt;= k
+
+        return bisect_left(range(max(nums) + 1), True, key=f)
+</code></pre>
+<h4 id="java-21"><a class="header" href="#java-21">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int minCapability(int[] nums, int k) {
+        int left = 0, right = (int) 1e9;
+        while (left &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            if (f(nums, mid) &gt;= k) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    private int f(int[] nums, int x) {
+        int cnt = 0, j = -2;
+        for (int i = 0; i &lt; nums.length; ++i) {
+            if (nums[i] &gt; x || i == j + 1) {
+                continue;
+            }
+            ++cnt;
+            j = i;
+        }
+        return cnt;
+    }
+}
+</code></pre>
+<h4 id="c-25"><a class="header" href="#c-25">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int minCapability(vector&lt;int&gt;&amp; nums, int k) {
+        auto f = [&amp;](int x) {
+            int cnt = 0, j = -2;
+            for (int i = 0; i &lt; nums.size(); ++i) {
+                if (nums[i] &gt; x || i == j + 1) {
+                    continue;
+                }
+                ++cnt;
+                j = i;
+            }
+            return cnt &gt;= k;
+        };
+        int left = 0, right = *max_element(nums.begin(), nums.end());
+        while (left &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            if (f(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+};
+</code></pre>
+<h4 id="go-21"><a class="header" href="#go-21">Go</a></h4>
+<pre><code class="language-go">func minCapability(nums []int, k int) int {
+	return sort.Search(1e9+1, func(x int) bool {
+		cnt, j := 0, -2
+		for i, v := range nums {
+			if v &gt; x || i == j+1 {
+				continue
+			}
+			cnt++
+			j = i
+		}
+		return cnt &gt;= k
+	})
+}
+</code></pre>
+<h4 id="typescript-17"><a class="header" href="#typescript-17">TypeScript</a></h4>
+<pre><code class="language-ts">function minCapability(nums: number[], k: number): number {
+    const f = (mx: number): boolean =&gt; {
+        let cnt = 0;
+        let j = -2;
+        for (let i = 0; i &lt; nums.length; ++i) {
+            if (nums[i] &lt;= mx &amp;&amp; i - j &gt; 1) {
+                ++cnt;
+                j = i;
+            }
+        }
+        return cnt &gt;= k;
+    };
+
+    let left = 1;
+    let right = Math.max(...nums);
+    while (left &lt; right) {
+        const mid = (left + right) &gt;&gt; 1;
+        if (f(mid)) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return left;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 打家劫舍 IV
+// 沿街有一排连续的房屋。每间房屋内都藏有一定的现金
+// 现在有一位小偷计划从这些房屋中窃取现金
+// 由于相邻的房屋装有相互连通的防盗系统，所以小偷不会窃取相邻的房屋
+// 小偷的 窃取能力 定义为他在窃取过程中能从单间房屋中窃取的 最大金额
+// 给你一个整数数组 nums 表示每间房屋存放的现金金额
+// 第i间房屋中放有nums[i]的钱数
+// 另给你一个整数k，表示小偷需要窃取至少 k 间房屋
+// 返回小偷需要的最小窃取能力值
+// 测试链接 : https://leetcode.com/problems/house-robber-iv/
+public class Code05_HouseRobberIV {
+
+	public static int minCapability(int[] nums, int k) {
+		int n = nums.length, l = nums[0], r = nums[0];
+		for (int i = 1; i &lt; n; i++) {
+			l = Math.min(l, nums[i]);
+			r = Math.max(r, nums[i]);
+		}
+		// l....r
+		int m, ans = 0;
+		while (l &lt;= r) {
+			m = (l + r) / 2;
+			if (mostRob1(nums, n, m) &gt;= k) {
+				ans = m;
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+		return ans;
+	}
+
+	// 盗贼能力为ability时
+	// 返回盗贼最多能窃取多少间房屋
+	// 注意限制 : 不能窃取相邻房屋
+	public static int mostRob1(int[] nums, int n, int ability) {
+		if (n == 1) {
+			return nums[0] &lt;= ability ? 1 : 0;
+		}
+		if (n == 2) {
+			return (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		}
+		int[] dp = new int[n];
+		dp[0] = nums[0] &lt;= ability ? 1 : 0;
+		dp[1] = (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		for (int i = 2; i &lt; n; i++) {
+			dp[i] = Math.max(dp[i - 1], (nums[i] &lt;= ability ? 1 : 0) + dp[i - 2]);
+		}
+		return dp[n - 1];
+	}
+
+	// 继续空间压缩优化
+	public static int mostRob2(int[] nums, int n, int ability) {
+		if (n == 1) {
+			return nums[0] &lt;= ability ? 1 : 0;
+		}
+		if (n == 2) {
+			return (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		}
+		int prepre = nums[0] &lt;= ability ? 1 : 0;
+		int pre = (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		for (int i = 2, cur; i &lt; n; i++) {
+			cur = Math.max(pre, (nums[i] &lt;= ability ? 1 : 0) + prepre);
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+	// 继续贪心优化
+	public static int mostRob3(int[] nums, int n, int ability) {
+		int ans = 0;
+		for (int i = 0; i &lt; n; i++) {
+			if (nums[i] &lt;= ability) {
+				ans++;
+				i++;
+			}
+		}
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=3264">
+    </iframe>
+</details>
+<h2 id="maximumsubmatrix"><a class="header" href="#maximumsubmatrix">MaximumSubmatrix</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">// 子矩阵最大累加和问题
+// 给定一个二维数组grid，找到其中子矩阵的最大累加和
+// 返回拥有最大累加和的子矩阵左上角和右下角坐标
+// 如果有多个子矩阵都有最大累加和，返回哪一个都可以
+// 测试链接 : https://leetcode.com/problems/max-submatrix-lcci/
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+import java.util.Arrays;
+
+// 子矩阵最大累加和问题
+// 给定一个二维数组grid，找到其中子矩阵的最大累加和
+// 返回拥有最大累加和的子矩阵左上角和右下角坐标
+// 如果有多个子矩阵都有最大累加和，返回哪一个都可以
+// 测试链接 : https://leetcode.com/problems/max-submatrix-lcci/
+public class Code06_MaximumSubmatrix {
+
+	// 如果行和列的规模都是n，时间复杂度O(n^3)，最优解了
+	public static int[] getMaxMatrix(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int max = Integer.MIN_VALUE;
+		int a = 0, b = 0, c = 0, d = 0;
+		int[] nums = new int[m];
+		for (int up = 0; up &lt; n; up++) {
+			Arrays.fill(nums, 0);
+			for (int down = up; down &lt; n; down++) {
+				// 如下代码就是题目1的附加问题 :
+				// 子数组中找到拥有最大累加和的子数组
+				for (int l = 0, r = 0, pre = Integer.MIN_VALUE; r &lt; m; r++) {
+					nums[r] += grid[down][r];
+					if (pre &gt;= 0) {
+						pre += nums[r];
+					} else {
+						pre = nums[r];
+						l = r;
+					}
+					if (pre &gt; max) {
+						max = pre;
+						a = up;
+						b = l;
+						c = down;
+						d = r;
+					}
+				}
+			}
+		}
+		return new int[] { a, b, c, d };
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=4417">
+    </iframe>
+</details>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dp-on-intervals-part-1"><a class="header" href="#dp-on-intervals-part-1">DP on Intervals (part 1)</a></h1>
 <h2 id="minimum-insertions-to-make-a-string-palindrome"><a class="header" href="#minimum-insertions-to-make-a-string-palindrome">Minimum Insertions to Make a String Palindrome</a></h2>
 <details><summary>Description:</summary>
@@ -2207,7 +5675,7 @@ Explanation: Inserting 5 characters the string becomes leetcodocteel.
 </ul>
 </details>
 <details><summary>Solution:</summary>
-<pre><code class="language-java">// https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+<pre><code class="language-java">// https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 public class MinimumInsertionToPalindrome {
 
 	// 暴力尝试
@@ -2354,7 +5822,7 @@ Finally, player 1 has more score (234) than player 2 (12), so you need to return
 </ul>
 </details>
 <details><summary>Solution:</summary>
-<pre><code class="language-java">// https://leetcode.cn/problems/predict-the-winner/
+<pre><code class="language-java">// https://leetcode.com/problems/predict-the-winner/
 public class PredictTheWinner {
 
 	// 暴力尝试
@@ -2496,7 +5964,7 @@ Explanation: The minimum score triangulation is 1*1*3 + 1*1*4 + 1*1*5 + 1*1*1 = 
 </ul>
 </details>
 <details><summary>Solution:</summary>
-<pre><code class="language-java">// https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/
+<pre><code class="language-java">// https://leetcode.com/problems/minimum-score-triangulation-of-polygon/
 public class MinimumScoreTriangulationOfPolygon {
 
 	// 记忆化搜索
@@ -2589,7 +6057,7 @@ There are much ordering with total cost = 25, for example, the order [4, 6, 5, 2
 <details><summary>Solution:</summary>
 <pre><code class="language-java">import java.util.Arrays;
 
-// https://leetcode.cn/problems/minimum-cost-to-cut-a-stick/
+// https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
 public class MinimumCostToCutAStick {
 
 	// 记忆化搜索
@@ -2694,7 +6162,7 @@ Output: 10
 </ul>
 </details>
 <details><summary>Solution:</summary>
-<pre><code class="language-java">// https://leetcode.cn/problems/burst-balloons/
+<pre><code class="language-java">// https://leetcode.com/problems/burst-balloons/
 public class BurstBalloons {
 
 	// 记忆化搜索

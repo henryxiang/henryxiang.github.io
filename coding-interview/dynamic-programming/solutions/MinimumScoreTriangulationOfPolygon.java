@@ -1,4 +1,4 @@
-// https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/
+// https://leetcode.com/problems/minimum-score-triangulation-of-polygon/
 public class MinimumScoreTriangulationOfPolygon {
 
 	// 记忆化搜索

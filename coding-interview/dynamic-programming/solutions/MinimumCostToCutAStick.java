@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-// https://leetcode.cn/problems/minimum-cost-to-cut-a-stick/
+// https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
 public class MinimumCostToCutAStick {
 
 	// 记忆化搜索

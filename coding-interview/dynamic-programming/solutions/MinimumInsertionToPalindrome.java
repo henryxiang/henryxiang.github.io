@@ -1,4 +1,4 @@
-// https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+// https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 public class MinimumInsertionToPalindrome {
 
 	// 暴力尝试

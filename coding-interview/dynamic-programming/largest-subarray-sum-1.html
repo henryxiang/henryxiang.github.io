@@ -1,0 +1,1660 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Largest Subarray Sum and the Related Problems (part 1) - Data Structures and Algorithms for Coding Interviews</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Data Structures and Algorithms for Coding Interviews</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="largest-subarray-sum-and-the-related-problems-part-1"><a class="header" href="#largest-subarray-sum-and-the-related-problems-part-1">Largest Subarray Sum and the Related Problems (part 1)</a></h1>
+<h2 id="maximumsubarray"><a class="header" href="#maximumsubarray">MaximumSubarray</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0053.Maximum%20Subarray/README_EN.md
+tags:
+    - Array
+    - Divide and Conquer
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="53-maximum-subarray"><a class="header" href="#53-maximum-subarray"><a href="https://leetcode.com/problems/maximum-subarray">53. Maximum Subarray</a></a></h1>
+<p><a href="/solution/0000-0099/0053.Maximum%20Subarray/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>Given an integer array <code>nums</code>, find the <span data-keyword="subarray-nonempty">subarray</span> with the largest sum, and return <em>its sum</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [-2,1,-3,4,-1,2,1,-5,4]
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> The subarray [4,-1,2,1] has the largest sum 6.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1]
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The subarray [1] has the largest sum 1.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [5,4,-1,7,8]
+<strong>Output:</strong> 23
+<strong>Explanation:</strong> The subarray [5,4,-1,7,8] has the largest sum 23.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> If you have figured out the <code>O(n)</code> solution, try coding another solution using the <strong>divide and conquer</strong> approach, which is more subtle.</p>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i]$ to represent the maximum sum of a contiguous subarray ending at element $\textit{nums}[i]$. Initially, $f[0] = \textit{nums}[0]$. The final answer we seek is $\max_{0 \leq i &lt; n} f[i]$.</p>
+<p>Consider $f[i]$ for $i \geq 1$. Its state transition equation is:</p>
+<p>$$
+f[i] = \max(f[i - 1] + \textit{nums}[i], \textit{nums}[i])
+$$</p>
+<p>That is:</p>
+<p>$$
+f[i] = \max(f[i - 1], 0) + \textit{nums}[i]
+$$</p>
+<p>Since $f[i]$ is only related to $f[i - 1]$, we can use a single variable $f$ to maintain the current value of $f[i]$ and perform the state transition. The answer is $\max_{0 \leq i &lt; n} f$.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array $\textit{nums}$. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        ans = f = nums[0]
+        for x in nums[1:]:
+            f = max(f, 0) + x
+            ans = max(ans, f)
+        return ans
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubArray(int[] nums) {
+        int ans = nums[0];
+        for (int i = 1, f = nums[0]; i &lt; nums.length; ++i) {
+            f = Math.max(f, 0) + nums[i];
+            ans = Math.max(ans, f);
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) {
+        int ans = nums[0], f = nums[0];
+        for (int i = 1; i &lt; nums.size(); ++i) {
+            f = max(f, 0) + nums[i];
+            ans = max(ans, f);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func maxSubArray(nums []int) int {
+	ans, f := nums[0], nums[0]
+	for _, x := range nums[1:] {
+		f = max(f, 0) + x
+		ans = max(ans, f)
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function maxSubArray(nums: number[]): number {
+    let [ans, f] = [nums[0], nums[0]];
+    for (let i = 1; i &lt; nums.length; ++i) {
+        f = Math.max(f, 0) + nums[i];
+        ans = Math.max(ans, f);
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust"><a class="header" href="#rust">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn max_sub_array(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        let mut ans = nums[0];
+        let mut f = nums[0];
+        for i in 1..n {
+            f = f.max(0) + nums[i];
+            ans = ans.max(f);
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript"><a class="header" href="#javascript">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let [ans, f] = [nums[0], nums[0]];
+    for (let i = 1; i &lt; nums.length; ++i) {
+        f = Math.max(f, 0) + nums[i];
+        ans = Math.max(ans, f);
+    }
+    return ans;
+};
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int MaxSubArray(int[] nums) {
+        int ans = nums[0], f = nums[0];
+        for (int i = 1; i &lt; nums.Length; ++i) {
+            f = Math.Max(f, 0) + nums[i];
+            ans = Math.Max(ans, f);
+        }
+        return ans;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2"><a class="header" href="#solution-2">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        def crossMaxSub(nums, left, mid, right):
+            lsum = rsum = 0
+            lmx = rmx = -inf
+            for i in range(mid, left - 1, -1):
+                lsum += nums[i]
+                lmx = max(lmx, lsum)
+            for i in range(mid + 1, right + 1):
+                rsum += nums[i]
+                rmx = max(rmx, rsum)
+            return lmx + rmx
+
+        def maxSub(nums, left, right):
+            if left == right:
+                return nums[left]
+            mid = (left + right) &gt;&gt; 1
+            lsum = maxSub(nums, left, mid)
+            rsum = maxSub(nums, mid + 1, right)
+            csum = crossMaxSub(nums, left, mid, right)
+            return max(lsum, rsum, csum)
+
+        left, right = 0, len(nums) - 1
+        return maxSub(nums, left, right)
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubArray(int[] nums) {
+        return maxSub(nums, 0, nums.length - 1);
+    }
+
+    private int maxSub(int[] nums, int left, int right) {
+        if (left == right) {
+            return nums[left];
+        }
+        int mid = (left + right) &gt;&gt;&gt; 1;
+        int lsum = maxSub(nums, left, mid);
+        int rsum = maxSub(nums, mid + 1, right);
+        return Math.max(Math.max(lsum, rsum), crossMaxSub(nums, left, mid, right));
+    }
+
+    private int crossMaxSub(int[] nums, int left, int mid, int right) {
+        int lsum = 0, rsum = 0;
+        int lmx = Integer.MIN_VALUE, rmx = Integer.MIN_VALUE;
+        for (int i = mid; i &gt;= left; --i) {
+            lsum += nums[i];
+            lmx = Math.max(lmx, lsum);
+        }
+        for (int i = mid + 1; i &lt;= right; ++i) {
+            rsum += nums[i];
+            rmx = Math.max(rmx, rsum);
+        }
+        return lmx + rmx;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 子数组最大累加和
+// 给你一个整数数组 nums
+// 返回非空子数组的最大累加和
+// 测试链接 : https://leetcode.com/problems/maximum-subarray/
+public class Code01_MaximumSubarray {
+
+	// 动态规划
+	public static int maxSubArray1(int[] nums) {
+		int n = nums.length;
+		// dp[i] : 子数组必须以i位置的数做结尾，往左能延伸出来的最大累加和
+		int[] dp = new int[n];
+		dp[0] = nums[0];
+		int ans = nums[0];
+		for (int i = 1; i &lt; n; i++) {
+			dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+			ans = Math.max(ans, dp[i]);
+		}
+		return ans;
+	}
+
+	// 空间压缩
+	public static int maxSubArray2(int[] nums) {
+		int n = nums.length;
+		int ans = nums[0];
+		for (int i = 1, pre = nums[0]; i &lt; n; i++) {
+			pre = Math.max(nums[i], pre + nums[i]);
+			ans = Math.max(ans, pre);
+		}
+		return ans;
+	}
+
+	// 如下代码为附加问题的实现
+	// 子数组中找到拥有最大累加和的子数组
+	// 并返回如下三个信息:
+	// 1) 最大累加和子数组的开头left
+	// 2) 最大累加和子数组的结尾right
+	// 3) 最大累加和子数组的累加和sum
+	// 如果不止一个子数组拥有最大累加和，那么找到哪一个都可以
+	public static int left;
+
+	public static int right;
+
+	public static int sum;
+
+	// 找到拥有最大累加和的子数组
+	// 更新好全局变量left、right、sum
+	// 上游调用函数可以直接使用这三个变量
+	// 相当于返回了三个值
+	public static void extra(int[] nums) {
+		sum = Integer.MIN_VALUE;
+		for (int l = 0, r = 0, pre = Integer.MIN_VALUE; r &lt; nums.length; r++) {
+			if (pre &gt;= 0) {
+				// 吸收前面的累加和有利可图
+				// 那就不换开头
+				pre += nums[r];
+			} else {
+				// 吸收前面的累加和已经无利可图
+				// 那就换开头
+				pre = nums[r];
+				l = r;
+			}
+			if (pre &gt; sum) {
+				sum = pre;
+				left = l;
+				right = r;
+			}
+		}
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=75">
+    </iframe>
+</details>
+<h2 id="houserobber"><a class="header" href="#houserobber">HouseRobber</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0198.House%20Robber/README_EN.md
+tags:
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="198-house-robber"><a class="header" href="#198-house-robber"><a href="https://leetcode.com/problems/house-robber">198. House Robber</a></a></h1>
+<p><a href="/solution/0100-0199/0198.House%20Robber/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and <b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>
+<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <b>without alerting the police</b></em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3,1]
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,7,9,3,1]
+<strong>Output:</strong> 12
+<strong>Explanation:</strong> Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+Total amount you can rob = 2 + 9 + 1 = 12.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>0 &lt;= nums[i] &lt;= 400</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-memoization-search"><a class="header" href="#solution-1-memoization-search">Solution 1: Memoization Search</a></h3>
+<p>We design a function $\textit{dfs}(i)$, which represents the maximum amount of money that can be stolen starting from the $i$-th house. Thus, the answer is $\textit{dfs}(0)$.</p>
+<p>The execution process of the function $\textit{dfs}(i)$ is as follows:</p>
+<ul>
+<li>If $i \ge \textit{len}(\textit{nums})$, it means all houses have been considered, and we directly return $0$;</li>
+<li>Otherwise, consider stealing from the $i$-th house, then $\textit{dfs}(i) = \textit{nums}[i] + \textit{dfs}(i+2)$; if not stealing from the $i$-th house, then $\textit{dfs}(i) = \textit{dfs}(i+1)$.</li>
+<li>Return $\max(\textit{nums}[i] + \textit{dfs}(i+2), \textit{dfs}(i+1))$.</li>
+</ul>
+<p>To avoid repeated calculations, we use memoization search. The result of $\textit{dfs}(i)$ is saved in an array or hash table. Before each calculation, we first check if it has been calculated. If so, we directly return the result.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$, where $n$ is the length of the array.</p>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        @cache
+        def dfs(i: int) -&gt; int:
+            if i &gt;= len(nums):
+                return 0
+            return max(nums[i] + dfs(i + 2), dfs(i + 1))
+
+        return dfs(0)
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private Integer[] f;
+    private int[] nums;
+
+    public int rob(int[] nums) {
+        this.nums = nums;
+        f = new Integer[nums.length];
+        return dfs(0);
+    }
+
+    private int dfs(int i) {
+        if (i &gt;= nums.length) {
+            return 0;
+        }
+        if (f[i] == null) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int f[n];
+        memset(f, -1, sizeof(f));
+        auto dfs = [&amp;](auto&amp;&amp; dfs, int i) -&gt; int {
+            if (i &gt;= n) {
+                return 0;
+            }
+            if (f[i] &lt; 0) {
+                f[i] = max(nums[i] + dfs(dfs, i + 2), dfs(dfs, i + 1));
+            }
+            return f[i];
+        };
+        return dfs(dfs, 0);
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	f := make([]int, n)
+	for i := range f {
+		f[i] = -1
+	}
+	var dfs func(int) int
+	dfs = func(i int) int {
+		if i &gt;= n {
+			return 0
+		}
+		if f[i] &lt; 0 {
+			f[i] = max(nums[i]+dfs(i+2), dfs(i+1))
+		}
+		return f[i]
+	}
+	return dfs(0)
+}
+</code></pre>
+<h4 id="typescript-1"><a class="header" href="#typescript-1">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    const f: number[] = Array(n).fill(-1);
+    const dfs = (i: number): number =&gt; {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i] &lt; 0) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    };
+    return dfs(0);
+}
+</code></pre>
+<h4 id="rust-1"><a class="header" href="#rust-1">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        fn dfs(i: usize, nums: &amp;Vec&lt;i32&gt;, f: &amp;mut Vec&lt;i32&gt;) -&gt; i32 {
+            if i &gt;= nums.len() {
+                return 0;
+            }
+            if f[i] &lt; 0 {
+                f[i] = (nums[i] + dfs(i + 2, nums, f)).max(dfs(i + 1, nums, f));
+            }
+            f[i]
+        }
+
+        let n = nums.len();
+        let mut f = vec![-1; n];
+        dfs(0, &amp;nums, &amp;mut f)
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-1"><a class="header" href="#javascript-1">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    const n = nums.length;
+    const f = Array(n).fill(-1);
+    const dfs = i =&gt; {
+        if (i &gt;= n) {
+            return 0;
+        }
+        if (f[i] &lt; 0) {
+            f[i] = Math.max(nums[i] + dfs(i + 2), dfs(i + 1));
+        }
+        return f[i];
+    };
+    return dfs(0);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-dynamic-programming"><a class="header" href="#solution-2-dynamic-programming">Solution 2: Dynamic Programming</a></h3>
+<p>We define $f[i]$ as the maximum total amount that can be robbed from the first $i$ houses, initially $f[0]=0$, $f[1]=nums[0]$.</p>
+<p>Consider the case where $i \gt 1$, the $i$th house has two options:</p>
+<ul>
+<li>Do not rob the $i$th house, the total amount of robbery is $f[i-1]$;</li>
+<li>Rob the $i$th house, the total amount of robbery is $f[i-2]+nums[i-1]$;</li>
+</ul>
+<p>Therefore, we can get the state transition equation:</p>
+<p>$$
+f[i]=
+\begin{cases}
+0, &amp; i=0 \
+nums[0], &amp; i=1 \
+\max(f[i-1],f[i-2]+nums[i-1]), &amp; i \gt 1
+\end{cases}
+$$</p>
+<p>The final answer is $f[n]$, where $n$ is the length of the array.</p>
+<p>The time complexity is $O(n)$, and the space complexity is $O(n)$. Where $n$ is the length of the array.</p>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        n = len(nums)
+        f = [0] * (n + 1)
+        f[1] = nums[0]
+        for i in range(2, n + 1):
+            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1])
+        return f[n]
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] f = new int[n + 1];
+        f[1] = nums[0];
+        for (int i = 2; i &lt;= n; ++i) {
+            f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+        }
+        return f[n];
+    }
+}
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int f[n + 1];
+        memset(f, 0, sizeof(f));
+        f[1] = nums[0];
+        for (int i = 2; i &lt;= n; ++i) {
+            f[i] = max(f[i - 1], f[i - 2] + nums[i - 1]);
+        }
+        return f[n];
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	f := make([]int, n+1)
+	f[1] = nums[0]
+	for i := 2; i &lt;= n; i++ {
+		f[i] = max(f[i-1], f[i-2]+nums[i-1])
+	}
+	return f[n]
+}
+</code></pre>
+<h4 id="typescript-2"><a class="header" href="#typescript-2">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    const f: number[] = Array(n + 1).fill(0);
+    f[1] = nums[0];
+    for (let i = 2; i &lt;= n; ++i) {
+        f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+    }
+    return f[n];
+}
+</code></pre>
+<h4 id="rust-2"><a class="header" href="#rust-2">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        let mut f = vec![0; n + 1];
+        f[1] = nums[0];
+        for i in 2..=n {
+            f[i] = f[i - 1].max(f[i - 2] + nums[i - 1]);
+        }
+        f[n]
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-2"><a class="header" href="#javascript-2">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    const n = nums.length;
+    const f = Array(n + 1).fill(0);
+    f[1] = nums[0];
+    for (let i = 2; i &lt;= n; ++i) {
+        f[i] = Math.max(f[i - 1], f[i - 2] + nums[i - 1]);
+    }
+    return f[n];
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-3-dynamic-programming-space-optimization"><a class="header" href="#solution-3-dynamic-programming-space-optimization">Solution 3: Dynamic Programming (Space Optimization)</a></h3>
+<p>We notice that when $i \gt 2$, $f[i]$ is only related to $f[i-1]$ and $f[i-2]$. Therefore, we can use two variables instead of an array to reduce the space complexity to $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-4"><a class="header" href="#python3-4">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        f = g = 0
+        for x in nums:
+            f, g = max(f, g), f + x
+        return max(f, g)
+</code></pre>
+<h4 id="java-4"><a class="header" href="#java-4">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int f = 0, g = 0;
+        for (int x : nums) {
+            int ff = Math.max(f, g);
+            g = f + x;
+            f = ff;
+        }
+        return Math.max(f, g);
+    }
+}
+</code></pre>
+<h4 id="c-4"><a class="header" href="#c-4">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int f = 0, g = 0;
+        for (int&amp; x : nums) {
+            int ff = max(f, g);
+            g = f + x;
+            f = ff;
+        }
+        return max(f, g);
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	f, g := 0, 0
+	for _, x := range nums {
+		f, g = max(f, g), f+x
+	}
+	return max(f, g)
+}
+</code></pre>
+<h4 id="typescript-3"><a class="header" href="#typescript-3">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    let [f, g] = [0, 0];
+    for (const x of nums) {
+        [f, g] = [Math.max(f, g), f + x];
+    }
+    return Math.max(f, g);
+}
+</code></pre>
+<h4 id="rust-3"><a class="header" href="#rust-3">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let mut f = [0, 0];
+        for x in nums {
+            f = [f[0].max(f[1]), f[0] + x];
+        }
+        f[0].max(f[1])
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-3"><a class="header" href="#javascript-3">JavaScript</a></h4>
+<pre><code class="language-js">function rob(nums) {
+    let [f, g] = [0, 0];
+    for (const x of nums) {
+        [f, g] = [Math.max(f, g), f + x];
+    }
+    return Math.max(f, g);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 数组中不能选相邻元素的最大累加和
+// 给定一个数组，可以随意选择数字
+// 但是不能选择相邻的数字，返回能得到的最大累加和
+// 测试链接 : https://leetcode.com/problems/house-robber/
+public class Code02_HouseRobber {
+
+	// 动态规划
+	public static int rob1(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		if (n == 2) {
+			return Math.max(nums[0], nums[1]);
+		}
+		// dp[i] : nums[0...i]范围上可以随意选择数字，但是不能选相邻数，能得到的最大累加和
+		int[] dp = new int[n];
+		dp[0] = nums[0];
+		dp[1] = Math.max(nums[0], nums[1]);
+		for (int i = 2; i &lt; n; i++) {
+			dp[i] = Math.max(dp[i - 1], Math.max(nums[i], dp[i - 2] + nums[i]));
+		}
+		return dp[n - 1];
+	}
+
+	// 空间压缩
+	public static int rob2(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		if (n == 2) {
+			return Math.max(nums[0], nums[1]);
+		}
+		int prepre = nums[0];
+		int pre = Math.max(nums[0], nums[1]);
+		for (int i = 2, cur; i &lt; n; i++) {
+			cur = Math.max(pre, Math.max(nums[i], prepre + nums[i]));
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=1685">
+    </iframe>
+</details>
+<h2 id="maximumsumcircularsubarray"><a class="header" href="#maximumsumcircularsubarray">MaximumSumCircularSubarray</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0900-0999/0918.Maximum%20Sum%20Circular%20Subarray/README_EN.md
+tags:
+    - Queue
+    - Array
+    - Divide and Conquer
+    - Dynamic Programming
+    - Monotonic Queue
+</code></pre>
+<!-- problem:start -->
+<h1 id="918-maximum-sum-circular-subarray"><a class="header" href="#918-maximum-sum-circular-subarray"><a href="https://leetcode.com/problems/maximum-sum-circular-subarray">918. Maximum Sum Circular Subarray</a></a></h1>
+<p><a href="/solution/0900-0999/0918.Maximum%20Sum%20Circular%20Subarray/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>Given a <strong>circular integer array</strong> <code>nums</code> of length <code>n</code>, return <em>the maximum possible sum of a non-empty <strong>subarray</strong> of </em><code>nums</code>.</p>
+<p>A <strong>circular array</strong> means the end of the array connects to the beginning of the array. Formally, the next element of <code>nums[i]</code> is <code>nums[(i + 1) % n]</code> and the previous element of <code>nums[i]</code> is <code>nums[(i - 1 + n) % n]</code>.</p>
+<p>A <strong>subarray</strong> may only include each element of the fixed buffer <code>nums</code> at most once. Formally, for a subarray <code>nums[i], nums[i + 1], ..., nums[j]</code>, there does not exist <code>i &lt;= k1</code>, <code>k2 &lt;= j</code> with <code>k1 % n == k2 % n</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,-2,3,-2]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> Subarray [3] has maximum sum 3.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [5,-3,5]
+<strong>Output:</strong> 10
+<strong>Explanation:</strong> Subarray [5,5] has maximum sum 5 + 5 = 10.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [-3,-2,-3]
+<strong>Output:</strong> -2
+<strong>Explanation:</strong> Subarray [-2] has maximum sum -2.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>n == nums.length</code></li>
+	<li><code>1 &lt;= n &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>-3 * 10<sup>4</sup> &lt;= nums[i] &lt;= 3 * 10<sup>4</sup></code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-maintain-prefix-maximum"><a class="header" href="#solution-1-maintain-prefix-maximum">Solution 1: Maintain Prefix Maximum</a></h3>
+<p>The maximum sum of a circular subarray can be divided into two cases:</p>
+<ul>
+<li>Case 1: The subarray with the maximum sum does not include the circular part, which is the ordinary maximum subarray sum;</li>
+<li>Case 2: The subarray with the maximum sum includes the circular part, which can be transformed into: the total sum of the array minus the minimum subarray sum.</li>
+</ul>
+<p>Therefore, we maintain the following variables:</p>
+<ul>
+<li>The minimum prefix sum $pmi$, initially $0$;</li>
+<li>The maximum prefix sum $pmx$, initially $-\infty$;</li>
+<li>The prefix sum $s$, initially $0$;</li>
+<li>The minimum subarray sum $smi$, initially $\infty$;</li>
+<li>The answer $ans$, initially $-\infty$.</li>
+</ul>
+<p>Next, we only need to traverse the array $nums$. For the current element $x$ we are traversing, we perform the following update operations:</p>
+<ul>
+<li>Update the prefix sum $s = s + x$;</li>
+<li>Update the answer $ans = \max(ans, s - pmi)$, which is the answer for Case 1 (the prefix sum $s$ minus the minimum prefix sum $pmi$ can give the maximum subarray sum);</li>
+<li>Update $smi = \min(smi, s - pmx)$, which is the minimum subarray sum for Case 2;</li>
+<li>Update $pmi = \min(pmi, s)$, which is the minimum prefix sum;</li>
+<li>Update $pmx = \max(pmx, s)$, which is the maximum prefix sum.</li>
+</ul>
+<p>After the traversal, we return the maximum value of $ans$ and $s - smi$ as the answer.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-5"><a class="header" href="#python3-5">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -&gt; int:
+        pmi, pmx = 0, -inf
+        ans, s, smi = -inf, 0, inf
+        for x in nums:
+            s += x
+            ans = max(ans, s - pmi)
+            smi = min(smi, s - pmx)
+            pmi = min(pmi, s)
+            pmx = max(pmx, s)
+        return max(ans, s - smi)
+</code></pre>
+<h4 id="java-5"><a class="header" href="#java-5">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxSubarraySumCircular(int[] nums) {
+        final int inf = 1 &lt;&lt; 30;
+        int pmi = 0, pmx = -inf;
+        int ans = -inf, s = 0, smi = inf;
+        for (int x : nums) {
+            s += x;
+            ans = Math.max(ans, s - pmi);
+            smi = Math.min(smi, s - pmx);
+            pmi = Math.min(pmi, s);
+            pmx = Math.max(pmx, s);
+        }
+        return Math.max(ans, s - smi);
+    }
+}
+</code></pre>
+<h4 id="c-5"><a class="header" href="#c-5">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int maxSubarraySumCircular(vector&lt;int&gt;&amp; nums) {
+        const int inf = 1 &lt;&lt; 30;
+        int pmi = 0, pmx = -inf;
+        int ans = -inf, s = 0, smi = inf;
+        for (int x : nums) {
+            s += x;
+            ans = max(ans, s - pmi);
+            smi = min(smi, s - pmx);
+            pmi = min(pmi, s);
+            pmx = max(pmx, s);
+        }
+        return max(ans, s - smi);
+    }
+};
+</code></pre>
+<h4 id="go-4"><a class="header" href="#go-4">Go</a></h4>
+<pre><code class="language-go">func maxSubarraySumCircular(nums []int) int {
+	const inf = 1 &lt;&lt; 30
+	pmi, pmx := 0, -inf
+	ans, s, smi := -inf, 0, inf
+	for _, x := range nums {
+		s += x
+		ans = max(ans, s-pmi)
+		smi = min(smi, s-pmx)
+		pmi = min(pmi, s)
+		pmx = max(pmx, s)
+	}
+	return max(ans, s-smi)
+}
+</code></pre>
+<h4 id="typescript-4"><a class="header" href="#typescript-4">TypeScript</a></h4>
+<pre><code class="language-ts">function maxSubarraySumCircular(nums: number[]): number {
+    let [pmi, pmx] = [0, -Infinity];
+    let [ans, s, smi] = [-Infinity, 0, Infinity];
+    for (const x of nums) {
+        s += x;
+        ans = Math.max(ans, s - pmi);
+        smi = Math.min(smi, s - pmx);
+        pmi = Math.min(pmi, s);
+        pmx = Math.max(pmx, s);
+    }
+    return Math.max(ans, s - smi);
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 环形数组的子数组最大累加和
+// 给定一个数组nums，长度为n
+// nums是一个环形数组，下标0和下标n-1是连在一起的
+// 返回环形数组中，子数组最大累加和
+// 测试链接 : https://leetcode.com/problems/maximum-sum-circular-subarray/
+public class Code03_MaximumSumCircularSubarray {
+
+	public static int maxSubarraySumCircular(int[] nums) {
+		int n = nums.length, all = nums[0], maxsum = nums[0], minsum = nums[0];
+		for (int i = 1, maxpre = nums[0], minpre = nums[0]; i &lt; n; i++) {
+			all += nums[i];
+			maxpre = Math.max(nums[i], nums[i] + maxpre);
+			maxsum = Math.max(maxsum, maxpre);
+			minpre = Math.min(nums[i], nums[i] + minpre);
+			minsum = Math.min(minsum, minpre);
+		}
+		// 1) maxsum
+		// 2) all - minsum
+		return all == minsum ? maxsum : Math.max(maxsum, all - minsum);
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=2320">
+    </iframe>
+</details>
+<h2 id="houserobberii"><a class="header" href="#houserobberii">HouseRobberII</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0213.House%20Robber%20II/README_EN.md
+tags:
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="213-house-robber-ii"><a class="header" href="#213-house-robber-ii"><a href="https://leetcode.com/problems/house-robber-ii">213. House Robber II</a></a></h1>
+<p><a href="/solution/0200-0299/0213.House%20Robber%20II/README.html">中文文档</a></p>
+<h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
+<!-- description:start -->
+<p>You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are <strong>arranged in a circle.</strong> That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and&nbsp;<b>it will automatically contact the police if two adjacent houses were broken into on the same night</b>.</p>
+<p>Given an integer array <code>nums</code> representing the amount of money of each house, return <em>the maximum amount of money you can rob tonight <strong>without alerting the police</strong></em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,3,2]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3,1]
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,3]
+<strong>Output:</strong> 3
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-3"><a class="header" href="#solutions-3">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming-1"><a class="header" href="#solution-1-dynamic-programming-1">Solution 1: Dynamic Programming</a></h3>
+<p>The circular arrangement means that at most one of the first and last houses can be chosen for theft, so this circular arrangement problem can be reduced to two single-row house problems.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-6"><a class="header" href="#python3-6">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        def _rob(nums):
+            f = g = 0
+            for x in nums:
+                f, g = max(f, g), f + x
+            return max(f, g)
+
+        if len(nums) == 1:
+            return nums[0]
+        return max(_rob(nums[1:]), _rob(nums[:-1]))
+</code></pre>
+<h4 id="java-6"><a class="header" href="#java-6">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) {
+            return nums[0];
+        }
+        return Math.max(rob(nums, 0, n - 2), rob(nums, 1, n - 1));
+    }
+
+    private int rob(int[] nums, int l, int r) {
+        int f = 0, g = 0;
+        for (; l &lt;= r; ++l) {
+            int ff = Math.max(f, g);
+            g = f + nums[l];
+            f = ff;
+        }
+        return Math.max(f, g);
+    }
+}
+</code></pre>
+<h4 id="c-6"><a class="header" href="#c-6">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int rob(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        if (n == 1) {
+            return nums[0];
+        }
+        return max(robRange(nums, 0, n - 2), robRange(nums, 1, n - 1));
+    }
+
+    int robRange(vector&lt;int&gt;&amp; nums, int l, int r) {
+        int f = 0, g = 0;
+        for (; l &lt;= r; ++l) {
+            int ff = max(f, g);
+            g = f + nums[l];
+            f = ff;
+        }
+        return max(f, g);
+    }
+};
+</code></pre>
+<h4 id="go-5"><a class="header" href="#go-5">Go</a></h4>
+<pre><code class="language-go">func rob(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	return max(robRange(nums, 0, n-2), robRange(nums, 1, n-1))
+}
+
+func robRange(nums []int, l, r int) int {
+	f, g := 0, 0
+	for _, x := range nums[l : r+1] {
+		f, g = max(f, g), f+x
+	}
+	return max(f, g)
+}
+</code></pre>
+<h4 id="typescript-5"><a class="header" href="#typescript-5">TypeScript</a></h4>
+<pre><code class="language-ts">function rob(nums: number[]): number {
+    const n = nums.length;
+    if (n === 1) {
+        return nums[0];
+    }
+    const robRange = (l: number, r: number): number =&gt; {
+        let [f, g] = [0, 0];
+        for (; l &lt;= r; ++l) {
+            [f, g] = [Math.max(f, g), f + nums[l]];
+        }
+        return Math.max(f, g);
+    };
+    return Math.max(robRange(0, n - 2), robRange(1, n - 1));
+}
+</code></pre>
+<h4 id="rust-4"><a class="header" href="#rust-4">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn rob(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len();
+        if n == 1 {
+            return nums[0];
+        }
+        let rob_range = |l, r| {
+            let mut f = [0, 0];
+            for i in l..r {
+                f = [f[0].max(f[1]), f[0] + nums[i]];
+            }
+            f[0].max(f[1])
+        };
+        rob_range(0, n - 1).max(rob_range(1, n))
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 环形数组中不能选相邻元素的最大累加和
+// 给定一个数组nums，长度为n
+// nums是一个环形数组，下标0和下标n-1是连在一起的
+// 可以随意选择数字，但是不能选择相邻的数字
+// 返回能得到的最大累加和
+// 测试链接 : https://leetcode.com/problems/house-robber-ii/
+public class Code04_HouseRobberII {
+
+	public static int rob(int[] nums) {
+		int n = nums.length;
+		if (n == 1) {
+			return nums[0];
+		}
+		return Math.max(best(nums, 1, n - 1), nums[0] + best(nums, 2, n - 2));
+	}
+
+	// nums[l....r]范围上，没有环形的概念
+	// 返回 : 可以随意选择数字，但不能选择相邻数字的情况下，最大累加和
+	public static int best(int[] nums, int l, int r) {
+		if (l &gt; r) {
+			return 0;
+		}
+		if (l == r) {
+			return nums[l];
+		}
+		if (l + 1 == r) {
+			return Math.max(nums[l], nums[r]);
+		}
+		int prepre = nums[l];
+		int pre = Math.max(nums[l], nums[l + 1]);
+		for (int i = l + 2, cur; i &lt;= r; i++) {
+			cur = Math.max(pre, nums[i] + Math.max(0, prepre));
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=2960">
+    </iframe>
+</details>
+<h2 id="houserobberiv"><a class="header" href="#houserobberiv">HouseRobberIV</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/2500-2599/2560.House%20Robber%20IV/README_EN.md
+rating: 2081
+source: Weekly Contest 331 Q3
+tags:
+    - Array
+    - Binary Search
+</code></pre>
+<!-- problem:start -->
+<h1 id="2560-house-robber-iv"><a class="header" href="#2560-house-robber-iv"><a href="https://leetcode.com/problems/house-robber-iv">2560. House Robber IV</a></a></h1>
+<p><a href="/solution/2500-2599/2560.House%20Robber%20IV/README.html">中文文档</a></p>
+<h2 id="description-4"><a class="header" href="#description-4">Description</a></h2>
+<!-- description:start -->
+<p>There are several consecutive houses along a street, each of which has some money inside. There is also a robber, who wants to steal money from the homes, but he <strong>refuses to steal from adjacent homes</strong>.</p>
+<p>The <strong>capability</strong> of the robber is the maximum amount of money he steals from one house of all the houses he robbed.</p>
+<p>You are given an integer array <code>nums</code> representing how much money is stashed in each house. More formally, the <code>i<sup>th</sup></code> house from the left has <code>nums[i]</code> dollars.</p>
+<p>You are also given an integer <code>k</code>, representing the <strong>minimum</strong> number of houses the robber will steal from. It is always possible to steal at least <code>k</code> houses.</p>
+<p>Return <em>the <strong>minimum</strong> capability of the robber out of all the possible ways to steal at least </em><code>k</code><em> houses</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,3,5,9], k = 2
+<strong>Output:</strong> 5
+<strong>Explanation:</strong> 
+There are three ways to rob at least 2 houses:
+- Rob the houses at indices 0 and 2. Capability is max(nums[0], nums[2]) = 5.
+- Rob the houses at indices 0 and 3. Capability is max(nums[0], nums[3]) = 9.
+- Rob the houses at indices 1 and 3. Capability is max(nums[1], nums[3]) = 9.
+Therefore, we return min(5, 9, 9) = 5.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [2,7,9,3,1], k = 2
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> There are 7 ways to rob the houses. The way which leads to minimum capability is to rob the house at index 0 and 4. Return max(nums[0], nums[4]) = 2.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li><code>1 &lt;= k &lt;= (nums.length + 1)/2</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-4"><a class="header" href="#solutions-4">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-binary-search--greedy"><a class="header" href="#solution-1-binary-search--greedy">Solution 1: Binary Search + Greedy</a></h3>
+<p>The problem is asking for the minimum stealing ability of the thief. We can use binary search to enumerate the stealing ability of the thief. For the enumerated ability $x$, we can use a greedy approach to determine whether the thief can steal at least $k$ houses. Specifically, we traverse the array from left to right. For the current house $i$ we are traversing, if $nums[i] \leq x$ and the difference between the index of $i$ and the last stolen house is greater than $1$, then the thief can steal house $i$. Otherwise, the thief cannot steal house $i$. We accumulate the number of stolen houses. If the number of stolen houses is greater than or equal to $k$, it means that the thief can steal at least $k$ houses, and at this time, the stealing ability $x$ of the thief might be the minimum. Otherwise, the stealing ability $x$ of the thief is not the minimum.</p>
+<p>The time complexity is $O(n \times \log m)$, and the space complexity is $O(1)$. Where $n$ and $m$ are the length of the array $nums$ and the maximum value in the array $nums$, respectively.</p>
+<!-- tabs:start -->
+<h4 id="python3-7"><a class="header" href="#python3-7">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def minCapability(self, nums: List[int], k: int) -&gt; int:
+        def f(x):
+            cnt, j = 0, -2
+            for i, v in enumerate(nums):
+                if v &gt; x or i == j + 1:
+                    continue
+                cnt += 1
+                j = i
+            return cnt &gt;= k
+
+        return bisect_left(range(max(nums) + 1), True, key=f)
+</code></pre>
+<h4 id="java-7"><a class="header" href="#java-7">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int minCapability(int[] nums, int k) {
+        int left = 0, right = (int) 1e9;
+        while (left &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            if (f(nums, mid) &gt;= k) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    private int f(int[] nums, int x) {
+        int cnt = 0, j = -2;
+        for (int i = 0; i &lt; nums.length; ++i) {
+            if (nums[i] &gt; x || i == j + 1) {
+                continue;
+            }
+            ++cnt;
+            j = i;
+        }
+        return cnt;
+    }
+}
+</code></pre>
+<h4 id="c-7"><a class="header" href="#c-7">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int minCapability(vector&lt;int&gt;&amp; nums, int k) {
+        auto f = [&amp;](int x) {
+            int cnt = 0, j = -2;
+            for (int i = 0; i &lt; nums.size(); ++i) {
+                if (nums[i] &gt; x || i == j + 1) {
+                    continue;
+                }
+                ++cnt;
+                j = i;
+            }
+            return cnt &gt;= k;
+        };
+        int left = 0, right = *max_element(nums.begin(), nums.end());
+        while (left &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            if (f(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+};
+</code></pre>
+<h4 id="go-6"><a class="header" href="#go-6">Go</a></h4>
+<pre><code class="language-go">func minCapability(nums []int, k int) int {
+	return sort.Search(1e9+1, func(x int) bool {
+		cnt, j := 0, -2
+		for i, v := range nums {
+			if v &gt; x || i == j+1 {
+				continue
+			}
+			cnt++
+			j = i
+		}
+		return cnt &gt;= k
+	})
+}
+</code></pre>
+<h4 id="typescript-6"><a class="header" href="#typescript-6">TypeScript</a></h4>
+<pre><code class="language-ts">function minCapability(nums: number[], k: number): number {
+    const f = (mx: number): boolean =&gt; {
+        let cnt = 0;
+        let j = -2;
+        for (let i = 0; i &lt; nums.length; ++i) {
+            if (nums[i] &lt;= mx &amp;&amp; i - j &gt; 1) {
+                ++cnt;
+                j = i;
+            }
+        }
+        return cnt &gt;= k;
+    };
+
+    let left = 1;
+    let right = Math.max(...nums);
+    while (left &lt; right) {
+        const mid = (left + right) &gt;&gt; 1;
+        if (f(mid)) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return left;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+// 打家劫舍 IV
+// 沿街有一排连续的房屋。每间房屋内都藏有一定的现金
+// 现在有一位小偷计划从这些房屋中窃取现金
+// 由于相邻的房屋装有相互连通的防盗系统，所以小偷不会窃取相邻的房屋
+// 小偷的 窃取能力 定义为他在窃取过程中能从单间房屋中窃取的 最大金额
+// 给你一个整数数组 nums 表示每间房屋存放的现金金额
+// 第i间房屋中放有nums[i]的钱数
+// 另给你一个整数k，表示小偷需要窃取至少 k 间房屋
+// 返回小偷需要的最小窃取能力值
+// 测试链接 : https://leetcode.com/problems/house-robber-iv/
+public class Code05_HouseRobberIV {
+
+	public static int minCapability(int[] nums, int k) {
+		int n = nums.length, l = nums[0], r = nums[0];
+		for (int i = 1; i &lt; n; i++) {
+			l = Math.min(l, nums[i]);
+			r = Math.max(r, nums[i]);
+		}
+		// l....r
+		int m, ans = 0;
+		while (l &lt;= r) {
+			m = (l + r) / 2;
+			if (mostRob1(nums, n, m) &gt;= k) {
+				ans = m;
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+		return ans;
+	}
+
+	// 盗贼能力为ability时
+	// 返回盗贼最多能窃取多少间房屋
+	// 注意限制 : 不能窃取相邻房屋
+	public static int mostRob1(int[] nums, int n, int ability) {
+		if (n == 1) {
+			return nums[0] &lt;= ability ? 1 : 0;
+		}
+		if (n == 2) {
+			return (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		}
+		int[] dp = new int[n];
+		dp[0] = nums[0] &lt;= ability ? 1 : 0;
+		dp[1] = (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		for (int i = 2; i &lt; n; i++) {
+			dp[i] = Math.max(dp[i - 1], (nums[i] &lt;= ability ? 1 : 0) + dp[i - 2]);
+		}
+		return dp[n - 1];
+	}
+
+	// 继续空间压缩优化
+	public static int mostRob2(int[] nums, int n, int ability) {
+		if (n == 1) {
+			return nums[0] &lt;= ability ? 1 : 0;
+		}
+		if (n == 2) {
+			return (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		}
+		int prepre = nums[0] &lt;= ability ? 1 : 0;
+		int pre = (nums[0] &lt;= ability || nums[1] &lt;= ability) ? 1 : 0;
+		for (int i = 2, cur; i &lt; n; i++) {
+			cur = Math.max(pre, (nums[i] &lt;= ability ? 1 : 0) + prepre);
+			prepre = pre;
+			pre = cur;
+		}
+		return pre;
+	}
+
+	// 继续贪心优化
+	public static int mostRob3(int[] nums, int n, int ability) {
+		int ans = 0;
+		for (int i = 0; i &lt; n; i++) {
+			if (nums[i] &lt;= ability) {
+				ans++;
+				i++;
+			}
+		}
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=3264">
+    </iframe>
+</details>
+<h2 id="maximumsubmatrix"><a class="header" href="#maximumsubmatrix">MaximumSubmatrix</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">// 子矩阵最大累加和问题
+// 给定一个二维数组grid，找到其中子矩阵的最大累加和
+// 返回拥有最大累加和的子矩阵左上角和右下角坐标
+// 如果有多个子矩阵都有最大累加和，返回哪一个都可以
+// 测试链接 : https://leetcode.com/problems/max-submatrix-lcci/
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class070;
+
+import java.util.Arrays;
+
+// 子矩阵最大累加和问题
+// 给定一个二维数组grid，找到其中子矩阵的最大累加和
+// 返回拥有最大累加和的子矩阵左上角和右下角坐标
+// 如果有多个子矩阵都有最大累加和，返回哪一个都可以
+// 测试链接 : https://leetcode.com/problems/max-submatrix-lcci/
+public class Code06_MaximumSubmatrix {
+
+	// 如果行和列的规模都是n，时间复杂度O(n^3)，最优解了
+	public static int[] getMaxMatrix(int[][] grid) {
+		int n = grid.length;
+		int m = grid[0].length;
+		int max = Integer.MIN_VALUE;
+		int a = 0, b = 0, c = 0, d = 0;
+		int[] nums = new int[m];
+		for (int up = 0; up &lt; n; up++) {
+			Arrays.fill(nums, 0);
+			for (int down = up; down &lt; n; down++) {
+				// 如下代码就是题目1的附加问题 :
+				// 子数组中找到拥有最大累加和的子数组
+				for (int l = 0, r = 0, pre = Integer.MIN_VALUE; r &lt; m; r++) {
+					nums[r] += grid[down][r];
+					if (pre &gt;= 0) {
+						pre += nums[r];
+					} else {
+						pre = nums[r];
+						l = r;
+					}
+					if (pre &gt; max) {
+						max = pre;
+						a = up;
+						b = l;
+						c = down;
+						d = r;
+					}
+				}
+			}
+		}
+		return new int[] { a, b, c, d };
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/08C6eyZmRFI?start=4417">
+    </iframe>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dynamic-programming/2d-dp-2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dynamic-programming/interval-dp-1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dynamic-programming/2d-dp-2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dynamic-programming/interval-dp-1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

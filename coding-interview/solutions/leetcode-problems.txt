@@ -1,0 +1,466 @@
+算法讲解001【入门】学习算法的语言问题以及如何开通gpt4
+// 测试链接 : https://leetcode.com/problems/sort-an-array/
+算法讲解002【入门】从社会实验到入门提醒
+算法讲解003【入门】二进制和位运算
+算法讲解004【入门】选择、冒泡、插入排序
+算法讲解005【入门】对数器-验证的重要手段
+算法讲解006【入门】二分搜索
+// 测试链接 : https://leetcode.com/problems/find-peak-element/
+算法讲解007【入门】时间复杂度和空间复杂度
+算法讲解008【入门】算法和数据结构简介
+算法讲解009【入门】单双链表及其反转-堆栈诠释
+// 反转单链表测试链接 : https://leetcode.com/problems/reverse-linked-list/
+算法讲解010【入门】链表入门题目-合并两个有序链表
+// 测试链接 : https://leetcode.com/problems/merge-two-sorted-lists/
+算法讲解011【入门】链表入门题目-两个链表相加
+// 测试链接：https://leetcode.com/problems/add-two-numbers/
+算法讲解012【入门】链表入门题目-划分链表
+// 测试链接 : https://leetcode.com/problems/partition-list/
+算法讲解013【入门】队列和栈 链表、数组实现
+// 测试链接 : https://leetcode.com/problems/design-circular-queue/
+算法讲解014【入门】队列和栈入门题目-栈和队列相互实现
+// 测试链接 : https://leetcode.com/problems/implement-queue-using-stacks/
+// 测试链接 : https://leetcode.com/problems/implement-stack-using-queues/
+算法讲解015【入门】栈的入门题目-最小栈
+// 测试链接 : https://leetcode.com/problems/min-stack/
+算法讲解016【入门】双端队列-双链表和固定数组实现
+// 测试链接 : https://leetcode.com/problems/design-circular-deque/
+算法讲解017【入门】二叉树及其三种序的递归实现
+算法讲解018【入门】二叉树遍历的非递归实现和复杂度分析
+// 测试链接 : https://leetcode.com/problems/binary-tree-preorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-inorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-postorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-postorder-traversal/
+算法讲解019【必备】算法笔试中处理输入和输出
+算法讲解020【必备】递归和master公式
+算法讲解021【必备】归并排序
+// 测试链接 : https://leetcode.com/problems/sort-an-array/
+算法讲解022【必备】归并分治
+// 测试链接 : https://leetcode.com/problems/reverse-pairs/
+算法讲解023【必备】随机快速排序
+// 测试链接 : https://leetcode.com/problems/sort-an-array/
+算法讲解024【必备】随机选择算法
+// 测试链接 : https://leetcode.com/problems/kth-largest-element-in-an-array/
+算法讲解025【必备】堆结构和堆排序
+// 测试链接 : https://leetcode.com/problems/sort-an-array/
+算法讲解026【必备】哈希表、有序表和比较器的用法
+算法讲解027【必备】堆结构常见题
+// 测试链接 : https://leetcode.com/problems/meeting-rooms-ii/
+// 测试链接 : https://leetcode.com/problems/meeting-rooms-ii/
+// 测试链接 : https://leetcode.com/problems/minimum-operations-to-halve-array-sum/
+算法讲解028【必备】基数排序
+// 测试链接 : https://leetcode.com/problems/sort-an-array/
+算法讲解029【必备】重要排序算法的总结
+算法讲解030【必备】异或运算的骚操作
+// 测试链接 : https://leetcode.com/problems/missing-number/
+// 测试链接 : https://leetcode.com/problems/single-number/
+// 测试链接 : https://leetcode.com/problems/single-number-iii/
+// 测试链接 : https://leetcode.com/problems/single-number-ii/
+算法讲解031【必备】位运算的骚操作
+// 测试链接 : https://leetcode.com/problems/power-of-two/
+// 测试链接 : https://leetcode.com/problems/power-of-three/
+// 测试链接 : https://leetcode.com/problems/bitwise-and-of-numbers-range/
+// 测试链接 : https://leetcode.com/problems/reverse-bits/
+// 测试链接 : https://leetcode.com/problems/hamming-distance/
+算法讲解032【必备】位图
+// 测试链接 : https://leetcode-cn.com/problems/design-bitset/
+算法讲解033【必备】位运算实现加减乘除
+// 测试链接 : https://leetcode.com/problems/divide-two-integers/
+算法讲解034【必备】链表高频题目和必备技巧
+// 测试链接 : https://leetcode.com/problems/intersection-of-two-linked-lists/
+// 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
+// 测试链接 : https://leetcode.com/problems/copy-list-with-random-pointer/
+// 测试链接 : https://leetcode.com/problems/palindrome-linked-list/
+// 测试链接 : https://leetcode.com/problems/linked-list-cycle-ii/
+// 测试链接 : https://leetcode.com/problems/sort-list/
+算法讲解035【必备】数据结构设计高频题
+// 测试链接 : https://leetcode.com/problems/lru-cache/
+// 测试链接 : https://leetcode.com/problems/insert-delete-getrandom-o1/
+// 测试链接 : https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/
+// 测试链接 : https://leetcode.com/problems/find-median-from-data-stream/
+// 测试链接 : https://leetcode.com/problems/maximum-frequency-stack/
+// 测试链接 : https://leetcode.com/problems/all-oone-data-structure/
+算法讲解036【必备】二叉树高频题目-上-不含树型dp
+// 测试链接 : https://leetcode.com/problems/binary-tree-level-order-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+// 测试链接 : https://leetcode.com/problems/maximum-width-of-binary-tree/
+// 测试链接 : https://leetcode.com/problems/maximum-depth-of-binary-tree/
+// 测试链接 : https://leetcode.com/problems/minimum-depth-of-binary-tree/
+// 测试链接 : https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+// 测试链接 : https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+// 测试链接 : https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+// 测试链接 : https://leetcode.com/problems/check-completeness-of-a-binary-tree/
+// 测试链接 : https://leetcode.com/problems/count-complete-tree-nodes/
+算法讲解037【必备】二叉树高频题目-下-不含树型dp
+// 测试链接 : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+// 测试链接 : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+// 测试链接 : https://leetcode.com/problems/path-sum-ii/
+// 测试链接 : https://leetcode.com/problems/balanced-binary-tree/
+// 测试链接 : https://leetcode.com/problems/validate-binary-search-tree/
+// 测试链接 : https://leetcode.com/problems/trim-a-binary-search-tree/
+// 测试链接 : https://leetcode.com/problems/house-robber-iii/
+算法讲解038【必备】常见经典递归过程解析
+// 测试链接 : https://leetcode.com/problems/subsets-ii/
+// 测试链接 : https://leetcode.com/problems/permutations/
+// 测试链接 : https://leetcode.com/problems/permutations-ii/
+算法讲解039【必备】嵌套类问题的递归解题套路
+// 测试链接 : https://leetcode.com/problems/basic-calculator-iii/
+// 测试链接 : https://leetcode.com/problems/decode-string/
+// 测试链接 : https://leetcode.com/problems/number-of-atoms/
+算法讲解040【必备】N皇后问题-重点是位运算的版本
+// 测试链接 : https://leetcode.com/problems/n-queens-ii/
+算法讲解041【必备】最大公约数、同余原理
+// 测试链接 : https://leetcode.com/problems/nth-magical-number/
+算法讲解042【必备】对数器打表找规律的技巧
+算法讲解043【必备】根据数据量猜解法的技巧-天字第一号重要技巧
+//测试链接 : https://leetcode.com/problems/super-palindromes/
+// 测试链接 : https://leetcode.com/problems/palindrome-number/
+算法讲解044【必备】前缀树原理和代码详解
+// 测试链接 : https://leetcode.com/problems/implement-trie-ii-prefix-tree/
+算法讲解045【必备】前缀树的相关题目
+// 测试链接 : https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+// 测试链接 : https://leetcode.com/problems/word-search-ii/
+算法讲解046【必备】构建前缀信息的技巧-解决子数组相关问题
+// 测试链接 : https://leetcode.com/problems/range-sum-query-immutable/
+// 测试链接 : https://leetcode.com/problems/subarray-sum-equals-k/
+// 测试链接 : https://leetcode.com/problems/longest-well-performing-interval/
+// 测试链接 : https://leetcode.com/problems/make-sum-divisible-by-p/
+// 测试链接 : https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
+算法讲解047【必备】一维差分与等差数列差分
+// 测试链接 : https://leetcode.com/problems/corporate-flight-bookings/
+算法讲解048【必备】二维前缀和、二维差分、离散化技巧
+// 测试链接 : https://leetcode.com/problems/range-sum-query-2d-immutable/
+// 测试链接 : https://leetcode.com/problems/largest-1-bordered-square/
+// 测试链接 : https://leetcode.com/problems/stamping-the-grid/
+// 测试链接 : https://leetcode.com/problems/xepqZ5/
+算法讲解049【必备】滑动窗口技巧与相关题目
+// 测试链接 : https://leetcode.com/problems/minimum-size-subarray-sum/
+// 测试链接 : https://leetcode.com/problems/longest-substring-without-repeating-characters/
+// 测试链接 : https://leetcode.com/problems/minimum-window-substring/
+// 测试链接 : https://leetcode.com/problems/gas-station/
+// 测试链接 : https://leetcode.com/problems/replace-the-substring-for-balanced-string/
+// 测试链接 : https://leetcode.com/problems/subarrays-with-k-different-integers/
+// 测试链接 : https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
+算法讲解050【必备】双指针技巧与相关题目
+// 测试链接 : https://leetcode.com/problems/sort-array-by-parity-ii/
+// 测试链接 : https://leetcode.com/problems/find-the-duplicate-number/
+// 测试链接 : https://leetcode.com/problems/trapping-rain-water/
+// 测试链接 : https://leetcode.com/problems/boats-to-save-people/
+// 测试链接 : https://leetcode.com/problems/container-with-most-water/
+// 测试链接 : https://leetcode.com/problems/heaters/
+// 测试链接 : https://leetcode.com/problems/first-missing-positive/
+算法讲解051【必备】二分答案法与相关题目
+// 测试链接 : https://leetcode.com/problems/koko-eating-bananas/
+// 测试链接 : https://leetcode.com/problems/split-array-largest-sum/
+// 测试链接 : https://leetcode.com/problems/find-k-th-smallest-pair-distance/
+// 测试链接 : https://leetcode.com/problems/maximum-running-time-of-n-computers/
+算法讲解052【必备】单调栈-上
+// 测试链接 : https://leetcode.com/problems/daily-temperatures/
+// 测试链接 : https://leetcode.com/problems/sum-of-subarray-minimums/
+// 测试链接：https://leetcode.com/problems/largest-rectangle-in-histogram
+// 测试链接：https://leetcode.com/problems/maximal-rectangle/
+算法讲解053【必备】单调栈-下
+// 测试链接 : https://leetcode.com/problems/maximum-width-ramp/
+// 测试链接 : https://leetcode.com/problems/remove-duplicate-letters/
+// 测试链接 : https://leetcode.com/problems/steps-to-make-array-non-decreasing/
+// 测试链接 : https://leetcode.com/problems/steps-to-make-array-non-decreasing/
+// 测试链接 : https://leetcode.com/problems/count-submatrices-with-all-ones/
+算法讲解054【必备】单调队列-上
+// 测试链接 : https://leetcode.com/problems/sliding-window-maximum/
+// 测试链接 : https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
+算法讲解055【必备】单调队列-下
+// 测试链接 : https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/
+// 测试链接 : https://leetcode.com/problems/max-value-of-equation/
+// 测试链接 : https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign/
+算法讲解056【必备】并查集-上
+// 测试链接 : https://leetcode.com/problems/couples-holding-hands/
+// 测试链接 : https://leetcode.com/problems/similar-string-groups/
+// 测试链接 : https://leetcode.com/problems/number-of-islands/
+算法讲解057【必备】并查集-下
+// 测试链接 : https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/
+// 链接测试 : https://leetcode.com/problems/find-all-people-with-secret/
+// 测试链接 : https://leetcode.com/problems/number-of-good-paths/
+// 测试链接 : https://leetcode.com/problems/minimize-malware-spread-ii/
+算法讲解058【必备】洪水填充
+// 测试链接 : https://leetcode.com/problems/number-of-islands/
+// 测试链接 : https://leetcode.com/problems/surrounded-regions/
+// 测试链接 : https://leetcode.com/problems/making-a-large-island/
+// 测试链接 : https://leetcode.com/problems/bricks-falling-when-hit/
+算法讲解059【必备】建图、链式前向星、拓扑排序
+// 测试链接 : https://leetcode.com/problems/course-schedule-ii/
+// 测试链接 : https://leetcode.com/problems/alien-dictionary/
+// 测试链接(不需要会员) : https://leetcode.com/problems/Jf1JuT/
+// 测试链接 : https://leetcode.com/problems/stamping-the-sequence/
+算法讲解060【必备】拓扑排序的扩展技巧
+// 测试链接 : https://leetcode.com/problems/loud-and-rich/
+// 测试链接 : https://leetcode.com/problems/parallel-courses-iii/
+// 测试链接 : https://leetcode.com/problems/maximum-employees-to-be-invited-to-a-meeting/
+算法讲解061【必备】最小生成树
+// 测试链接 : https://leetcode.com/problems/optimize-water-distribution-in-a-village/
+// 测试链接 : https://leetcode.com/problems/checking-existence-of-edge-length-limited-paths/
+算法讲解062【必备】宽度优先遍历及其扩展
+// 测试链接 : https://leetcode.com/problems/as-far-from-land-as-possible/
+// 测试链接 : https://leetcode.com/problems/stickers-to-spell-word/
+// 测试链接 : https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
+// 测试链接 : https://leetcode.com/problems/trapping-rain-water-ii/
+// 测试链接 : https://leetcode.com/problems/word-ladder-ii/
+算法讲解063【必备】双向广搜
+// 测试链接 : https://leetcode.com/problems/word-ladder/
+// 测试链接 : https://leetcode.com/problems/closest-subsequence-sum/
+算法讲解064【必备】Dijkstra算法、分层图最短路
+// 测试链接 : https://leetcode.com/problems/network-delay-time
+// 测试链接 ：https://leetcode.com/problems/path-with-minimum-effort/
+// 测试链接 : https://leetcode.com/problems/swim-in-rising-water/
+// 测试链接：https://leetcode.com/problems/shortest-path-to-get-all-keys
+// 测试链接 : https://leetcode.com/problems/DFPeFJ/
+算法讲解065【必备】A星、Floyd、Bellman Ford与SPFA
+// 测试链接 : https://leetcode.com/problems/cheapest-flights-within-k-stops/
+算法讲解066【必备】从递归入手一维动态规划
+// 测试链接 : https://leetcode.com/problems/fibonacci-number/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-for-tickets/
+// 测试链接 : https://leetcode.com/problems/decode-ways/
+// 测试链接 : https://leetcode.com/problems/decode-ways-ii/
+// 测试链接 : https://leetcode.com/problems/ugly-number-ii/
+// 测试链接 : https://leetcode.com/problems/longest-valid-parentheses/
+// 测试链接 : https://leetcode.com/problems/unique-substrings-in-wraparound-string/
+// 测试链接 : https://leetcode.com/problems/distinct-subsequences-ii/
+算法讲解067【必备】从递归入手二维动态规划
+// 测试链接 : https://leetcode.com/problems/minimum-path-sum/
+// 测试链接 : https://leetcode.com/problems/word-search/
+// 测试链接 : https://leetcode.com/problems/longest-common-subsequence/
+// 测试链接 : https://leetcode.com/problems/longest-palindromic-subsequence/
+// 测试链接 : https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+算法讲解068【必备】见识更多二维动态规划题目
+// 测试链接 : https://leetcode.com/problems/distinct-subsequences/
+// 测试链接 : https://leetcode.com/problems/edit-distance/
+// 测试链接 : https://leetcode.com/problems/interleaving-string/
+算法讲解069【必备】从递归入手三维动态规划
+// 测试链接 : https://leetcode.com/problems/ones-and-zeroes/
+// 测试链接 : https://leetcode.com/problems/profitable-schemes/
+// 测试链接 : https://leetcode.com/problems/knight-probability-in-chessboard/
+// 测试链接 : https://leetcode.com/problems/paths-in-matrix-whose-sum-is-divisible-by-k/
+// 测试链接 : https://leetcode.com/problems/scramble-string/
+算法讲解070【必备】子数组最大累加和问题与扩展-上
+// 测试链接 : https://leetcode.com/problems/maximum-subarray/
+// 测试链接 : https://leetcode.com/problems/house-robber/
+// 测试链接 : https://leetcode.com/problems/maximum-sum-circular-subarray/
+// 测试链接 : https://leetcode.com/problems/house-robber-ii/
+// 测试链接 : https://leetcode.com/problems/house-robber-iv/
+// 测试链接 : https://leetcode.com/problems/max-submatrix-lcci/
+算法讲解071【必备】子数组最大累加和问题与扩展-下
+// 测试链接 : https://leetcode.com/problems/maximum-product-subarray/
+// 测试链接 : https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
+算法讲解072【必备】最长递增子序列问题与扩展
+// 测试链接 : https://leetcode.com/problems/longest-increasing-subsequence/
+// 测试链接 : https://leetcode.com/problems/russian-doll-envelopes/
+// 测试链接 : https://leetcode.com/problems/minimum-operations-to-make-the-array-k-increasing/
+// 测试链接 : https://leetcode.com/problems/maximum-length-of-pair-chain/
+算法讲解073【必备】背包dp-01背包、有依赖的背包
+// 测试链接 : https://leetcode.com/problems/tJau2o/
+// 测试链接 : https://leetcode.com/problems/target-sum/
+// 测试链接 : https://leetcode.com/problems/last-stone-weight-ii/
+算法讲解074【必备】背包dp-分组背包、完全背包
+// 测试链接 : https://leetcode.com/problems/maximum-value-of-k-coins-from-piles/
+// 测试链接 : https://leetcode.com/problems/regular-expression-matching/
+// 测试链接 : https://leetcode.com/problems/wildcard-matching/
+算法讲解075【必备】背包dp-多重背包、混合背包
+算法讲解076【必备】区间dp-上
+// 测试链接 : https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
+// 测试链接 : https://leetcode.com/problems/predict-the-winner/
+// 测试链接 : https://leetcode.com/problems/minimum-score-triangulation-of-polygon/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
+// 测试链接 : https://leetcode.com/problems/burst-balloons/
+// 测试链接 : https://leetcode.com/problems/boolean-evaluation-lcci/
+算法讲解077【必备】区间dp-下
+// 测试链接 : https://leetcode.com/problems/strange-printer/
+// 测试链接 : https://leetcode.com/problems/strange-printer/
+// 测试链接 : https://leetcode.com/problems/remove-boxes/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-merge-stones/
+// 测试链接 : https://leetcode.com/problems/count-different-palindromic-subsequences/
+算法讲解078【必备】树型dp-上
+// 测试链接 : https://leetcode.com/problems/largest-bst-subtree/
+// 测试链接 : https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/
+// 测试链接 : https://leetcode.com/problems/diameter-of-binary-tree/
+// 测试链接 : https://leetcode.com/problems/distribute-coins-in-binary-tree/
+// 链式链接 : https://leetcode.com/problems/house-robber-iii/
+// 测试链接 : https://leetcode.com/problems/binary-tree-cameras/
+// 测试链接 : https://leetcode.com/problems/path-sum-iii/
+算法讲解079【必备】树型dp-下
+// 测试链接 : https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/
+// 测试链接 : https://leetcode.com/problems/longest-path-with-different-adjacent-characters/
+// 测试链接 : https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/
+// 测试链接 : https://leetcode.com/problems/minimum-score-after-removals-on-a-tree/
+算法讲解080【必备】状压dp-上
+// 测试链接 : https://leetcode.com/problems/can-i-win/
+// 测试链接 : https://leetcode.com/problems/matchsticks-to-square/
+// 测试链接 : https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
+算法讲解081【必备】状压dp-下
+// 测试链接 : https://leetcode.com/problems/number-of-ways-to-wear-different-hats-to-each-other
+// 测试链接 : https://leetcode.com/problems/optimal-account-balancing/
+// 测试链接 : https://leetcode.com/problems/the-number-of-good-subsets/
+// 测试链接 : https://leetcode.com/problems/distribute-repeating-integers/
+算法讲解082【必备】动态规划中用观察优化枚举的技巧-上
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+// 测试链接 : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+// 测试链接 : https://leetcode.com/problems/valid-permutations-for-di-sequence/
+算法讲解083【必备】动态规划中用观察优化枚举的技巧-下
+// 测试链接 : https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+// 测试链接 : https://leetcode.com/problems/k-inverse-pairs-array/
+// 测试链接 : https://leetcode.com/problems/freedom-trail/
+算法讲解084【必备】数位dp-上
+// 测试链接 : https://leetcode.com/problems/count-numbers-with-unique-digits/
+// 测试链接 : https://leetcode.com/problems/numbers-at-most-n-given-digit-set/
+// 测试链接 : https://leetcode.com/problems/count-of-integers/
+// 测试链接 : https://leetcode.com/problems/count-special-integers/
+// 测试链接 : https://leetcode.com/problems/numbers-with-repeated-digits/
+算法讲解085【必备】数位dp-下
+// 测试链接 : https://leetcode.com/problems/non-negative-integers-without-consecutive-ones/
+// 测试链接 : https://leetcode.com/problems/digit-count-in-range/
+// 测试链接 : https://leetcode.com/problems/number-of-digit-one/
+算法讲解086【必备】动态规划中得到具体决策方案的技巧
+// 测试链接 : https://leetcode.com/problems/smallest-sufficient-team/
+算法讲解087【必备】动态规划中根据数据量猜解法的技巧
+// 测试链接 : https://leetcode.com/problems/make-array-strictly-increasing/
+算法讲解088【必备】动态规划专题总结与预告
+算法讲解089【必备】贪心经典题目专题1
+// 测试链接 : https://leetcode.com/problems/largest-number/
+// 测试链接 : https://leetcode.com/problems/largest-number/
+// 测试链接 : https://leetcode.com/problems/two-city-scheduling/
+// 测试链接 : https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges/
+// 测试链接 : https://leetcode.com/problems/meeting-rooms-ii/
+// 测试链接 : https://leetcode.com/problems/course-schedule-iii/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-connect-sticks/
+算法讲解090【必备】贪心经典题目专题2
+// 测试链接 : https://leetcode.com/problems/jian-sheng-zi-ii-lcof/
+// 测试链接 : https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/
+// 测试链接 : https://leetcode.com/problems/ipo/
+算法讲解091【必备】贪心经典题目专题3
+// 测试链接 : https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+// 测试链接 : https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+算法讲解092【必备】贪心经典题目专题4
+// 测试链接 : https://leetcode.com/problems/minimize-deviation-in-array/
+// 测试链接 : https://leetcode.com/problems/rabbits-in-forest/
+// 测试链接 : https://leetcode.com/problems/minimum-number-of-operations-to-make-arrays-similar/
+// 测试链接 : https://leetcode.com/problems/divide-array-into-increasing-sequences/
+// 测试链接 : https://leetcode.com/problems/minimum-number-of-refueling-stops/
+算法讲解093【必备】贪心经典题目专题5
+// 测试链接 : https://leetcode.com/problems/jump-game-ii/
+// 测试链接 : https://leetcode.com/problems/minimum-number-of-taps-to-open-to-water-a-garden/
+// 测试链接 : https://leetcode.com/problems/string-transforms-into-another-string/
+// 测试链接 : https://leetcode.com/problems/super-washing-machines/
+算法讲解094【必备】贪心经典题目专题6
+// 测试链接 : https://leetcode.com/problems/eliminate-maximum-number-of-monsters/
+// 测试链接 : https://leetcode.com/problems/largest-palindromic-number/
+// 测试链接 : https://leetcode.com/problems/maximum-average-pass-ratio/
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-hire-k-workers/
+算法讲解095【必备】博弈类问题必备内容详解-上
+算法讲解096【必备】博弈类问题必备内容详解-下
+算法讲解097【必备】质数判断、质因子分解、质数筛
+// 测试链接 : https://leetcode.com/problems/largest-component-size-by-common-factor/
+// 测试链接 : https://leetcode.com/problems/count-primes/
+算法讲解098【必备】快速幂、矩阵快速幂与两类问题
+// 测试链接 : https://leetcode.com/problems/fibonacci-number/
+// 测试链接 : https://leetcode.com/problems/climbing-stairs/
+// 测试链接 : https://leetcode.com/problems/n-th-tribonacci-number/
+// 测试链接 : https://leetcode.com/problems/domino-and-tromino-tiling/
+// 测试链接 : https://leetcode.com/problems/count-vowels-permutation/
+// 测试链接 : https://leetcode.com/problems/student-attendance-record-ii/
+算法讲解099【扩展】逆元和除法同余、容斥原理
+// 测试链接 : https://leetcode.com/problems/number-of-music-playlists/
+算法讲解100【扩展】 KMP算法原理和代码详解
+// 测试链接 : https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+// 测试链接 : https://leetcode.com/problems/subtree-of-another-tree/
+算法讲解101【扩展】 KMP算法相关题目
+// 测试链接 : https://leetcode.com/problems/linked-list-in-binary-tree/
+// 测试链接 : https://leetcode.com/problems/find-all-good-strings/
+算法讲解102【扩展】 AC自动机原理、优化、代码详解
+算法讲解103【扩展】 Manacher算法、扩展KMP
+// 测试链接 : https://leetcode.com/problems/minimum-time-to-revert-word-to-initial-state-ii/
+算法讲解104【扩展】 Manacher算法相关题目
+// 测试链接 : https://leetcode.com/problems/longest-palindromic-substring/
+// 测试链接 : https://leetcode.com/problems/palindromic-substrings/
+// 测试链接 : https://leetcode.com/problems/maximum-number-of-non-overlapping-palindrome-substrings/
+算法讲解105【扩展】字符串哈希原理、代码、题目详解
+// 测试链接 : https://leetcode.com/problems/unique-substrings-with-equal-digit-frequency/
+// 测试链接 : https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+// 测试链接 : https://leetcode.com/problems/repeated-string-match/
+// 测试链接 : https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+算法讲解106【扩展】哈希函数、哈希表、布隆过滤器、一致性哈希
+算法讲解107【扩展】大厂面试中经常漫聊的有趣算法问题
+算法讲解108【扩展】树状数组原理、扩展、代码详解
+// 测试链接 : https://leetcode.com/problems/range-sum-query-2d-mutable/
+算法讲解109【扩展】树状数组相关题目
+// 测试链接 : https://leetcode.com/problems/number-of-longest-increasing-subsequence/
+// 测试链接 : https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/
+算法讲解110【扩展】线段树专题1-线段树原理和代码详解
+算法讲解111【扩展】线段树专题2-线段树的离散化、二分搜索、特别修改
+// 测试链接 : https://leetcode.com/problems/falling-squares
+算法讲解112【扩展】线段树专题3-线段树维护更多类型的信息
+算法讲解113【扩展】线段树专题4-线段树解决区间合并的问题
+算法讲解114【扩展】线段树专题5-开点线段树、区间最值和历史最值
+// 测试链接 : https://leetcode.com/problems/count-integers-in-intervals/
+算法讲解115【扩展】线段树专题6-线段树与扫描线结合的题目
+// 测试链接 : https://leetcode.com/problems/minimum-interval-to-include-each-query/
+// 测试链接 : https://leetcode.com/problems/minimum-interval-to-include-each-query/
+// 测试链接 : https://leetcode.com/problems/the-skyline-problem/
+// 测试链接 : https://leetcode.com/problems/the-skyline-problem/
+算法讲解116【扩展】摩尔投票大加强，线段树里捉海王
+// 测试链接 : https://leetcode.com/problems/majority-element/
+// 测试链接 : https://leetcode.com/problems/minimum-index-of-a-valid-split/
+// 测试链接 : https://leetcode.com/problems/majority-element-ii/
+// 测试链接 : https://leetcode.com/problems/online-majority-element-in-subarray/
+算法讲解117【扩展】倍增算法和ST表
+算法讲解118【扩展】树上问题专题1-树上倍增和LCA-上
+// 测试链接 : https://leetcode.com/problems/kth-ancestor-of-a-tree-node/
+算法讲解119【扩展】树上问题专题2-树上倍增和LCA-下
+// 测试链接 : https://leetcode.com/problems/minimum-edge-weight-equilibrium-queries-in-a-tree/
+// 测试链接 : https://leetcode.com/problems/maximize-value-of-function-in-a-ball-passing-game/
+算法讲解120【扩展】树上问题专题3-树的重心
+算法讲解121【扩展】树上问题专题4-树的直径
+算法讲解122【扩展】树上问题专题5-树上差分
+// 测试链接 : https://leetcode.com/problems/minimize-the-total-price-of-the-trips/
+// 测试链接 : https://leetcode.com/problems/minimize-the-total-price-of-the-trips/
+算法讲解123【扩展】树上问题专题6-换根dp
+算法讲解124【扩展】Morris遍历
+// 测试链接 : https://leetcode.com/problems/binary-tree-preorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-inorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-preorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-inorder-traversal/
+// 测试链接 : https://leetcode.com/problems/binary-tree-postorder-traversal/
+// 测试链接 : https://leetcode.com/problems/validate-binary-search-tree/
+// 测试链接 : https://leetcode.com/problems/minimum-depth-of-binary-tree/
+// 测试链接 : https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+算法讲解125【扩展】轮廓线dp
+算法讲解126【扩展】三进制状压dp
+// 测试链接 : https://leetcode.com/problems/maximize-grid-happiness/
+// 测试链接 : https://leetcode.com/problems/painting-a-grid-with-three-different-colors/
+算法讲解127【扩展】动态规划优化专题1-优化尝试和状态设计-上
+// 测试链接 : https://leetcode.com/problems/cherry-pickup/
+算法讲解128【扩展】动态规划优化专题2-优化尝试和状态设计-下
+// 测试链接 : https://leetcode.com/problems/super-egg-drop/
+// 测试链接 : https://leetcode.com/problems/put-marbles-in-bags/
+算法讲解129【扩展】动态规划优化专题3-倍增优化
+// 测试链接 : https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/
+// 测试链接 : https://leetcode.com/problems/count-the-repetitions/
+算法讲解130【扩展】动态规划优化专题4-单调队列和单调栈优化
+// 测试链接 : https://leetcode.com/problems/minimum-total-distance-traveled/
+// 测试链接 : https://leetcode.com/problems/sum-of-total-strength-of-wizards/
+// 测试链接 : https://leetcode.com/problems/delivering-boxes-from-storage-to-ports/
+算法讲解131【扩展】动态规划优化专题5-树状数组和线段树优化
+// 测试链接 : https://leetcode.com/problems/count-of-range-sum/
+// 测试链接 : https://leetcode.com/problems/count-of-range-sum/
+// 测试链接 : https://leetcode.com/problems/maximum-balanced-subsequence-sum/
+// 测试链接 : https://leetcode.com/problems/longest-ideal-subsequence/
+算法讲解132【扩展】动态规划优化专题6-预处理数组优化
+// 测试链接 : https://leetcode.com/problems/paint-house-iii/
+算法讲解133【扩展】高斯消元专题1-解决加法方程组
+算法讲解134【扩展】高斯消元专题2-解决异或方程组
+算法讲解135【扩展】高斯消元专题3-解决同余方程组
+算法讲解136【扩展】线性基-上
+算法讲解137【扩展】线性基-下
+算法讲解138【扩展】01分数规划

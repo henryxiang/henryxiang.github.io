@@ -1,4 +1,4 @@
-// https://leetcode.cn/problems/predict-the-winner/
+// https://leetcode.com/problems/predict-the-winner/
 public class PredictTheWinner {
 
 	// 暴力尝试

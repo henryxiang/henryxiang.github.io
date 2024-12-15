@@ -1,4 +1,4 @@
-// https://leetcode.cn/problems/burst-balloons/
+// https://leetcode.com/problems/burst-balloons/
 public class BurstBalloons {
 
 	// 记忆化搜索

@@ -6,7 +6,7 @@
 // 你可以随意添加括号来改变逻辑优先级
 // 目的是让表达式能够最终得出result的结果
 // 返回最终得出result有多少种不同的逻辑计算顺序
-// 测试链接 : https://leetcode.cn/problems/boolean-evaluation-lcci/
+// 测试链接 : https://leetcode.com/problems/boolean-evaluation-lcci/
 public class BooleanEvaluation {
 
 	// 记忆化搜索

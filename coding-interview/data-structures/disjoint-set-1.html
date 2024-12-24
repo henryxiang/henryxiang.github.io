@@ -1,0 +1,1860 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Disjoint Set (Union Find) 1 - Data Structures and Algorithms for Coding Interviews</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Data Structures and Algorithms for Coding Interviews</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="disjoint-set-union-find-1"><a class="header" href="#disjoint-set-union-find-1">Disjoint Set (Union Find) 1</a></h1>
+<h2 id="implemetations"><a class="header" href="#implemetations">Implemetations</a></h2>
+<h3 id="basic-version"><a class="header" href="#basic-version">Basic Version</a></h3>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class056;
+
+// 并查集模版(洛谷)
+// 本实现用递归函数实现路径压缩，而且省掉了小挂大的优化，一般情况下可以省略
+// 测试链接 : https://www.luogu.com.cn/problem/P3367
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
+
+public class Code02_UnionFindLuogu {
+
+	public static int MAXN = 10001;
+
+	public static int[] father = new int[MAXN];
+
+	public static int n;
+
+	public static void build() {
+		for (int i = 0; i &lt;= n; i++) {
+			father[i] = i;
+		}
+	}
+
+	public static int find(int i) {
+		if (i != father[i]) {
+			father[i] = find(father[i]);
+		}
+		return father[i];
+	}
+
+	public static boolean isSameSet(int x, int y) {
+		return find(x) == find(y);
+	}
+
+	public static void union(int x, int y) {
+		father[find(x)] = find(y);
+	}
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			n = (int) in.nval;
+			build();
+			in.nextToken();
+			int m = (int) in.nval;
+			for (int i = 0; i &lt; m; i++) {
+				in.nextToken();
+				int z = (int) in.nval;
+				in.nextToken();
+				int x = (int) in.nval;
+				in.nextToken();
+				int y = (int) in.nval;
+				if (z == 1) {
+					union(x, y);
+				} else {
+					out.println(isSameSet(x, y) ? "Y" : "N");
+				}
+			}
+		}
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/BouW-NjgRcI?start=0">
+    </iframe>
+</details>
+<h3 id="optimized-version"><a class="header" href="#optimized-version">Optimized Version</a></h3>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class056;
+
+// 并查集模版(牛客)
+// 路径压缩 + 小挂大
+// 测试链接 : https://www.nowcoder.com/practice/e7ed657974934a30b2010046536a5372
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
+
+public class Code01_UnionFindNowCoder {
+
+	public static int MAXN = 1000001;
+
+	public static int[] father = new int[MAXN];
+
+	public static int[] size = new int[MAXN];
+
+	public static int[] stack = new int[MAXN];
+
+	public static int n;
+
+	public static void build() {
+		for (int i = 0; i &lt;= n; i++) {
+			father[i] = i;
+			size[i] = 1;
+		}
+	}
+
+	// i号节点，往上一直找，找到代表节点返回！
+	public static int find(int i) {
+		// 沿途收集了几个点
+		int size = 0;
+		while (i != father[i]) {
+			stack[size++] = i;
+			i = father[i];
+		}
+		// 沿途节点收集好了，i已经跳到代表节点了
+		while (size &gt; 0) {
+			father[stack[--size]] = i;
+		}
+		return i;
+	}
+
+	public static boolean isSameSet(int x, int y) {
+		return find(x) == find(y);
+	}
+
+	public static void union(int x, int y) {
+		int fx = find(x);
+		int fy = find(y);
+		if (fx != fy) {
+			// fx是集合的代表：拿大小
+			// fy是集合的代表：拿大小
+			if (size[fx] &gt;= size[fy]) {
+				size[fx] += size[fy];
+				father[fy] = fx;
+			} else {
+				size[fy] += size[fx];
+				father[fx] = fy;
+			}
+		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			n = (int) in.nval;
+			build();
+			in.nextToken();
+			int m = (int) in.nval;
+			for (int i = 0; i &lt; m; i++) {
+				in.nextToken();
+				int op = (int) in.nval;
+				in.nextToken();
+				int x = (int) in.nval;
+				in.nextToken();
+				int y = (int) in.nval;
+				if (op == 1) {
+					out.println(isSameSet(x, y) ? "Yes" : "No");
+				} else {
+					union(x, y);
+				}
+			}
+		}
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/BouW-NjgRcI?start=0">
+    </iframe>
+</details>
+<h2 id="couples-holding-hands"><a class="header" href="#couples-holding-hands">Couples Holding Hands</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0700-0799/0765.Couples%20Holding%20Hands/README_EN.md
+tags:
+    - Greedy
+    - Depth-First Search
+    - Breadth-First Search
+    - Union Find
+    - Graph
+</code></pre>
+<!-- problem:start -->
+<h1 id="765-couples-holding-hands"><a class="header" href="#765-couples-holding-hands"><a href="https://leetcode.com/problems/couples-holding-hands">765. Couples Holding Hands</a></a></h1>
+<p><a href="/solution/0700-0799/0765.Couples%20Holding%20Hands/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>There are <code>n</code> couples sitting in <code>2n</code> seats arranged in a row and want to hold hands.</p>
+<p>The people and seats are represented by an integer array <code>row</code> where <code>row[i]</code> is the ID of the person sitting in the <code>i<sup>th</sup></code> seat. The couples are numbered in order, the first couple being <code>(0, 1)</code>, the second couple being <code>(2, 3)</code>, and so on with the last couple being <code>(2n - 2, 2n - 1)</code>.</p>
+<p>Return <em>the minimum number of swaps so that every couple is sitting side by side</em>. A swap consists of choosing any two people, then they stand up and switch seats.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> row = [0,2,1,3]
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> We only need to swap the second (row[1]) and third (row[2]) person.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> row = [3,2,0,1]
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> All couples are already seated side by side.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>2n == row.length</code></li>
+	<li><code>2 &lt;= n &lt;= 30</code></li>
+	<li><code>n</code> is even.</li>
+	<li><code>0 &lt;= row[i] &lt; 2n</code></li>
+	<li>All the elements of <code>row</code> are <strong>unique</strong>.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1"><a class="header" href="#solution-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def minSwapsCouples(self, row: List[int]) -&gt; int:
+        def find(x: int) -&gt; int:
+            if p[x] != x:
+                p[x] = find(p[x])
+            return p[x]
+
+        n = len(row) &gt;&gt; 1
+        p = list(range(n))
+        for i in range(0, len(row), 2):
+            a, b = row[i] &gt;&gt; 1, row[i + 1] &gt;&gt; 1
+            p[find(a)] = find(b)
+        return n - sum(i == find(i) for i in range(n))
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private int[] p;
+
+    public int minSwapsCouples(int[] row) {
+        int n = row.length &gt;&gt; 1;
+        p = new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            p[i] = i;
+        }
+        for (int i = 0; i &lt; n &lt;&lt; 1; i += 2) {
+            int a = row[i] &gt;&gt; 1, b = row[i + 1] &gt;&gt; 1;
+            p[find(a)] = find(b);
+        }
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            if (i == find(i)) {
+                --ans;
+            }
+        }
+        return ans;
+    }
+
+    private int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int minSwapsCouples(vector&lt;int&gt;&amp; row) {
+        int n = row.size() / 2;
+        int p[n];
+        iota(p, p + n, 0);
+        function&lt;int(int)&gt; find = [&amp;](int x) -&gt; int {
+            if (p[x] != x) {
+                p[x] = find(p[x]);
+            }
+            return p[x];
+        };
+        for (int i = 0; i &lt; n &lt;&lt; 1; i += 2) {
+            int a = row[i] &gt;&gt; 1, b = row[i + 1] &gt;&gt; 1;
+            p[find(a)] = find(b);
+        }
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            ans -= i == find(i);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func minSwapsCouples(row []int) int {
+	n := len(row) &gt;&gt; 1
+	p := make([]int, n)
+	for i := range p {
+		p[i] = i
+	}
+	var find func(int) int
+	find = func(x int) int {
+		if p[x] != x {
+			p[x] = find(p[x])
+		}
+		return p[x]
+	}
+	for i := 0; i &lt; n&lt;&lt;1; i += 2 {
+		a, b := row[i]&gt;&gt;1, row[i+1]&gt;&gt;1
+		p[find(a)] = find(b)
+	}
+	ans := n
+	for i := range p {
+		if find(i) == i {
+			ans--
+		}
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function minSwapsCouples(row: number[]): number {
+    const n = row.length &gt;&gt; 1;
+    const p: number[] = Array(n)
+        .fill(0)
+        .map((_, i) =&gt; i);
+    const find = (x: number): number =&gt; {
+        if (p[x] !== x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    };
+    for (let i = 0; i &lt; n &lt;&lt; 1; i += 2) {
+        const a = row[i] &gt;&gt; 1;
+        const b = row[i + 1] &gt;&gt; 1;
+        p[find(a)] = find(b);
+    }
+    let ans = n;
+    for (let i = 0; i &lt; n; ++i) {
+        if (i === find(i)) {
+            --ans;
+        }
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    private int[] p;
+
+    public int MinSwapsCouples(int[] row) {
+        int n = row.Length &gt;&gt; 1;
+        p = new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            p[i] = i;
+        }
+        for (int i = 0; i &lt; n &lt;&lt; 1; i += 2) {
+            int a = row[i] &gt;&gt; 1;
+            int b = row[i + 1] &gt;&gt; 1;
+            p[find(a)] = find(b);
+        }
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            if (p[i] == i) {
+                --ans;
+            }
+        }
+        return ans;
+    }
+
+    private int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class056;
+
+// 情侣牵手
+// n对情侣坐在连续排列的 2n 个座位上，想要牵到对方的手
+// 人和座位由一个整数数组 row 表示，其中 row[i] 是坐在第 i 个座位上的人的ID
+// 情侣们按顺序编号，第一对是 (0, 1)，第二对是 (2, 3)，以此类推，最后一对是 (2n-2, 2n-1)
+// 返回 最少交换座位的次数，以便每对情侣可以并肩坐在一起
+// 每次交换可选择任意两人，让他们站起来交换座位
+// 测试链接 : https://leetcode.com/problems/couples-holding-hands/
+public class Code03_CouplesHoldingHands {
+
+	public static int minSwapsCouples(int[] row) {
+		int n = row.length;
+		build(n / 2);
+		for (int i = 0; i &lt; n; i += 2) {
+			union(row[i] / 2, row[i + 1] / 2);
+		}
+		return n / 2 - sets;
+	}
+
+	public static int MAXN = 31;
+
+	public static int[] father = new int[MAXN];
+
+	public static int sets;
+
+	public static void build(int m) {
+		for (int i = 0; i &lt; m; i++) {
+			father[i] = i;
+		}
+		sets = m;
+	}
+
+	public static int find(int i) {
+		if (i != father[i]) {
+			father[i] = find(father[i]);
+		}
+		return father[i];
+	}
+
+	public static void union(int x, int y) {
+		int fx = find(x);
+		int fy = find(y);
+		if (fx != fy) {
+			father[fx] = fy;
+			sets--;
+		}
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/BouW-NjgRcI?start=0">
+    </iframe>
+</details>
+<h2 id="similar-string-groups"><a class="header" href="#similar-string-groups">Similar String Groups</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0800-0899/0839.Similar%20String%20Groups/README_EN.md
+tags:
+    - Depth-First Search
+    - Breadth-First Search
+    - Union Find
+    - Array
+    - Hash Table
+    - String
+</code></pre>
+<!-- problem:start -->
+<h1 id="839-similar-string-groups"><a class="header" href="#839-similar-string-groups"><a href="https://leetcode.com/problems/similar-string-groups">839. Similar String Groups</a></a></h1>
+<p><a href="/solution/0800-0899/0839.Similar%20String%20Groups/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>Two strings, <code>X</code> and <code>Y</code>, are considered similar if either they are identical or we can make them equivalent by swapping at most two letters (in distinct positions) within the string <code>X</code>.</p>
+<p>For example, <code>&quot;tars&quot;</code>&nbsp;and <code>&quot;rats&quot;</code>&nbsp;are similar (swapping at positions <code>0</code> and <code>2</code>), and <code>&quot;rats&quot;</code> and <code>&quot;arts&quot;</code> are similar, but <code>&quot;star&quot;</code> is not similar to <code>&quot;tars&quot;</code>, <code>&quot;rats&quot;</code>, or <code>&quot;arts&quot;</code>.</p>
+<p>Together, these form two connected groups by similarity: <code>{&quot;tars&quot;, &quot;rats&quot;, &quot;arts&quot;}</code> and <code>{&quot;star&quot;}</code>.&nbsp; Notice that <code>&quot;tars&quot;</code> and <code>&quot;arts&quot;</code> are in the same group even though they are not similar.&nbsp; Formally, each group is such that a word is in the group if and only if it is similar to at least one other word in the group.</p>
+<p>We are given a list <code>strs</code> of strings where every string in <code>strs</code> is an anagram of every other string in <code>strs</code>. How many groups are there?</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> strs = [&quot;tars&quot;,&quot;rats&quot;,&quot;arts&quot;,&quot;star&quot;]
+<strong>Output:</strong> 2
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> strs = [&quot;omv&quot;,&quot;ovm&quot;]
+<strong>Output:</strong> 1
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= strs.length &lt;= 300</code></li>
+	<li><code>1 &lt;= strs[i].length &lt;= 300</code></li>
+	<li><code>strs[i]</code> consists of lowercase letters only.</li>
+	<li>All words in <code>strs</code> have the same length and are anagrams of each other.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-union-find"><a class="header" href="#solution-1-union-find">Solution 1: Union-Find</a></h3>
+<p>We can enumerate any two strings $s$ and $t$ in the list of strings. Since $s$ and $t$ are anagrams, if the number of differing characters at corresponding positions between $s$ and $t$ does not exceed $2$, then $s$ and $t$ are similar. We can use the union-find data structure to merge $s$ and $t$. If the merge is successful, the number of similar string groups decreases by $1$.</p>
+<p>The final number of similar string groups is the number of connected components in the union-find structure.</p>
+<p>Time complexity is $O(n^2 \times (m + \alpha(n)))$, and space complexity is $O(n)$. Here, $n$ and $m$ are the length of the list of strings and the length of the strings, respectively, and $\alpha(n)$ is the inverse Ackermann function, which can be considered a very small constant.</p>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python">class UnionFind:
+    def __init__(self, n):
+        self.p = list(range(n))
+        self.size = [1] * n
+
+    def find(self, x):
+        if self.p[x] != x:
+            self.p[x] = self.find(self.p[x])
+        return self.p[x]
+
+    def union(self, a, b):
+        pa, pb = self.find(a), self.find(b)
+        if pa == pb:
+            return False
+        if self.size[pa] &gt; self.size[pb]:
+            self.p[pb] = pa
+            self.size[pa] += self.size[pb]
+        else:
+            self.p[pa] = pb
+            self.size[pb] += self.size[pa]
+        return True
+
+
+class Solution:
+    def numSimilarGroups(self, strs: List[str]) -&gt; int:
+        n, m = len(strs), len(strs[0])
+        uf = UnionFind(n)
+        for i, s in enumerate(strs):
+            for j, t in enumerate(strs[:i]):
+                if sum(s[k] != t[k] for k in range(m)) &lt;= 2 and uf.union(i, j):
+                    n -= 1
+        return n
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">class UnionFind {
+    private final int[] p;
+    private final int[] size;
+
+    public UnionFind(int n) {
+        p = new int[n];
+        size = new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            p[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    public int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+
+    public boolean union(int a, int b) {
+        int pa = find(a), pb = find(b);
+        if (pa == pb) {
+            return false;
+        }
+        if (size[pa] &gt; size[pb]) {
+            p[pb] = pa;
+            size[pa] += size[pb];
+        } else {
+            p[pa] = pb;
+            size[pb] += size[pa];
+        }
+        return true;
+    }
+}
+
+class Solution {
+    public int numSimilarGroups(String[] strs) {
+        int n = strs.length, m = strs[0].length();
+        UnionFind uf = new UnionFind(n);
+        int cnt = n;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; i; ++j) {
+                int diff = 0;
+                for (int k = 0; k &lt; m; ++k) {
+                    if (strs[i].charAt(k) != strs[j].charAt(k)) {
+                        ++diff;
+                    }
+                }
+                if (diff &lt;= 2 &amp;&amp; uf.union(i, j)) {
+                    --cnt;
+                }
+            }
+        }
+        return cnt;
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">class UnionFind {
+public:
+    UnionFind(int n) {
+        p = vector&lt;int&gt;(n);
+        size = vector&lt;int&gt;(n, 1);
+        iota(p.begin(), p.end(), 0);
+    }
+
+    bool unite(int a, int b) {
+        int pa = find(a), pb = find(b);
+        if (pa == pb) {
+            return false;
+        }
+        if (size[pa] &gt; size[pb]) {
+            p[pb] = pa;
+            size[pa] += size[pb];
+        } else {
+            p[pa] = pb;
+            size[pb] += size[pa];
+        }
+        return true;
+    }
+
+    int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+
+private:
+    vector&lt;int&gt; p, size;
+};
+
+class Solution {
+public:
+    int numSimilarGroups(vector&lt;string&gt;&amp; strs) {
+        int n = strs.size(), m = strs[0].size();
+        int cnt = n;
+        UnionFind uf(n);
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; i; ++j) {
+                int diff = 0;
+                for (int k = 0; k &lt; m; ++k) {
+                    diff += strs[i][k] != strs[j][k];
+                }
+                if (diff &lt;= 2 &amp;&amp; uf.unite(i, j)) {
+                    --cnt;
+                }
+            }
+        }
+        return cnt;
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">type unionFind struct {
+	p, size []int
+}
+
+func newUnionFind(n int) *unionFind {
+	p := make([]int, n)
+	size := make([]int, n)
+	for i := range p {
+		p[i] = i
+		size[i] = 1
+	}
+	return &amp;unionFind{p, size}
+}
+
+func (uf *unionFind) find(x int) int {
+	if uf.p[x] != x {
+		uf.p[x] = uf.find(uf.p[x])
+	}
+	return uf.p[x]
+}
+
+func (uf *unionFind) union(a, b int) bool {
+	pa, pb := uf.find(a), uf.find(b)
+	if pa == pb {
+		return false
+	}
+	if uf.size[pa] &gt; uf.size[pb] {
+		uf.p[pb] = pa
+		uf.size[pa] += uf.size[pb]
+	} else {
+		uf.p[pa] = pb
+		uf.size[pb] += uf.size[pa]
+	}
+	return true
+}
+
+func numSimilarGroups(strs []string) int {
+	n := len(strs)
+	uf := newUnionFind(n)
+	for i, s := range strs {
+		for j, t := range strs[:i] {
+			diff := 0
+			for k := range s {
+				if s[k] != t[k] {
+					diff++
+				}
+			}
+			if diff &lt;= 2 &amp;&amp; uf.union(i, j) {
+				n--
+			}
+		}
+	}
+	return n
+}
+</code></pre>
+<h4 id="typescript-1"><a class="header" href="#typescript-1">TypeScript</a></h4>
+<pre><code class="language-ts">class UnionFind {
+    private p: number[];
+    private size: number[];
+
+    constructor(n: number) {
+        this.p = Array.from({ length: n }, (_, i) =&gt; i);
+        this.size = Array(n).fill(1);
+    }
+
+    union(a: number, b: number): boolean {
+        const pa = this.find(a);
+        const pb = this.find(b);
+        if (pa === pb) {
+            return false;
+        }
+        if (this.size[pa] &gt; this.size[pb]) {
+            this.p[pb] = pa;
+            this.size[pa] += this.size[pb];
+        } else {
+            this.p[pa] = pb;
+            this.size[pb] += this.size[pa];
+        }
+        return true;
+    }
+
+    find(x: number): number {
+        if (this.p[x] !== x) {
+            this.p[x] = this.find(this.p[x]);
+        }
+        return this.p[x];
+    }
+}
+
+function numSimilarGroups(strs: string[]): number {
+    const n = strs.length;
+    const m = strs[0].length;
+    const uf = new UnionFind(n);
+    let cnt = n;
+    for (let i = 0; i &lt; n; ++i) {
+        for (let j = 0; j &lt; i; ++j) {
+            let diff = 0;
+            for (let k = 0; k &lt; m; ++k) {
+                if (strs[i][k] !== strs[j][k]) {
+                    diff++;
+                }
+            }
+            if (diff &lt;= 2 &amp;&amp; uf.union(i, j)) {
+                cnt--;
+            }
+        }
+    }
+    return cnt;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class056;
+
+// 相似字符串组
+// 如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等
+// 那么称 X 和 Y 两个字符串相似
+// 如果这两个字符串本身是相等的，那它们也是相似的
+// 例如，"tars" 和 "rats" 是相似的 (交换 0 与 2 的位置)；
+// "rats" 和 "arts" 也是相似的，但是 "star" 不与 "tars"，"rats"，或 "arts" 相似
+// 总之，它们通过相似性形成了两个关联组：{"tars", "rats", "arts"} 和 {"star"}
+// 注意，"tars" 和 "arts" 是在同一组中，即使它们并不相似
+// 形式上，对每个组而言，要确定一个单词在组中，只需要这个词和该组中至少一个单词相似。
+// 给你一个字符串列表 strs列表中的每个字符串都是 strs 中其它所有字符串的一个字母异位词。
+// 返回 strs 中有多少字符串组
+// 测试链接 : https://leetcode.com/problems/similar-string-groups/
+public class Code04_SimilarStringGroups {
+
+	public static int MAXN = 301;
+
+	public static int[] father = new int[MAXN];
+
+	public static int sets;
+
+	public static void build(int n) {
+		for (int i = 0; i &lt; n; i++) {
+			father[i] = i;
+		}
+		sets = n;
+	}
+
+	public static int find(int i) {
+		if (i != father[i]) {
+			father[i] = find(father[i]);
+		}
+		return father[i];
+	}
+
+	public static void union(int x, int y) {
+		int fx = find(x);
+		int fy = find(y);
+		if (fx != fy) {
+			father[fx] = fy;
+			sets--;
+		}
+	}
+
+	public static int numSimilarGroups(String[] strs) {
+		int n = strs.length;
+		int m = strs[0].length();
+		build(n);
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = i + 1; j &lt; n; j++) {
+				if (find(i) != find(j)) {
+					int diff = 0;
+					for (int k = 0; k &lt; m &amp;&amp; diff &lt; 3; k++) {
+						if (strs[i].charAt(k) != strs[j].charAt(k)) {
+							diff++;
+						}
+					}
+					if (diff == 0 || diff == 2) {
+						union(i, j);
+					}
+				}
+			}
+		}
+		return sets;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/BouW-NjgRcI?start=0">
+    </iframe>
+</details>
+<h2 id="number-of-islands"><a class="header" href="#number-of-islands">Number of Islands</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0200.Number%20of%20Islands/README_EN.md
+tags:
+    - Depth-First Search
+    - Breadth-First Search
+    - Union Find
+    - Array
+    - Matrix
+</code></pre>
+<!-- problem:start -->
+<h1 id="200-number-of-islands"><a class="header" href="#200-number-of-islands"><a href="https://leetcode.com/problems/number-of-islands">200. Number of Islands</a></a></h1>
+<p><a href="/solution/0200-0299/0200.Number%20of%20Islands/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>Given an <code>m x n</code> 2D binary grid <code>grid</code> which represents a map of <code>&#39;1&#39;</code>s (land) and <code>&#39;0&#39;</code>s (water), return <em>the number of islands</em>.</p>
+<p>An <strong>island</strong> is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> grid = [
+  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;]
+]
+<strong>Output:</strong> 1
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> grid = [
+  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;]
+]
+<strong>Output:</strong> 3
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>m == grid.length</code></li>
+	<li><code>n == grid[i].length</code></li>
+	<li><code>1 &lt;= m, n &lt;= 300</code></li>
+	<li><code>grid[i][j]</code> is <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-1"><a class="header" href="#solution-1-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numIslands(self, grid: List[List[str]]) -&gt; int:
+        def dfs(i, j):
+            grid[i][j] = '0'
+            for a, b in pairwise(dirs):
+                x, y = i + a, j + b
+                if 0 &lt;= x &lt; m and 0 &lt;= y &lt; n and grid[x][y] == '1':
+                    dfs(x, y)
+
+        ans = 0
+        dirs = (-1, 0, 1, 0, -1)
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    dfs(i, j)
+                    ans += 1
+        return ans
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private char[][] grid;
+    private int m;
+    private int n;
+
+    public int numIslands(char[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        this.grid = grid;
+        int ans = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    dfs(i, j);
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private void dfs(int i, int j) {
+        grid[i][j] = '0';
+        int[] dirs = {-1, 0, 1, 0, -1};
+        for (int k = 0; k &lt; 4; ++k) {
+            int x = i + dirs[k];
+            int y = j + dirs[k + 1];
+            if (x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                dfs(x, y);
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int numIslands(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int ans = 0;
+        int dirs[5] = {-1, 0, 1, 0, -1};
+        function&lt;void(int, int)&gt; dfs = [&amp;](int i, int j) {
+            grid[i][j] = '0';
+            for (int k = 0; k &lt; 4; ++k) {
+                int x = i + dirs[k], y = j + dirs[k + 1];
+                if (x &gt;= 0 &amp;&amp; x &lt; grid.size() &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; grid[0].size() &amp;&amp; grid[x][y] == '1') {
+                    dfs(x, y);
+                }
+            }
+        };
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    dfs(i, j);
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">func numIslands(grid [][]byte) int {
+	m, n := len(grid), len(grid[0])
+	var dfs func(i, j int)
+	dfs = func(i, j int) {
+		grid[i][j] = '0'
+		dirs := []int{-1, 0, 1, 0, -1}
+		for k := 0; k &lt; 4; k++ {
+			x, y := i+dirs[k], j+dirs[k+1]
+			if x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1' {
+				dfs(x, y)
+			}
+		}
+	}
+	ans := 0
+	for i := 0; i &lt; m; i++ {
+		for j := 0; j &lt; n; j++ {
+			if grid[i][j] == '1' {
+				dfs(i, j)
+				ans++
+			}
+		}
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript-2"><a class="header" href="#typescript-2">TypeScript</a></h4>
+<pre><code class="language-ts">function numIslands(grid: string[][]): number {
+    const m = grid.length;
+    const n = grid[0].length;
+    let ans = 0;
+    const dfs = (i: number, j: number) =&gt; {
+        if (grid[i]?.[j] !== '1') {
+            return;
+        }
+        grid[i][j] = '0';
+        dfs(i + 1, j);
+        dfs(i - 1, j);
+        dfs(i, j + 1);
+        dfs(i, j - 1);
+    };
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (grid[i][j] === '1') {
+                dfs(i, j);
+                ++ans;
+            }
+        }
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust"><a class="header" href="#rust">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const DIRS: [i32; 5] = [-1, 0, 1, 0, -1];
+
+impl Solution {
+    pub fn num_islands(grid: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; i32 {
+        fn dfs(grid: &amp;mut Vec&lt;Vec&lt;char&gt;&gt;, i: usize, j: usize) {
+            grid[i][j] = '0';
+            for k in 0..4 {
+                let x = (i as i32) + DIRS[k];
+                let y = (j as i32) + DIRS[k + 1];
+                if x &gt;= 0
+                    &amp;&amp; (x as usize) &lt; grid.len()
+                    &amp;&amp; y &gt;= 0
+                    &amp;&amp; (y as usize) &lt; grid[0].len()
+                    &amp;&amp; grid[x as usize][y as usize] == '1'
+                {
+                    dfs(grid, x as usize, y as usize);
+                }
+            }
+        }
+
+        let mut grid = grid;
+        let mut ans = 0;
+        for i in 0..grid.len() {
+            for j in 0..grid[0].len() {
+                if grid[i][j] == '1' {
+                    dfs(&amp;mut grid, i, j);
+                    ans += 1;
+                }
+            }
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="c-4"><a class="header" href="#c-4">C#</a></h4>
+<pre><code class="language-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Solution {
+    public int NumIslands(char[][] grid)
+    {
+        var queue = new Queue&lt;Tuple&lt;int, int&gt;&gt;();
+        var lenI = grid.Length;
+        var lenJ = lenI == 0 ? 0 : grid[0].Length;
+        var paths = new int[,] { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+        var result = 0;
+        for (var i = 0; i &lt; lenI; ++i)
+        {
+            for (var j = 0; j &lt; lenJ; ++j)
+            {
+                if (grid[i][j] == '1')
+                {
+                    ++result;
+                    grid[i][j] = '0';
+                    queue.Enqueue(Tuple.Create(i, j));
+                    while (queue.Any())
+                    {
+                        var position = queue.Dequeue();
+                        for (var k = 0; k &lt; 4; ++k)
+                        {
+                            var next = Tuple.Create(position.Item1 + paths[k, 0], position.Item2 + paths[k, 1]);
+                            if (next.Item1 &gt;= 0 &amp;&amp; next.Item1 &lt; lenI &amp;&amp; next.Item2 &gt;= 0 &amp;&amp; next.Item2 &lt; lenJ &amp;&amp; grid[next.Item1][next.Item2] == '1')
+                            {
+                                grid[next.Item1][next.Item2] = '0';
+                                queue.Enqueue(next);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2"><a class="header" href="#solution-2">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numIslands(self, grid: List[List[str]]) -&gt; int:
+        def bfs(i, j):
+            grid[i][j] = '0'
+            q = deque([(i, j)])
+            while q:
+                i, j = q.popleft()
+                for a, b in pairwise(dirs):
+                    x, y = i + a, j + b
+                    if 0 &lt;= x &lt; m and 0 &lt;= y &lt; n and grid[x][y] == '1':
+                        q.append((x, y))
+                        grid[x][y] = 0
+
+        ans = 0
+        dirs = (-1, 0, 1, 0, -1)
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    bfs(i, j)
+                    ans += 1
+        return ans
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private char[][] grid;
+    private int m;
+    private int n;
+
+    public int numIslands(char[][] grid) {
+        m = grid.length;
+        n = grid[0].length;
+        this.grid = grid;
+        int ans = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    bfs(i, j);
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private void bfs(int i, int j) {
+        grid[i][j] = '0';
+        Deque&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+        q.offer(new int[] {i, j});
+        int[] dirs = {-1, 0, 1, 0, -1};
+        while (!q.isEmpty()) {
+            int[] p = q.poll();
+            for (int k = 0; k &lt; 4; ++k) {
+                int x = p[0] + dirs[k];
+                int y = p[1] + dirs[k + 1];
+                if (x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                    q.offer(new int[] {x, y});
+                    grid[x][y] = '0';
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="c-5"><a class="header" href="#c-5">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int numIslands(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int ans = 0;
+        int dirs[5] = {-1, 0, 1, 0, -1};
+        function&lt;void(int, int)&gt; bfs = [&amp;](int i, int j) {
+            grid[i][j] = '0';
+            queue&lt;pair&lt;int, int&gt;&gt; q;
+            q.push({i, j});
+            vector&lt;int&gt; dirs = {-1, 0, 1, 0, -1};
+            while (!q.empty()) {
+                auto [a, b] = q.front();
+                q.pop();
+                for (int k = 0; k &lt; 4; ++k) {
+                    int x = a + dirs[k];
+                    int y = b + dirs[k + 1];
+                    if (x &gt;= 0 &amp;&amp; x &lt; grid.size() &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; grid[0].size() &amp;&amp; grid[x][y] == '1') {
+                        q.push({x, y});
+                        grid[x][y] = '0';
+                    }
+                }
+            }
+        };
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    bfs(i, j);
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">func numIslands(grid [][]byte) int {
+	m, n := len(grid), len(grid[0])
+	bfs := func(i, j int) {
+		grid[i][j] = '0'
+		q := [][]int{[]int{i, j}}
+		dirs := []int{-1, 0, 1, 0, -1}
+		for len(q) &gt; 0 {
+			p := q[0]
+			q = q[1:]
+			for k := 0; k &lt; 4; k++ {
+				x, y := p[0]+dirs[k], p[1]+dirs[k+1]
+				if x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1' {
+					q = append(q, []int{x, y})
+					grid[x][y] = '0'
+				}
+			}
+		}
+	}
+	ans := 0
+	for i := 0; i &lt; m; i++ {
+		for j := 0; j &lt; n; j++ {
+			if grid[i][j] == '1' {
+				bfs(i, j)
+				ans++
+			}
+		}
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript-3"><a class="header" href="#typescript-3">TypeScript</a></h4>
+<pre><code class="language-ts">function numIslands(grid: string[][]): number {
+    const m = grid.length;
+    const n = grid[0].length;
+    let ans = 0;
+    function bfs(i, j) {
+        grid[i][j] = '0';
+        let q = [[i, j]];
+        const dirs = [-1, 0, 1, 0, -1];
+        while (q.length) {
+            [i, j] = q.shift();
+            for (let k = 0; k &lt; 4; ++k) {
+                const x = i + dirs[k];
+                const y = j + dirs[k + 1];
+                if (x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                    q.push([x, y]);
+                    grid[x][y] = '0';
+                }
+            }
+        }
+    }
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (grid[i][j] == '1') {
+                bfs(i, j);
+                ++ans;
+            }
+        }
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust-1"><a class="header" href="#rust-1">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::collections::VecDeque;
+
+const DIRS: [i32; 5] = [-1, 0, 1, 0, -1];
+
+impl Solution {
+    pub fn num_islands(grid: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; i32 {
+        fn bfs(grid: &amp;mut Vec&lt;Vec&lt;char&gt;&gt;, i: usize, j: usize) {
+            grid[i][j] = '0';
+            let mut queue = VecDeque::from([(i, j)]);
+            while !queue.is_empty() {
+                let (i, j) = queue.pop_front().unwrap();
+                for k in 0..4 {
+                    let x = (i as i32) + DIRS[k];
+                    let y = (j as i32) + DIRS[k + 1];
+                    if x &gt;= 0
+                        &amp;&amp; (x as usize) &lt; grid.len()
+                        &amp;&amp; y &gt;= 0
+                        &amp;&amp; (y as usize) &lt; grid[0].len()
+                        &amp;&amp; grid[x as usize][y as usize] == '1'
+                    {
+                        grid[x as usize][y as usize] = '0';
+                        queue.push_back((x as usize, y as usize));
+                    }
+                }
+            }
+        }
+
+        let mut grid = grid;
+        let mut ans = 0;
+        for i in 0..grid.len() {
+            for j in 0..grid[0].len() {
+                if grid[i][j] == '1' {
+                    bfs(&amp;mut grid, i, j);
+                    ans += 1;
+                }
+            }
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-3"><a class="header" href="#solution-3">Solution 3</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-4"><a class="header" href="#python3-4">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def numIslands(self, grid: List[List[str]]) -&gt; int:
+        def find(x):
+            if p[x] != x:
+                p[x] = find(p[x])
+            return p[x]
+
+        dirs = (0, 1, 0)
+        m, n = len(grid), len(grid[0])
+        p = list(range(m * n))
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    for a, b in pairwise(dirs):
+                        x, y = i + a, j + b
+                        if x &lt; m and y &lt; n and grid[x][y] == '1':
+                            p[find(i * n + j)] = find(x * n + y)
+        return sum(
+            grid[i][j] == '1' and i * n + j == find(i * n + j)
+            for i in range(m)
+            for j in range(n)
+        )
+</code></pre>
+<h4 id="java-4"><a class="header" href="#java-4">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private int[] p;
+
+    public int numIslands(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        p = new int[m * n];
+        for (int i = 0; i &lt; p.length; ++i) {
+            p[i] = i;
+        }
+        int[] dirs = {1, 0, 1};
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    for (int k = 0; k &lt; 2; ++k) {
+                        int x = i + dirs[k];
+                        int y = j + dirs[k + 1];
+                        if (x &lt; m &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                            p[find(x * n + y)] = find(i * n + j);
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1' &amp;&amp; i * n + j == find(i * n + j)) {
+                    ++ans;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+}
+</code></pre>
+<h4 id="c-6"><a class="header" href="#c-6">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int numIslands(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector&lt;int&gt; p(m * n);
+        iota(p.begin(), p.end(), 0);
+        function&lt;int(int)&gt; find = [&amp;](int x) -&gt; int {
+            if (p[x] != x) {
+                p[x] = find(p[x]);
+            }
+            return p[x];
+        };
+        int dirs[3] = {1, 0, 1};
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (grid[i][j] == '1') {
+                    for (int k = 0; k &lt; 2; ++k) {
+                        int x = i + dirs[k];
+                        int y = j + dirs[k + 1];
+                        if (x &lt; m &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                            p[find(x * n + y)] = find(i * n + j);
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                ans += grid[i][j] == '1' &amp;&amp; i * n + j == find(i * n + j);
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-4"><a class="header" href="#go-4">Go</a></h4>
+<pre><code class="language-go">func numIslands(grid [][]byte) int {
+	m, n := len(grid), len(grid[0])
+	p := make([]int, m*n)
+	for i := range p {
+		p[i] = i
+	}
+	var find func(x int) int
+	find = func(x int) int {
+		if p[x] != x {
+			p[x] = find(p[x])
+		}
+		return p[x]
+	}
+	dirs := []int{1, 0, 1}
+	for i := 0; i &lt; m; i++ {
+		for j := 0; j &lt; n; j++ {
+			if grid[i][j] == '1' {
+				for k := 0; k &lt; 2; k++ {
+					x, y := i+dirs[k], j+dirs[k+1]
+					if x &lt; m &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1' {
+						p[find(x*n+y)] = find(i*n + j)
+					}
+				}
+			}
+		}
+	}
+	ans := 0
+	for i := 0; i &lt; m; i++ {
+		for j := 0; j &lt; n; j++ {
+			if grid[i][j] == '1' &amp;&amp; i*n+j == find(i*n+j) {
+				ans++
+			}
+		}
+	}
+	return ans
+}
+</code></pre>
+<h4 id="typescript-4"><a class="header" href="#typescript-4">TypeScript</a></h4>
+<pre><code class="language-ts">function numIslands(grid: string[][]): number {
+    const m = grid.length;
+    const n = grid[0].length;
+    let p = [];
+    for (let i = 0; i &lt; m * n; ++i) {
+        p.push(i);
+    }
+    function find(x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
+    }
+    const dirs = [1, 0, 1];
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (grid[i][j] == '1') {
+                for (let k = 0; k &lt; 2; ++k) {
+                    const x = i + dirs[k];
+                    const y = j + dirs[k + 1];
+                    if (x &lt; m &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1') {
+                        p[find(i * n + j)] = find(x * n + y);
+                    }
+                }
+            }
+        }
+    }
+    let ans = 0;
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (grid[i][j] == '1' &amp;&amp; i * n + j == find(i * n + j)) {
+                ++ans;
+            }
+        }
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust-2"><a class="header" href="#rust-2">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const DIRS: [usize; 3] = [1, 0, 1];
+
+impl Solution {
+    pub fn num_islands(grid: Vec&lt;Vec&lt;char&gt;&gt;) -&gt; i32 {
+        let m = grid.len();
+        let n = grid[0].len();
+        let mut p: Vec&lt;i32&gt; = (0..(m * n) as i32).collect();
+
+        fn find(p: &amp;mut Vec&lt;i32&gt;, x: usize) -&gt; i32 {
+            if p[x] != (x as i32) {
+                p[x] = find(p, p[x] as usize);
+            }
+            p[x]
+        }
+
+        for i in 0..m {
+            for j in 0..n {
+                if grid[i][j] == '1' {
+                    for k in 0..2 {
+                        let x = i + DIRS[k];
+                        let y = j + DIRS[k + 1];
+                        if x &lt; m &amp;&amp; y &lt; n &amp;&amp; grid[x][y] == '1' {
+                            let f1 = find(&amp;mut p, x * n + y);
+                            let f2 = find(&amp;mut p, i * n + j);
+                            p[f1 as usize] = f2;
+                        }
+                    }
+                }
+            }
+        }
+
+        let mut ans = 0;
+        for i in 0..m {
+            for j in 0..n {
+                if grid[i][j] == '1' &amp;&amp; p[i * n + j] == ((i * n + j) as i32) {
+                    ans += 1;
+                }
+            }
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class056;
+
+// 岛屿数量
+// 给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量
+// 岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成
+// 此外，你可以假设该网格的四条边均被水包围
+// 测试链接 : https://leetcode.com/problems/number-of-islands/
+public class Code05_NumberOfIslands {
+
+	// 并查集的做法
+	public static int numIslands(char[][] board) {
+		int n = board.length;
+		int m = board[0].length;
+		build(n, m, board);
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; m; j++) {
+				if (board[i][j] == '1') {
+					if (j &gt; 0 &amp;&amp; board[i][j - 1] == '1') {
+						union(i, j, i, j - 1);
+					}
+					if (i &gt; 0 &amp;&amp; board[i - 1][j] == '1') {
+						union(i, j, i - 1, j);
+					}
+				}
+			}
+		}
+		return sets;
+	}
+
+	public static int MAXSIZE = 100001;
+
+	public static int[] father = new int[MAXSIZE];
+
+	public static int cols;
+
+	public static int sets;
+
+	public static void build(int n, int m, char[][] board) {
+		cols = m;
+		sets = 0;
+		for (int a = 0; a &lt; n; a++) {
+			for (int b = 0, index; b &lt; m; b++) {
+				if (board[a][b] == '1') {
+					index = index(a, b);
+					father[index] = index;
+					sets++;
+				}
+			}
+		}
+	}
+
+	public static int index(int a, int b) {
+		return a * cols + b;
+	}
+
+	public static int find(int i) {
+		if (i != father[i]) {
+			father[i] = find(father[i]);
+		}
+		return father[i];
+	}
+
+	public static void union(int a, int b, int c, int d) {
+		int fx = find(index(a, b));
+		int fy = find(index(c, d));
+		if (fx != fy) {
+			father[fx] = fy;
+			sets--;
+		}
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/BouW-NjgRcI?start=0">
+    </iframe>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../data-structures/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../data-structures/disjoint-set-2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../data-structures/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../data-structures/disjoint-set-2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,1600 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DP on Intervals 2 - Data Structures and Algorithms for Coding Interviews</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Data Structures and Algorithms for Coding Interviews</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dp-on-intervals-part-2"><a class="header" href="#dp-on-intervals-part-2">DP on Intervals (part 2)</a></h1>
+<h2 id="minimum-insertions-to-match"><a class="header" href="#minimum-insertions-to-match">Minimum Insertions To Match</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class077;
+
+// 完成配对需要的最少字符数量
+// 给定一个由'['、']'、'('，')'组成的字符串
+// 请问最少插入多少个括号就能使这个字符串的所有括号正确配对
+// 例如当前串是 "([[])"，那么插入一个']'即可满足
+// 输出最少需要插入多少个字符
+// 测试链接 : https://www.nowcoder.com/practice/e391767d80d942d29e6095a935a5b96b
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+public class Code01_MinimumInsertionsToMatch {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		String str = br.readLine();
+		out.println(compute(str));
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+	// 时间复杂度O(n^3)
+	public static int compute(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f(s, 0, s.length - 1, dp);
+	}
+
+	// 让s[l...r]配对至少需要几个字符
+	public static int f(char[] s, int l, int r, int[][] dp) {
+		if (l == r) {
+			return 1;
+		}
+		if (l == r - 1) {
+			if ((s[l] == '(' &amp;&amp; s[r] == ')') || (s[l] == '[' &amp;&amp; s[r] == ']')) {
+				return 0;
+			}
+			return 2;
+		}
+		// l...r字符数量 &gt;= 3
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		// 可能性1 : [l]、[r]本来就是配对的
+		int p1 = Integer.MAX_VALUE;
+		if ((s[l] == '(' &amp;&amp; s[r] == ')') || (s[l] == '[' &amp;&amp; s[r] == ']')) {
+			p1 = f(s, l + 1, r - 1, dp);
+		}
+		// 可能性2 : 基于每个可能的划分点，做左右划分
+		int p2 = Integer.MAX_VALUE;
+		for (int m = l; m &lt; r; m++) {
+			p2 = Math.min(p2, f(s, l, m, dp) + f(s, m + 1, r, dp));
+		}
+		int ans = Math.min(p1, p2);
+		dp[l][r] = ans;
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+// 完成配对需要的最少字符数量
+// 给定一个由'['、']'、'('，')'组成的字符串
+// 请问最少插入多少个括号就能使这个字符串的所有括号正确配对
+// 例如当前串是 "([[])"，那么插入一个']'即可满足
+// 输出最少需要插入多少个字符
+// 测试链接 : https://www.nowcoder.com/practice/e391767d80d942d29e6095a935a5b96b
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+public class Code01_MinimumInsertionsToMatch {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		String str = br.readLine();
+		out.println(compute(str));
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+	// 时间复杂度O(n^3)
+	public static int compute(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			for (int j = 0; j &lt; n; j++) {
+				dp[i][j] = -1;
+			}
+		}
+		return f(s, 0, s.length - 1, dp);
+	}
+
+	// 让s[l...r]配对至少需要几个字符
+	public static int f(char[] s, int l, int r, int[][] dp) {
+		if (l == r) {
+			return 1;
+		}
+		if (l == r - 1) {
+			if ((s[l] == '(' &amp;&amp; s[r] == ')') || (s[l] == '[' &amp;&amp; s[r] == ']')) {
+				return 0;
+			}
+			return 2;
+		}
+		// l...r字符数量 &gt;= 3
+		if (dp[l][r] != -1) {
+			return dp[l][r];
+		}
+		// 可能性1 : [l]、[r]本来就是配对的
+		int p1 = Integer.MAX_VALUE;
+		if ((s[l] == '(' &amp;&amp; s[r] == ')') || (s[l] == '[' &amp;&amp; s[r] == ']')) {
+			p1 = f(s, l + 1, r - 1, dp);
+		}
+		// 可能性2 : 基于每个可能的划分点，做左右划分
+		int p2 = Integer.MAX_VALUE;
+		for (int m = l; m &lt; r; m++) {
+			p2 = Math.min(p2, f(s, l, m, dp) + f(s, m + 1, r, dp));
+		}
+		int ans = Math.min(p1, p2);
+		dp[l][r] = ans;
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=0">
+    </iframe>
+</details>
+<h2 id="strange-printer"><a class="header" href="#strange-printer">Strange Printer</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0600-0699/0664.Strange%20Printer/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="664-strange-printer"><a class="header" href="#664-strange-printer"><a href="https://leetcode.com/problems/strange-printer">664. Strange Printer</a></a></h1>
+<p><a href="/solution/0600-0699/0664.Strange%20Printer/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>There is a strange printer with the following two special properties:</p>
+<ul>
+	<li>The printer can only print a sequence of <strong>the same character</strong> each time.</li>
+	<li>At each turn, the printer can print new characters starting from and ending at any place and will cover the original existing characters.</li>
+</ul>
+<p>Given a string <code>s</code>, return <em>the minimum number of turns the printer needed to print it</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;aaabbb&quot;
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> Print &quot;aaa&quot; first and then print &quot;bbb&quot;.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;aba&quot;
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> Print &quot;aaa&quot; first and then print &quot;b&quot; from the second place of the string, which will cover the existing character &#39;a&#39;.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-dynamic-programming"><a class="header" href="#solution-1-dynamic-programming">Solution 1: Dynamic Programming</a></h3>
+<p>We define $f[i][j]$ as the minimum operations to print $s[i..j]$, with the initial value $f[i][j]=\infty$, and the answer is $f[0][n-1]$, where $n$ is the length of string $s$.</p>
+<p>Consider $f[i][j]$, if $s[i] = s[j]$, we can print $s[j]$ when print $s[i]$, so we can ignore $s[j]$ and continue to print $s[i+1..j-1]$. If $s[i] \neq s[j]$, we need to print the substring separately, i.e. $s[i..k]$ and $s[k+1..j]$, where $k \in [i,j)$. So we can have the following transition equation:</p>
+<p>$$
+f[i][j]=
+\begin{cases}
+1, &amp; \textit{if } i=j \
+f[i][j-1], &amp; \textit{if } s[i]=s[j] \
+\min_{i \leq k &lt; j} {f[i][k]+f[k+1][j]}, &amp; \textit{otherwise}
+\end{cases}
+$$</p>
+<p>We can enumerate $i$ from large to small and $j$ from small to large, so that we can ensure that $f[i][j-1]$, $f[i][k]$ and $f[k+1][j]$ have been calculated when we calculate $f[i][j]$.</p>
+<p>The time complexity is $O(n^3)$ and the space complexity is $O(n^2)$. Where $n$ is the length of string $s$.</p>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def strangePrinter(self, s: str) -&gt; int:
+        n = len(s)
+        f = [[inf] * n for _ in range(n)]
+        for i in range(n - 1, -1, -1):
+            f[i][i] = 1
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    f[i][j] = f[i][j - 1]
+                else:
+                    for k in range(i, j):
+                        f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j])
+        return f[0][-1]
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int strangePrinter(String s) {
+        final int inf = 1 &lt;&lt; 30;
+        int n = s.length();
+        int[][] f = new int[n][n];
+        for (var g : f) {
+            Arrays.fill(g, inf);
+        }
+        for (int i = n - 1; i &gt;= 0; --i) {
+            f[i][i] = 1;
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    f[i][j] = f[i][j - 1];
+                } else {
+                    for (int k = i; k &lt; j; ++k) {
+                        f[i][j] = Math.min(f[i][j], f[i][k] + f[k + 1][j]);
+                    }
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int strangePrinter(string s) {
+        int n = s.size();
+        int f[n][n];
+        memset(f, 0x3f, sizeof(f));
+        for (int i = n - 1; ~i; --i) {
+            f[i][i] = 1;
+            for (int j = i + 1; j &lt; n; ++j) {
+                if (s[i] == s[j]) {
+                    f[i][j] = f[i][j - 1];
+                } else {
+                    for (int k = i; k &lt; j; ++k) {
+                        f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j]);
+                    }
+                }
+            }
+        }
+        return f[0][n - 1];
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func strangePrinter(s string) int {
+	n := len(s)
+	f := make([][]int, n)
+	for i := range f {
+		f[i] = make([]int, n)
+		for j := range f[i] {
+			f[i][j] = 1 &lt;&lt; 30
+		}
+	}
+	for i := n - 1; i &gt;= 0; i-- {
+		f[i][i] = 1
+		for j := i + 1; j &lt; n; j++ {
+			if s[i] == s[j] {
+				f[i][j] = f[i][j-1]
+			} else {
+				for k := i; k &lt; j; k++ {
+					f[i][j] = min(f[i][j], f[i][k]+f[k+1][j])
+				}
+			}
+		}
+	}
+	return f[0][n-1]
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function strangePrinter(s: string): number {
+    const n = s.length;
+    const f: number[][] = new Array(n).fill(0).map(() =&gt; new Array(n).fill(1 &lt;&lt; 30));
+    for (let i = n - 1; i &gt;= 0; --i) {
+        f[i][i] = 1;
+        for (let j = i + 1; j &lt; n; ++j) {
+            if (s[i] === s[j]) {
+                f[i][j] = f[i][j - 1];
+            } else {
+                for (let k = i; k &lt; j; ++k) {
+                    f[i][j] = Math.min(f[i][j], f[i][k] + f[k + 1][j]);
+                }
+            }
+        }
+    }
+    return f[0][n - 1];
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+// 涂色 &amp; 奇怪打印机
+// 假设你有一条长度为5的木板，初始时没有涂过任何颜色
+// 你希望把它的5个单位长度分别涂上红、绿、蓝、绿、红
+// 用一个长度为5的字符串表示这个目标：RGBGR
+// 每次你可以把一段连续的木板涂成一个给定的颜色，后涂的颜色覆盖先涂的颜色
+// 例如第一次把木板涂成RRRRR
+// 第二次涂成RGGGR
+// 第三次涂成RGBGR，达到目标
+// 返回尽量少的涂色次数
+// 测试链接 : https://www.luogu.com.cn/problem/P4170
+// 测试链接 : https://leetcode.com/problems/strange-printer/
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+public class Code02_Coloring {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		String str = br.readLine();
+		out.println(strangePrinter(str));
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+	// 时间复杂度O(n^3)
+	// 测试链接 : https://leetcode.com/problems/strange-printer/
+	public static int strangePrinter(String str) {
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[][] dp = new int[n][n];
+		dp[n - 1][n - 1] = 1;
+		for (int i = 0; i &lt; n - 1; i++) {
+			dp[i][i] = 1;
+			dp[i][i + 1] = s[i] == s[i + 1] ? 1 : 2;
+		}
+		for (int l = n - 3, ans; l &gt;= 0; l--) {
+			for (int r = l + 2; r &lt; n; r++) {
+				// dp[l][r]
+				if (s[l] == s[r]) {
+					dp[l][r] = dp[l][r - 1];
+					// dp[l][r] = dp[l + 1][r];
+				} else {
+					ans = Integer.MAX_VALUE;
+					for (int m = l; m &lt; r; m++) {
+						ans = Math.min(ans, dp[l][m] + dp[m + 1][r]);
+					}
+					dp[l][r] = ans;
+				}
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=958">
+    </iframe>
+</details>
+<h2 id="height-and-choir"><a class="header" href="#height-and-choir">Height And Choir</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class077;
+
+// 合唱队
+// 具体描述情打开链接查看
+// 测试链接 : https://www.luogu.com.cn/problem/P3205
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的所有代码，并把主类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
+
+public class Code03_HeightAndChoir {
+
+	public static int MAXN = 1001;
+
+	public static int[] nums = new int[MAXN];
+
+	public static int[][] dp = new int[MAXN][2];
+
+	public static int n;
+
+	public static int MOD = 19650827;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			n = (int) in.nval;
+			for (int i = 1; i &lt;= n; i++) {
+				in.nextToken();
+				nums[i] = (int) in.nval;
+			}
+			if (n == 1) {
+				out.println(1);
+			} else {
+				out.println(compute2());
+			}
+		}
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+	// 时间复杂度O(n^2)
+	// 严格位置依赖的动态规划
+	public static int compute1() {
+		// 人的编号范围 : 1...n
+		// dp[l][r][0] : 形成l...r的状况的方法数，同时要求l位置的数字是最后出现的
+		// dp[l][r][1] : 形成l...r的状况的方法数，同时要求r位置的数字是最后出现的
+		int[][][] dp = new int[n + 1][n + 1][2];
+		for (int i = 1; i &lt; n; i++) {
+			if (nums[i] &lt; nums[i + 1]) {
+				dp[i][i + 1][0] = 1;
+				dp[i][i + 1][1] = 1;
+			}
+		}
+		for (int l = n - 2; l &gt;= 1; l--) {
+			for (int r = l + 2; r &lt;= n; r++) {
+				if (nums[l] &lt; nums[l + 1]) {
+					dp[l][r][0] = (dp[l][r][0] + dp[l + 1][r][0]) % MOD;
+				}
+				if (nums[l] &lt; nums[r]) {
+					dp[l][r][0] = (dp[l][r][0] + dp[l + 1][r][1]) % MOD;
+				}
+				if (nums[r] &gt; nums[l]) {
+					dp[l][r][1] = (dp[l][r][1] + dp[l][r - 1][0]) % MOD;
+				}
+				if (nums[r] &gt; nums[r - 1]) {
+					dp[l][r][1] = (dp[l][r][1] + dp[l][r - 1][1]) % MOD;
+				}
+			}
+		}
+		return (dp[1][n][0] + dp[1][n][1]) % MOD;
+	}
+
+	// 时间复杂度O(n^2)
+	// 空间压缩
+	public static int compute2() {
+		if (nums[n - 1] &lt; nums[n]) {
+			dp[n][0] = 1;
+			dp[n][1] = 1;
+		}
+		for (int l = n - 2; l &gt;= 1; l--) {
+			if (nums[l] &lt; nums[l + 1]) {
+				dp[l + 1][0] = 1;
+				dp[l + 1][1] = 1;
+			} else {
+				dp[l + 1][0] = 0;
+				dp[l + 1][1] = 0;
+			}
+			for (int r = l + 2; r &lt;= n; r++) {
+				int a = 0;
+				int b = 0;
+				if (nums[l] &lt; nums[l + 1]) {
+					a = (a + dp[r][0]) % MOD;
+				}
+				if (nums[l] &lt; nums[r]) {
+					a = (a + dp[r][1]) % MOD;
+				}
+				if (nums[r] &gt; nums[l]) {
+					b = (b + dp[r - 1][0]) % MOD;
+				}
+				if (nums[r] &gt; nums[r - 1]) {
+					b = (b + dp[r - 1][1]) % MOD;
+				}
+				dp[r][0] = a;
+				dp[r][1] = b;
+			}
+		}
+		return (dp[n][0] + dp[n][1]) % MOD;
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+// 合唱队
+// 具体描述情打开链接查看
+// 测试链接 : https://www.luogu.com.cn/problem/P3205
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的所有代码，并把主类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StreamTokenizer;
+
+public class Code03_HeightAndChoir {
+
+	public static int MAXN = 1001;
+
+	public static int[] nums = new int[MAXN];
+
+	public static int[][] dp = new int[MAXN][2];
+
+	public static int n;
+
+	public static int MOD = 19650827;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			n = (int) in.nval;
+			for (int i = 1; i &lt;= n; i++) {
+				in.nextToken();
+				nums[i] = (int) in.nval;
+			}
+			if (n == 1) {
+				out.println(1);
+			} else {
+				out.println(compute2());
+			}
+		}
+		out.flush();
+		out.close();
+		br.close();
+	}
+
+	// 时间复杂度O(n^2)
+	// 严格位置依赖的动态规划
+	public static int compute1() {
+		// 人的编号范围 : 1...n
+		// dp[l][r][0] : 形成l...r的状况的方法数，同时要求l位置的数字是最后出现的
+		// dp[l][r][1] : 形成l...r的状况的方法数，同时要求r位置的数字是最后出现的
+		int[][][] dp = new int[n + 1][n + 1][2];
+		for (int i = 1; i &lt; n; i++) {
+			if (nums[i] &lt; nums[i + 1]) {
+				dp[i][i + 1][0] = 1;
+				dp[i][i + 1][1] = 1;
+			}
+		}
+		for (int l = n - 2; l &gt;= 1; l--) {
+			for (int r = l + 2; r &lt;= n; r++) {
+				if (nums[l] &lt; nums[l + 1]) {
+					dp[l][r][0] = (dp[l][r][0] + dp[l + 1][r][0]) % MOD;
+				}
+				if (nums[l] &lt; nums[r]) {
+					dp[l][r][0] = (dp[l][r][0] + dp[l + 1][r][1]) % MOD;
+				}
+				if (nums[r] &gt; nums[l]) {
+					dp[l][r][1] = (dp[l][r][1] + dp[l][r - 1][0]) % MOD;
+				}
+				if (nums[r] &gt; nums[r - 1]) {
+					dp[l][r][1] = (dp[l][r][1] + dp[l][r - 1][1]) % MOD;
+				}
+			}
+		}
+		return (dp[1][n][0] + dp[1][n][1]) % MOD;
+	}
+
+	// 时间复杂度O(n^2)
+	// 空间压缩
+	public static int compute2() {
+		if (nums[n - 1] &lt; nums[n]) {
+			dp[n][0] = 1;
+			dp[n][1] = 1;
+		}
+		for (int l = n - 2; l &gt;= 1; l--) {
+			if (nums[l] &lt; nums[l + 1]) {
+				dp[l + 1][0] = 1;
+				dp[l + 1][1] = 1;
+			} else {
+				dp[l + 1][0] = 0;
+				dp[l + 1][1] = 0;
+			}
+			for (int r = l + 2; r &lt;= n; r++) {
+				int a = 0;
+				int b = 0;
+				if (nums[l] &lt; nums[l + 1]) {
+					a = (a + dp[r][0]) % MOD;
+				}
+				if (nums[l] &lt; nums[r]) {
+					a = (a + dp[r][1]) % MOD;
+				}
+				if (nums[r] &gt; nums[l]) {
+					b = (b + dp[r - 1][0]) % MOD;
+				}
+				if (nums[r] &gt; nums[r - 1]) {
+					b = (b + dp[r - 1][1]) % MOD;
+				}
+				dp[r][0] = a;
+				dp[r][1] = b;
+			}
+		}
+		return (dp[n][0] + dp[n][1]) % MOD;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=1890">
+    </iframe>
+</details>
+<h2 id="remove-boxes"><a class="header" href="#remove-boxes">Remove Boxes</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0500-0599/0546.Remove%20Boxes/README_EN.md
+tags:
+    - Memoization
+    - Array
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="546-remove-boxes"><a class="header" href="#546-remove-boxes"><a href="https://leetcode.com/problems/remove-boxes">546. Remove Boxes</a></a></h1>
+<p><a href="/solution/0500-0599/0546.Remove%20Boxes/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>You are given several <code>boxes</code> with different colors represented by different positive numbers.</p>
+<p>You may experience several rounds to remove boxes until there is no box left. Each time you can choose some continuous boxes with the same color (i.e., composed of <code>k</code> boxes, <code>k &gt;= 1</code>), remove them and get <code>k * k</code> points.</p>
+<p>Return <em>the maximum points you can get</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> boxes = [1,3,2,2,2,3,4,3,1]
+<strong>Output:</strong> 23
+<strong>Explanation:</strong>
+[1, 3, 2, 2, 2, 3, 4, 3, 1] 
+```-&gt; [1, 3, 3, 4, 3, 1] (3*3=9 points) 
+```-&gt; [1, 3, 3, 3, 1] (1*1=1 points) 
+```-&gt; [1, 1] (3*3=9 points) 
+```-&gt; [] (2*2=4 points)
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> boxes = [1,1,1]
+<strong>Output:</strong> 9
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> boxes = [1]
+<strong>Output:</strong> 1
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= boxes.length &lt;= 100</code></li>
+	<li><code>1 &lt;= boxes[i]&nbsp;&lt;= 100</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1"><a class="header" href="#solution-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def removeBoxes(self, boxes: List[int]) -&gt; int:
+        @cache
+        def dfs(i, j, k):
+            if i &gt; j:
+                return 0
+            while i &lt; j and boxes[j] == boxes[j - 1]:
+                j, k = j - 1, k + 1
+            ans = dfs(i, j - 1, 0) + (k + 1) * (k + 1)
+            for h in range(i, j):
+                if boxes[h] == boxes[j]:
+                    ans = max(ans, dfs(h + 1, j - 1, 0) + dfs(i, h, k + 1))
+            return ans
+
+        n = len(boxes)
+        ans = dfs(0, n - 1, 0)
+        dfs.cache_clear()
+        return ans
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private int[][][] f;
+    private int[] b;
+
+    public int removeBoxes(int[] boxes) {
+        b = boxes;
+        int n = b.length;
+        f = new int[n][n][n];
+        return dfs(0, n - 1, 0);
+    }
+
+    private int dfs(int i, int j, int k) {
+        if (i &gt; j) {
+            return 0;
+        }
+        while (i &lt; j &amp;&amp; b[j] == b[j - 1]) {
+            --j;
+            ++k;
+        }
+        if (f[i][j][k] &gt; 0) {
+            return f[i][j][k];
+        }
+        int ans = dfs(i, j - 1, 0) + (k + 1) * (k + 1);
+        for (int h = i; h &lt; j; ++h) {
+            if (b[h] == b[j]) {
+                ans = Math.max(ans, dfs(h + 1, j - 1, 0) + dfs(i, h, k + 1));
+            }
+        }
+        f[i][j][k] = ans;
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int removeBoxes(vector&lt;int&gt;&amp; boxes) {
+        int n = boxes.size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; f(n, vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n)));
+        function&lt;int(int, int, int)&gt; dfs;
+        dfs = [&amp;](int i, int j, int k) {
+            if (i &gt; j) return 0;
+            while (i &lt; j &amp;&amp; boxes[j] == boxes[j - 1]) {
+                --j;
+                ++k;
+            }
+            if (f[i][j][k]) return f[i][j][k];
+            int ans = dfs(i, j - 1, 0) + (k + 1) * (k + 1);
+            for (int h = i; h &lt; j; ++h) {
+                if (boxes[h] == boxes[j]) {
+                    ans = max(ans, dfs(h + 1, j - 1, 0) + dfs(i, h, k + 1));
+                }
+            }
+            f[i][j][k] = ans;
+            return ans;
+        };
+        return dfs(0, n - 1, 0);
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">func removeBoxes(boxes []int) int {
+	n := len(boxes)
+	f := make([][][]int, n)
+	for i := range f {
+		f[i] = make([][]int, n)
+		for j := range f[i] {
+			f[i][j] = make([]int, n)
+		}
+	}
+	var dfs func(i, j, k int) int
+	dfs = func(i, j, k int) int {
+		if i &gt; j {
+			return 0
+		}
+		for i &lt; j &amp;&amp; boxes[j] == boxes[j-1] {
+			j, k = j-1, k+1
+		}
+		if f[i][j][k] &gt; 0 {
+			return f[i][j][k]
+		}
+		ans := dfs(i, j-1, 0) + (k+1)*(k+1)
+		for h := i; h &lt; j; h++ {
+			if boxes[h] == boxes[j] {
+				ans = max(ans, dfs(h+1, j-1, 0)+dfs(i, h, k+1))
+			}
+		}
+		f[i][j][k] = ans
+		return ans
+	}
+	return dfs(0, n-1, 0)
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+// 移除盒子
+// 给出一些不同颜色的盒子boxes，盒子的颜色由不同的正数表示
+// 你将经过若干轮操作去去掉盒子，直到所有的盒子都去掉为止
+// 每一轮你可以移除具有相同颜色的连续 k 个盒子（k &gt;= 1）
+// 这样一轮之后你将得到 k * k 个积分
+// 返回你能获得的最大积分总和
+// 测试链接 : https://leetcode.com/problems/remove-boxes/
+public class Code04_RemoveBoxes {
+
+	// 时间复杂度O(n^4)
+	public static int removeBoxes(int[] boxes) {
+		int n = boxes.length;
+		int[][][] dp = new int[n][n][n];
+		return f(boxes, 0, n - 1, 0, dp);
+	}
+
+	// boxes[l....r]范围上要去消除，前面跟着k个连续的和boxes[l]颜色一样的盒子
+	// 这种情况下，返回最大得分
+	public static int f(int[] boxes, int l, int r, int k, int[][][] dp) {
+		if (l &gt; r) {
+			return 0;
+		}
+		// l &lt;= r
+		if (dp[l][r][k] &gt; 0) {
+			return dp[l][r][k];
+		}
+		int s = l;
+		while (s + 1 &lt;= r &amp;&amp; boxes[l] == boxes[s + 1]) {
+			s++;
+		}
+		// boxes[l...s]都是一种颜色，boxes[s+1]就不是同一种颜色了
+		// cnt是总前缀数量 : 之前的相同前缀(k个) + l...s这个颜色相同的部分(s-l+1个)
+		int cnt = k + s - l + 1;
+		// 可能性1 : 前缀先消
+		int ans = cnt * cnt + f(boxes, s + 1, r, 0, dp);
+		// 可能性2 : 讨论前缀跟着哪个后，一起消掉
+		for (int m = s + 2; m &lt;= r; m++) {
+			if (boxes[l] == boxes[m] &amp;&amp; boxes[m - 1] != boxes[m]) {
+				// boxes[l] == boxes[m]是必须条件
+				// boxes[m - 1] != boxes[m]是剪枝条件，避免不必要的调用
+				ans = Math.max(ans, f(boxes, s + 1, m - 1, 0, dp) + f(boxes, m, r, cnt, dp));
+			}
+		}
+		dp[l][r][k] = ans;
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=3374">
+    </iframe>
+</details>
+<h2 id="minimum-cost-to-merge-stones"><a class="header" href="#minimum-cost-to-merge-stones">Minimum Cost to Merge Stones</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/1000-1099/1000.Minimum%20Cost%20to%20Merge%20Stones/README_EN.md
+rating: 2422
+source: Weekly Contest 126 Q4
+tags:
+    - Array
+    - Dynamic Programming
+    - Prefix Sum
+</code></pre>
+<!-- problem:start -->
+<h1 id="1000-minimum-cost-to-merge-stones"><a class="header" href="#1000-minimum-cost-to-merge-stones"><a href="https://leetcode.com/problems/minimum-cost-to-merge-stones">1000. Minimum Cost to Merge Stones</a></a></h1>
+<p><a href="/solution/1000-1099/1000.Minimum%20Cost%20to%20Merge%20Stones/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>There are <code>n</code> piles of <code>stones</code> arranged in a row. The <code>i<sup>th</sup></code> pile has <code>stones[i]</code> stones.</p>
+<p>A move consists of merging exactly <code>k</code> <strong>consecutive</strong> piles into one pile, and the cost of this move is equal to the total number of stones in these <code>k</code> piles.</p>
+<p>Return <em>the minimum cost to merge all piles of stones into one pile</em>. If it is impossible, return <code>-1</code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> stones = [3,2,4,1], k = 2
+<strong>Output:</strong> 20
+<strong>Explanation:</strong> We start with [3, 2, 4, 1].
+We merge [3, 2] for a cost of 5, and we are left with [5, 4, 1].
+We merge [4, 1] for a cost of 5, and we are left with [5, 5].
+We merge [5, 5] for a cost of 10, and we are left with [10].
+The total cost was 20, and this is the minimum possible.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> stones = [3,2,4,1], k = 3
+<strong>Output:</strong> -1
+<strong>Explanation:</strong> After any merge operation, there are 2 piles left, and we can&#39;t merge anymore.  So the task is impossible.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> stones = [3,5,1,2,6], k = 3
+<strong>Output:</strong> 25
+<strong>Explanation:</strong> We start with [3, 5, 1, 2, 6].
+We merge [5, 1, 2] for a cost of 8, and we are left with [3, 8, 6].
+We merge [3, 8, 6] for a cost of 17, and we are left with [17].
+The total cost was 25, and this is the minimum possible.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>n == stones.length</code></li>
+	<li><code>1 &lt;= n &lt;= 30</code></li>
+	<li><code>1 &lt;= stones[i] &lt;= 100</code></li>
+	<li><code>2 &lt;= k &lt;= 30</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-1"><a class="header" href="#solution-1-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def mergeStones(self, stones: List[int], K: int) -&gt; int:
+        n = len(stones)
+        if (n - 1) % (K - 1):
+            return -1
+        s = list(accumulate(stones, initial=0))
+        f = [[[inf] * (K + 1) for _ in range(n + 1)] for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            f[i][i][1] = 0
+        for l in range(2, n + 1):
+            for i in range(1, n - l + 2):
+                j = i + l - 1
+                for k in range(1, K + 1):
+                    for h in range(i, j):
+                        f[i][j][k] = min(f[i][j][k], f[i][h][1] + f[h + 1][j][k - 1])
+                f[i][j][1] = f[i][j][K] + s[j] - s[i - 1]
+        return f[1][n][1]
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int mergeStones(int[] stones, int K) {
+        int n = stones.length;
+        if ((n - 1) % (K - 1) != 0) {
+            return -1;
+        }
+        int[] s = new int[n + 1];
+        for (int i = 1; i &lt;= n; ++i) {
+            s[i] = s[i - 1] + stones[i - 1];
+        }
+        int[][][] f = new int[n + 1][n + 1][K + 1];
+        final int inf = 1 &lt;&lt; 20;
+        for (int[][] g : f) {
+            for (int[] e : g) {
+                Arrays.fill(e, inf);
+            }
+        }
+        for (int i = 1; i &lt;= n; ++i) {
+            f[i][i][1] = 0;
+        }
+        for (int l = 2; l &lt;= n; ++l) {
+            for (int i = 1; i + l - 1 &lt;= n; ++i) {
+                int j = i + l - 1;
+                for (int k = 1; k &lt;= K; ++k) {
+                    for (int h = i; h &lt; j; ++h) {
+                        f[i][j][k] = Math.min(f[i][j][k], f[i][h][1] + f[h + 1][j][k - 1]);
+                    }
+                }
+                f[i][j][1] = f[i][j][K] + s[j] - s[i - 1];
+            }
+        }
+        return f[1][n][1];
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int mergeStones(vector&lt;int&gt;&amp; stones, int K) {
+        int n = stones.size();
+        if ((n - 1) % (K - 1)) {
+            return -1;
+        }
+        int s[n + 1];
+        s[0] = 0;
+        for (int i = 1; i &lt;= n; ++i) {
+            s[i] = s[i - 1] + stones[i - 1];
+        }
+        int f[n + 1][n + 1][K + 1];
+        memset(f, 0x3f, sizeof(f));
+        for (int i = 1; i &lt;= n; ++i) {
+            f[i][i][1] = 0;
+        }
+        for (int l = 2; l &lt;= n; ++l) {
+            for (int i = 1; i + l - 1 &lt;= n; ++i) {
+                int j = i + l - 1;
+                for (int k = 1; k &lt;= K; ++k) {
+                    for (int h = i; h &lt; j; ++h) {
+                        f[i][j][k] = min(f[i][j][k], f[i][h][1] + f[h + 1][j][k - 1]);
+                    }
+                }
+                f[i][j][1] = f[i][j][K] + s[j] - s[i - 1];
+            }
+        }
+        return f[1][n][1];
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">func mergeStones(stones []int, K int) int {
+	n := len(stones)
+	if (n-1)%(K-1) != 0 {
+		return -1
+	}
+	s := make([]int, n+1)
+	for i, x := range stones {
+		s[i+1] = s[i] + x
+	}
+	f := make([][][]int, n+1)
+	for i := range f {
+		f[i] = make([][]int, n+1)
+		for j := range f[i] {
+			f[i][j] = make([]int, K+1)
+			for k := range f[i][j] {
+				f[i][j][k] = 1 &lt;&lt; 20
+			}
+		}
+	}
+	for i := 1; i &lt;= n; i++ {
+		f[i][i][1] = 0
+	}
+	for l := 2; l &lt;= n; l++ {
+		for i := 1; i &lt;= n-l+1; i++ {
+			j := i + l - 1
+			for k := 2; k &lt;= K; k++ {
+				for h := i; h &lt; j; h++ {
+					f[i][j][k] = min(f[i][j][k], f[i][h][k-1]+f[h+1][j][1])
+				}
+			}
+			f[i][j][1] = f[i][j][K] + s[j] - s[i-1]
+		}
+	}
+	return f[1][n][1]
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+// 合并石头的最低成本
+// 有 n 堆石头排成一排，第 i 堆中有 stones[i] 块石头
+// 每次 移动 需要将 连续的 k 堆石头合并为一堆，而这次移动的成本为这 k 堆中石头的总数
+// 返回把所有石头合并成一堆的最低成本
+// 如果无法合并成一堆返回-1
+// 测试链接 : https://leetcode.com/problems/minimum-cost-to-merge-stones/
+public class Code05_MinimumCostToMergeStones {
+
+	// 时间复杂度O(n^3)
+	// 优化策略来自于观察
+	// l.....r最终会变成几份其实是注定的，根本就无法改变
+	// 那么也就知道，满足(n - 1) % (k - 1) == 0的情况下，
+	// 0....n-1最终一定是1份，也无法改变
+	// 如果l.....r最终一定是1份
+	// 那么要保证l.....m最终一定是1份，m+1...r最终一定是k-1份
+	// 如果l.....r最终一定是p份（p&gt;1）
+	// 那么要保证l.....m最终一定是1份，那么m+1...r最终一定是p-1份
+	// 怎么保证的？枚举行为中，m += k-1很重要！
+	// m每次跳k-1！
+	// 如果l.....r最终一定是1份
+	// 就一定能保证l.....m最终一定是1份
+	// 也一定能保证m+1...r最终一定是k-1份
+	// 不要忘了，加上最后合并成1份的代价
+	// 如果l.....r最终一定是p份
+	// 就一定能保证l.....m最终一定是1份
+	// 也一定能保证m+1...r最终一定是p-1份
+	// 不用加上最后合并成1份的代价
+	public static int mergeStones(int[] stones, int k) {
+		int n = stones.length;
+		if ((n - 1) % (k - 1) != 0) {
+			return -1;
+		}
+		int[] presum = new int[n + 1];
+		// 多补了一个0位置，l...r累加和 : presum[r+1] - presum[l]
+		for (int i = 0, j = 1, sum = 0; i &lt; n; i++, j++) {
+			sum += stones[i];
+			presum[j] = sum;
+		}
+		// dp[l][r] : l...r范围上的石头，合并到不能再合并（份数是确定的），最小代价是多少
+		int[][] dp = new int[n][n];
+		for (int l = n - 2, ans; l &gt;= 0; l--) {
+			for (int r = l + 1; r &lt; n; r++) {
+				ans = Integer.MAX_VALUE;
+				for (int m = l; m &lt; r; m += k - 1) {
+					ans = Math.min(ans, dp[l][m] + dp[m + 1][r]);
+				}
+				if ((r - l) % (k - 1) == 0) {
+					// 最终一定能划分成一份，那么就再加合并代价
+					ans += presum[r + 1] - presum[l];
+				}
+				dp[l][r] = ans;
+			}
+		}
+		return dp[0][n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=4820">
+    </iframe>
+</details>
+<h2 id="count-different-palindromic-subsequences"><a class="header" href="#count-different-palindromic-subsequences">Count Different Palindromic Subsequences</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Hard
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0700-0799/0730.Count%20Different%20Palindromic%20Subsequences/README_EN.md
+tags:
+    - String
+    - Dynamic Programming
+</code></pre>
+<!-- problem:start -->
+<h1 id="730-count-different-palindromic-subsequences"><a class="header" href="#730-count-different-palindromic-subsequences"><a href="https://leetcode.com/problems/count-different-palindromic-subsequences">730. Count Different Palindromic Subsequences</a></a></h1>
+<p><a href="/solution/0700-0799/0730.Count%20Different%20Palindromic%20Subsequences/README.html">中文文档</a></p>
+<h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
+<!-- description:start -->
+<p>Given a string s, return <em>the number of different non-empty palindromic subsequences in</em> <code>s</code>. Since the answer may be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>
+<p>A subsequence of a string is obtained by deleting zero or more characters from the string.</p>
+<p>A sequence is palindromic if it is equal to the sequence reversed.</p>
+<p>Two sequences <code>a<sub>1</sub>, a<sub>2</sub>, ...</code> and <code>b<sub>1</sub>, b<sub>2</sub>, ...</code> are different if there is some <code>i</code> for which <code>a<sub>i</sub> != b<sub>i</sub></code>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;bccb&quot;
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> The 6 different non-empty palindromic subsequences are &#39;b&#39;, &#39;c&#39;, &#39;bb&#39;, &#39;cc&#39;, &#39;bcb&#39;, &#39;bccb&#39;.
+Note that &#39;bcb&#39; is counted only once, even though it occurs twice.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> s = &quot;abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba&quot;
+<strong>Output:</strong> 104860361
+<strong>Explanation:</strong> There are 3104860382 different non-empty palindromic subsequences, which is 104860361 modulo 10<sup>9</sup> + 7.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 1000</code></li>
+	<li><code>s[i]</code> is either <code>&#39;a&#39;</code>, <code>&#39;b&#39;</code>, <code>&#39;c&#39;</code>, or <code>&#39;d&#39;</code>.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-3"><a class="header" href="#solutions-3">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-2"><a class="header" href="#solution-1-2">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def countPalindromicSubsequences(self, s: str) -&gt; int:
+        mod = 10**9 + 7
+        n = len(s)
+        dp = [[[0] * 4 for _ in range(n)] for _ in range(n)]
+        for i, c in enumerate(s):
+            dp[i][i][ord(c) - ord('a')] = 1
+        for l in range(2, n + 1):
+            for i in range(n - l + 1):
+                j = i + l - 1
+                for c in 'abcd':
+                    k = ord(c) - ord('a')
+                    if s[i] == s[j] == c:
+                        dp[i][j][k] = 2 + sum(dp[i + 1][j - 1])
+                    elif s[i] == c:
+                        dp[i][j][k] = dp[i][j - 1][k]
+                    elif s[j] == c:
+                        dp[i][j][k] = dp[i + 1][j][k]
+                    else:
+                        dp[i][j][k] = dp[i + 1][j - 1][k]
+        return sum(dp[0][-1]) % mod
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    private final int MOD = (int) 1e9 + 7;
+
+    public int countPalindromicSubsequences(String s) {
+        int n = s.length();
+        long[][][] dp = new long[n][n][4];
+        for (int i = 0; i &lt; n; ++i) {
+            dp[i][i][s.charAt(i) - 'a'] = 1;
+        }
+        for (int l = 2; l &lt;= n; ++l) {
+            for (int i = 0; i + l &lt;= n; ++i) {
+                int j = i + l - 1;
+                for (char c = 'a'; c &lt;= 'd'; ++c) {
+                    int k = c - 'a';
+                    if (s.charAt(i) == c &amp;&amp; s.charAt(j) == c) {
+                        dp[i][j][k] = 2 + dp[i + 1][j - 1][0] + dp[i + 1][j - 1][1]
+                            + dp[i + 1][j - 1][2] + dp[i + 1][j - 1][3];
+                        dp[i][j][k] %= MOD;
+                    } else if (s.charAt(i) == c) {
+                        dp[i][j][k] = dp[i][j - 1][k];
+                    } else if (s.charAt(j) == c) {
+                        dp[i][j][k] = dp[i + 1][j][k];
+                    } else {
+                        dp[i][j][k] = dp[i + 1][j - 1][k];
+                    }
+                }
+            }
+        }
+        long ans = 0;
+        for (int k = 0; k &lt; 4; ++k) {
+            ans += dp[0][n - 1][k];
+        }
+        return (int) (ans % MOD);
+    }
+}
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C++</a></h4>
+<pre><code class="language-cpp">using ll = long long;
+
+class Solution {
+public:
+    int countPalindromicSubsequences(string s) {
+        int mod = 1e9 + 7;
+        int n = s.size();
+        vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; dp(n, vector&lt;vector&lt;ll&gt;&gt;(n, vector&lt;ll&gt;(4)));
+        for (int i = 0; i &lt; n; ++i) dp[i][i][s[i] - 'a'] = 1;
+        for (int l = 2; l &lt;= n; ++l) {
+            for (int i = 0; i + l &lt;= n; ++i) {
+                int j = i + l - 1;
+                for (char c = 'a'; c &lt;= 'd'; ++c) {
+                    int k = c - 'a';
+                    if (s[i] == c &amp;&amp; s[j] == c)
+                        dp[i][j][k] = 2 + accumulate(dp[i + 1][j - 1].begin(), dp[i + 1][j - 1].end(), 0ll) % mod;
+                    else if (s[i] == c)
+                        dp[i][j][k] = dp[i][j - 1][k];
+                    else if (s[j] == c)
+                        dp[i][j][k] = dp[i + 1][j][k];
+                    else
+                        dp[i][j][k] = dp[i + 1][j - 1][k];
+                }
+            }
+        }
+        ll ans = accumulate(dp[0][n - 1].begin(), dp[0][n - 1].end(), 0ll);
+        return (int) (ans % mod);
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">func countPalindromicSubsequences(s string) int {
+	mod := int(1e9) + 7
+	n := len(s)
+	dp := make([][][]int, n)
+	for i := range dp {
+		dp[i] = make([][]int, n)
+		for j := range dp[i] {
+			dp[i][j] = make([]int, 4)
+		}
+	}
+	for i, c := range s {
+		dp[i][i][c-'a'] = 1
+	}
+	for l := 2; l &lt;= n; l++ {
+		for i := 0; i+l &lt;= n; i++ {
+			j := i + l - 1
+			for _, c := range [4]byte{'a', 'b', 'c', 'd'} {
+				k := int(c - 'a')
+				if s[i] == c &amp;&amp; s[j] == c {
+					dp[i][j][k] = 2 + (dp[i+1][j-1][0]+dp[i+1][j-1][1]+dp[i+1][j-1][2]+dp[i+1][j-1][3])%mod
+				} else if s[i] == c {
+					dp[i][j][k] = dp[i][j-1][k]
+				} else if s[j] == c {
+					dp[i][j][k] = dp[i+1][j][k]
+				} else {
+					dp[i][j][k] = dp[i+1][j-1][k]
+				}
+			}
+		}
+	}
+	ans := 0
+	for _, v := range dp[0][n-1] {
+		ans += v
+	}
+	return ans % mod
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class077;
+
+import java.util.Arrays;
+
+// 统计不同回文子序列
+// 给你一个字符串s，返回s中不同的非空回文子序列个数
+// 由于答案可能很大，答案对 1000000007 取模
+// 测试链接 : https://leetcode.com/problems/count-different-palindromic-subsequences/
+public class Code06_CountDifferentPalindromicSubsequences {
+
+	// 时间复杂度O(n^2)
+	public static int countPalindromicSubsequences(String str) {
+		int mod = 1000000007;
+		char[] s = str.toCharArray();
+		int n = s.length;
+		int[] last = new int[256];
+		// left[i] : i位置的左边和s[i]字符相等且最近的位置在哪，不存在就是-1
+		int[] left = new int[n];
+		Arrays.fill(last, -1);
+		for (int i = 0; i &lt; n; i++) {
+			left[i] = last[s[i]];
+			last[s[i]] = i;
+		}
+		// right[i] : i位置的右边和s[i]字符相等且最近的位置在哪，不存在就是n
+		int[] right = new int[n];
+		Arrays.fill(last, n);
+		for (int i = n - 1; i &gt;= 0; i--) {
+			right[i] = last[s[i]];
+			last[s[i]] = i;
+		}
+		// dp[i][j] : i...j范围上有多少不同的回文子序列
+		// 如果i&gt;j，那么认为是无效范围dp[i][j] = 0
+		long[][] dp = new long[n][n];
+		for (int i = 0; i &lt; n; i++) {
+			dp[i][i] = 1;
+		}
+		for (int i = n - 2, l, r; i &gt;= 0; i--) {
+			for (int j = i + 1; j &lt; n; j++) {
+				if (s[i] != s[j]) {
+					// a ..... b
+					// i       j
+					// 因为要取模，所以只要发生减操作就+mod，讲解041同余原理
+					dp[i][j] = dp[i][j - 1] + dp[i + 1][j] - dp[i + 1][j - 1] + mod;
+				} else {
+					// s[i] == s[j]
+					// a......a
+					// i      j
+					l = right[i];
+					r = left[j];
+					if (l &gt; r) {
+						// i...j的内部没有s[i]字符
+						// a....a
+						// i    j
+						// (i+1..j-1) + a(i+1..j-1)a + a + aa
+						dp[i][j] = dp[i + 1][j - 1] * 2 + 2;
+					} else if (l == r) {
+						// i...j的内部有一个s[i]字符
+						// a.....a......a
+						// i     lr     j
+						// (i+1..j-1) + a(i+1..j-1)a + aa
+						dp[i][j] = dp[i + 1][j - 1] * 2 + 1;
+					} else {
+						// i...j的内部不只一个s[i]字符
+						// a...a....这内部可能还有a但是不重要....a...a
+						// i   l                             r   j
+						// 因为要取模，所以只要发生减操作就+mod，讲解041同余原理
+						dp[i][j] = dp[i + 1][j - 1] * 2 - dp[l + 1][r - 1] + mod;
+					}
+				}
+				dp[i][j] %= mod;
+			}
+		}
+		return (int) dp[0][n - 1];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/Xr1e0RzRUI4?start=6548">
+    </iframe>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dynamic-programming/interval-dp-1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dynamic-programming/interval-dp-1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

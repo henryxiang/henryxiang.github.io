@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Dynamic Programming - Data Structures and Algorithms for Coding Interviews</title>
+        <title>Trie (Prefix Tree) - Data Structures and Algorithms for Coding Interviews</title>
 
 
         <!-- Custom HTML head -->
@@ -153,36 +153,334 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="dynamic-programming"><a class="header" href="#dynamic-programming">Dynamic Programming</a></h1>
-<h2 id="top-down-approach-recursive-solution"><a class="header" href="#top-down-approach-recursive-solution">Top-Down Approach (Recursive Solution)</a></h2>
-<ul>
-<li>Divide the original problem into smaller sub-problems</li>
-<li>Recursively solve the sub-problems</li>
-<li>Compute the final answer from the sub-problems solutions</li>
-</ul>
-<h2 id="bottom-up-approach-iterative-solution"><a class="header" href="#bottom-up-approach-iterative-solution">Bottom-Up Approach (Iterative Solution)</a></h2>
-<ul>
-<li>Construct the <code>State Table</code> (DP table)</li>
-<li>Design the <code>State Transition Plan</code></li>
-<li>Initialize <code>State Table</code> with the base-case solutions</li>
-<li>Fill the rest of <code>State Table</code> using the <code>State Transition Plan</code></li>
-<li>Return the final state</li>
-</ul>
-<h2 id="optimization"><a class="header" href="#optimization">Optimization</a></h2>
-<ul>
-<li>Using memoization (caching) with the recursive solution</li>
-<li>Considering state compression (space optimization) for the iterative solution</li>
-</ul>
+                        <h1 id="trie-prefix-tree"><a class="header" href="#trie-prefix-tree">Trie (Prefix Tree)</a></h1>
+<h2 id="implementation"><a class="header" href="#implementation">Implementation</a></h2>
+<h3 id="dynamic-implementation"><a class="header" href="#dynamic-implementation">Dynamic Implementation</a></h3>
+<details><summary>Java Code</summary>
+<pre><code class="language-java">package class044;
+
+import java.util.HashMap;
+
+// 用类描述实现前缀树。不推荐！
+// 测试链接 : https://leetcode.com/problems/implement-trie-ii-prefix-tree/
+public class Code01_TrieTree {
+
+	// 路是数组实现的
+	// 提交时把类名、构造方法改为Trie
+	class Trie1 {
+
+		class TrieNode {
+			public int pass;
+			public int end;
+			public TrieNode[] nexts;
+
+			public TrieNode() {
+				pass = 0;
+				end = 0;
+				nexts = new TrieNode[26];
+			}
+		}
+
+		private TrieNode root;
+
+		public Trie1() {
+			root = new TrieNode();
+		}
+
+		public void insert(String word) {
+			TrieNode node = root;
+			node.pass++;
+			for (int i = 0, path; i &lt; word.length(); i++) { // 从左往右遍历字符
+				path = word.charAt(i) - 'a'; // 由字符，对应成走向哪条路
+				if (node.nexts[path] == null) {
+					node.nexts[path] = new TrieNode();
+				}
+				node = node.nexts[path];
+				node.pass++;
+			}
+			node.end++;
+		}
+
+		// 如果之前word插入过前缀树，那么此时删掉一次
+		// 如果之前word没有插入过前缀树，那么什么也不做
+		public void erase(String word) {
+			if (countWordsEqualTo(word) &gt; 0) {
+				TrieNode node = root;
+				node.pass--;
+				for (int i = 0, path; i &lt; word.length(); i++) {
+					path = word.charAt(i) - 'a';
+					if (--node.nexts[path].pass == 0) {
+						node.nexts[path] = null;
+						return;
+					}
+					node = node.nexts[path];
+				}
+				node.end--;
+			}
+		}
+
+		// 查询前缀树里，word单词出现了几次
+		public int countWordsEqualTo(String word) {
+			TrieNode node = root;
+			for (int i = 0, path; i &lt; word.length(); i++) {
+				path = word.charAt(i) - 'a';
+				if (node.nexts[path] == null) {
+					return 0;
+				}
+				node = node.nexts[path];
+			}
+			return node.end;
+		}
+
+		// 查询前缀树里，有多少单词以pre做前缀
+		public int countWordsStartingWith(String pre) {
+			TrieNode node = root;
+			for (int i = 0, path; i &lt; pre.length(); i++) {
+				path = pre.charAt(i) - 'a';
+				if (node.nexts[path] == null) {
+					return 0;
+				}
+				node = node.nexts[path];
+			}
+			return node.pass;
+		}
+
+	}
+
+	// 路是哈希表实现的
+	// 提交时把类名、构造方法改为Trie
+	class Trie2 {
+
+		class TrieNode {
+			public int pass;
+			public int end;
+			HashMap&lt;Integer, TrieNode&gt; nexts;
+
+			public TrieNode() {
+				pass = 0;
+				end = 0;
+				nexts = new HashMap&lt;&gt;();
+			}
+		}
+
+		private TrieNode root;
+
+		public Trie2() {
+			root = new TrieNode();
+		}
+
+		public void insert(String word) {
+			TrieNode node = root;
+			node.pass++;
+			for (int i = 0, path; i &lt; word.length(); i++) { // 从左往右遍历字符
+				path = word.charAt(i);
+				if (!node.nexts.containsKey(path)) {
+					node.nexts.put(path, new TrieNode());
+				}
+				node = node.nexts.get(path);
+				node.pass++;
+			}
+			node.end++;
+		}
+
+		public void erase(String word) {
+			if (countWordsEqualTo(word) &gt; 0) {
+				TrieNode node = root;
+				TrieNode next;
+				node.pass--;
+				for (int i = 0, path; i &lt; word.length(); i++) {
+					path = word.charAt(i);
+					next = node.nexts.get(path);
+					if (--next.pass == 0) {
+						node.nexts.remove(path);
+						return;
+					}
+					node = next;
+				}
+				node.end--;
+			}
+		}
+
+		public int countWordsEqualTo(String word) {
+			TrieNode node = root;
+			for (int i = 0, path; i &lt; word.length(); i++) {
+				path = word.charAt(i);
+				if (!node.nexts.containsKey(path)) {
+					return 0;
+				}
+				node = node.nexts.get(path);
+			}
+			return node.end;
+		}
+
+		public int countWordsStartingWith(String pre) {
+			TrieNode node = root;
+			for (int i = 0, path; i &lt; pre.length(); i++) {
+				path = pre.charAt(i);
+				if (!node.nexts.containsKey(path)) {
+					return 0;
+				}
+				node = node.nexts.get(path);
+			}
+			return node.pass;
+		}
+
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/I3GZIJzg4y4?start=0">
+    </iframe>
+</details>
+<h3 id="static-implementation"><a class="header" href="#static-implementation">Static Implementation</a></h3>
+<details><summary>Java Code</summary>
+<pre><code class="language-java">package class044;
+
+// 用固定数组实现前缀树，空间使用是静态的。推荐！
+// 测试链接 : https://www.nowcoder.com/practice/7f8a8553ddbf4eaab749ec988726702b
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+public class Code02_TrieTree {
+
+	// 如果将来增加了数据量，就改大这个值
+	public static int MAXN = 150001;
+
+	public static int[][] tree = new int[MAXN][26];
+
+	public static int[] end = new int[MAXN];
+
+	public static int[] pass = new int[MAXN];
+
+	public static int cnt;
+
+	public static void build() {
+		cnt = 1;
+	}
+
+	public static void insert(String word) {
+		int cur = 1;
+		pass[cur]++;
+		for (int i = 0, path; i &lt; word.length(); i++) {
+			path = word.charAt(i) - 'a';
+			if (tree[cur][path] == 0) {
+				tree[cur][path] = ++cnt;
+			}
+			cur = tree[cur][path];
+			pass[cur]++;
+		}
+		end[cur]++;
+	}
+
+	public static int search(String word) {
+		int cur = 1;
+		for (int i = 0, path; i &lt; word.length(); i++) {
+			path = word.charAt(i) - 'a';
+			if (tree[cur][path] == 0) {
+				return 0;
+			}
+			cur = tree[cur][path];
+		}
+		return end[cur];
+	}
+
+	public static int prefixNumber(String pre) {
+		int cur = 1;
+		for (int i = 0, path; i &lt; pre.length(); i++) {
+			path = pre.charAt(i) - 'a';
+			if (tree[cur][path] == 0) {
+				return 0;
+			}
+			cur = tree[cur][path];
+		}
+		return pass[cur];
+	}
+
+	public static void delete(String word) {
+		if (search(word) &gt; 0) {
+			int cur = 1;
+			for (int i = 0, path; i &lt; word.length(); i++) {
+				path = word.charAt(i) - 'a';
+				if (--pass[tree[cur][path]] == 0) {
+					tree[cur][path] = 0;
+					return;
+				}
+				cur = tree[cur][path];
+			}
+			end[cur]--;
+		}
+	}
+
+	public static void clear() {
+		for (int i = 1; i &lt;= cnt; i++) {
+			Arrays.fill(tree[i], 0);
+			end[i] = 0;
+			pass[i] = 0;
+		}
+	}
+
+	public static int m, op;
+
+	public static String[] splits;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		String line = null;
+		while ((line = in.readLine()) != null) {
+			build();
+			m = Integer.valueOf(line);
+			for (int i = 1; i &lt;= m; i++) {
+				splits = in.readLine().split(" ");
+				op = Integer.valueOf(splits[0]);
+				if (op == 1) {
+					insert(splits[1]);
+				} else if (op == 2) {
+					delete(splits[1]);
+				} else if (op == 3) {
+					out.println(search(splits[1]) &gt; 0 ? "YES" : "NO");
+				} else if (op == 4) {
+					out.println(prefixNumber(splits[1]));
+				}
+			}
+			clear();
+		}
+		out.flush();
+		in.close();
+		out.close();
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/I3GZIJzg4y4?start=2714">
+    </iframe>
+</details>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../binary-number/bitwise-operation-problems-1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../data-structures/disjoint-set-2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../dynamic-programming/1d-dp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../binary-number/intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -192,11 +490,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../binary-number/bitwise-operation-problems-1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../data-structures/disjoint-set-2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../dynamic-programming/1d-dp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../binary-number/intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -1,0 +1,1468 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Bitwise Operation Problems - Data Structures and Algorithms for Coding Interviews</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Data Structures and Algorithms for Coding Interviews</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="xor-operation-problems"><a class="header" href="#xor-operation-problems">XOR Operation Problems</a></h1>
+<h2 id="swap-exclusive-or"><a class="header" href="#swap-exclusive-or">Swap Exclusive Or</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class030;
+
+// 用异或运算交换两数的值
+public class Code01_SwapExclusiveOr {
+
+	public static void main(String[] args) {
+		int a = -2323;
+		int b = 10;
+		a = a ^ b;
+		b = a ^ b;
+		a = a ^ b;
+		System.out.println(a);
+		System.out.println(b);
+
+		int[] arr = { 3, 5 };
+		swap(arr, 0, 1);
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		swap(arr, 0, 0);
+		System.out.println(arr[0]);
+	}
+
+	// 当i!=j，没问题，会完成交换功能
+	// 当i==j，会出错
+	// 所以知道这种写法即可，并不推荐
+	public static void swap(int[] arr, int i, int j) {
+		arr[i] = arr[i] ^ arr[j];
+		arr[j] = arr[i] ^ arr[j];
+		arr[i] = arr[i] ^ arr[j];
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 用异或运算交换两数的值
+public class Code01_SwapExclusiveOr {
+
+	public static void main(String[] args) {
+		int a = -2323;
+		int b = 10;
+		a = a ^ b;
+		b = a ^ b;
+		a = a ^ b;
+		System.out.println(a);
+		System.out.println(b);
+
+		int[] arr = { 3, 5 };
+		swap(arr, 0, 1);
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		swap(arr, 0, 0);
+		System.out.println(arr[0]);
+	}
+
+	// 当i!=j，没问题，会完成交换功能
+	// 当i==j，会出错
+	// 所以知道这种写法即可，并不推荐
+	public static void swap(int[] arr, int i, int j) {
+		arr[i] = arr[i] ^ arr[j];
+		arr[j] = arr[i] ^ arr[j];
+		arr[i] = arr[i] ^ arr[j];
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+<h2 id="get-max-without-logic-operators"><a class="header" href="#get-max-without-logic-operators">Get Max Without Logic Operators</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class030;
+
+// 不用任何判断语句和比较操作，返回两个数的最大值
+// 测试链接 : https://www.nowcoder.com/practice/d2707eaf98124f1e8f1d9c18ad487f76
+public class Code02_GetMaxWithoutJudge {
+
+	// 必须保证n一定是0或者1
+	// 0变1，1变0
+	public static int flip(int n) {
+		return n ^ 1;
+	}
+
+	// 非负数返回1
+	// 负数返回0
+	public static int sign(int n) {
+		return flip(n &gt;&gt;&gt; 31);
+	}
+
+	// 有溢出风险的实现
+	public static int getMax1(int a, int b) {
+		int c = a - b;
+		// c非负，returnA -&gt; 1
+		// c非负，returnB -&gt; 0
+		// c负数，returnA -&gt; 0
+		// c负数，returnB -&gt; 1
+		int returnA = sign(c);
+		int returnB = flip(returnA);
+		return a * returnA + b * returnB;
+	}
+
+	// 没有任何问题的实现
+	public static int getMax2(int a, int b) {
+		// c可能是溢出的
+		int c = a - b;
+		// a的符号
+		int sa = sign(a);
+		// b的符号
+		int sb = sign(b);
+		// c的符号
+		int sc = sign(c);
+		// 判断A和B，符号是不是不一样，如果不一样diffAB=1，如果一样diffAB=0
+		int diffAB = sa ^ sb;
+		// 判断A和B，符号是不是一样，如果一样sameAB=1，如果不一样sameAB=0
+		int sameAB = flip(diffAB);
+		int returnA = diffAB * sa + sameAB * sc;
+		int returnB = flip(returnA);
+		return a * returnA + b * returnB;
+	}
+
+	public static void main(String[] args) {
+		int a = Integer.MIN_VALUE;
+		int b = Integer.MAX_VALUE;
+		// getMax1方法会错误，因为溢出
+		System.out.println(getMax1(a, b));
+		// getMax2方法永远正确
+		System.out.println(getMax2(a, b));
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 不用任何判断语句和比较操作，返回两个数的最大值
+// 测试链接 : https://www.nowcoder.com/practice/d2707eaf98124f1e8f1d9c18ad487f76
+public class Code02_GetMaxWithoutJudge {
+
+	// 必须保证n一定是0或者1
+	// 0变1，1变0
+	public static int flip(int n) {
+		return n ^ 1;
+	}
+
+	// 非负数返回1
+	// 负数返回0
+	public static int sign(int n) {
+		return flip(n &gt;&gt;&gt; 31);
+	}
+
+	// 有溢出风险的实现
+	public static int getMax1(int a, int b) {
+		int c = a - b;
+		// c非负，returnA -&gt; 1
+		// c非负，returnB -&gt; 0
+		// c负数，returnA -&gt; 0
+		// c负数，returnB -&gt; 1
+		int returnA = sign(c);
+		int returnB = flip(returnA);
+		return a * returnA + b * returnB;
+	}
+
+	// 没有任何问题的实现
+	public static int getMax2(int a, int b) {
+		// c可能是溢出的
+		int c = a - b;
+		// a的符号
+		int sa = sign(a);
+		// b的符号
+		int sb = sign(b);
+		// c的符号
+		int sc = sign(c);
+		// 判断A和B，符号是不是不一样，如果不一样diffAB=1，如果一样diffAB=0
+		int diffAB = sa ^ sb;
+		// 判断A和B，符号是不是一样，如果一样sameAB=1，如果不一样sameAB=0
+		int sameAB = flip(diffAB);
+		int returnA = diffAB * sa + sameAB * sc;
+		int returnB = flip(returnA);
+		return a * returnA + b * returnB;
+	}
+
+	public static void main(String[] args) {
+		int a = Integer.MIN_VALUE;
+		int b = Integer.MAX_VALUE;
+		// getMax1方法会错误，因为溢出
+		System.out.println(getMax1(a, b));
+		// getMax2方法永远正确
+		System.out.println(getMax2(a, b));
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+<h2 id="missing-number"><a class="header" href="#missing-number">Missing Number</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0268.Missing%20Number/README_EN.md
+tags:
+    - Bit Manipulation
+    - Array
+    - Hash Table
+    - Math
+    - Binary Search
+    - Sorting
+</code></pre>
+<!-- problem:start -->
+<h1 id="268-missing-number"><a class="header" href="#268-missing-number"><a href="https://leetcode.com/problems/missing-number">268. Missing Number</a></a></h1>
+<p><a href="/solution/0200-0299/0268.Missing%20Number/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>Given an array <code>nums</code> containing <code>n</code> distinct numbers in the range <code>[0, n]</code>, return <em>the only number in the range that is missing from the array.</em></p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [3,0,1]
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [0,1]
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [9,6,4,2,3,5,7,0,1]
+<strong>Output:</strong> 8
+<strong>Explanation:</strong> n = 9 since there are 9 numbers, so all numbers are in the range [0,9]. 8 is the missing number in the range since it does not appear in nums.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>n == nums.length</code></li>
+	<li><code>1 &lt;= n &lt;= 10<sup>4</sup></code></li>
+	<li><code>0 &lt;= nums[i] &lt;= n</code></li>
+	<li>All the numbers of <code>nums</code> are <strong>unique</strong>.</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> Could you implement a solution using only <code>O(1)</code> extra space complexity and <code>O(n)</code> runtime complexity?</p>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-bitwise-operation"><a class="header" href="#solution-1-bitwise-operation">Solution 1: Bitwise Operation</a></h3>
+<p>The XOR operation has the following properties:</p>
+<ul>
+<li>Any number XOR 0 is still the original number, i.e., $x \oplus 0 = x$;</li>
+<li>Any number XOR itself is 0, i.e., $x \oplus x = 0$;</li>
+</ul>
+<p>Therefore, we can traverse the array, perform XOR operation between each element and the numbers $[0,..n]$, and the final result will be the missing number.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def missingNumber(self, nums: List[int]) -&gt; int:
+        return reduce(xor, (i ^ v for i, v in enumerate(nums, 1)))
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            ans ^= (i ^ nums[i]);
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int missingNumber(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            ans ^= (i ^ nums[i]);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">func missingNumber(nums []int) (ans int) {
+	n := len(nums)
+	ans = n
+	for i, v := range nums {
+		ans ^= (i ^ v)
+	}
+	return
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">function missingNumber(nums: number[]): number {
+    const n = nums.length;
+    let ans = n;
+    for (let i = 0; i &lt; n; ++i) {
+        ans ^= i ^ nums[i];
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust"><a class="header" href="#rust">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn missing_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len() as i32;
+        let mut ans = n;
+        for (i, v) in nums.iter().enumerate() {
+            ans ^= (i as i32) ^ v;
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript"><a class="header" href="#javascript">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+    const n = nums.length;
+    let ans = n;
+    for (let i = 0; i &lt; n; ++i) {
+        ans ^= i ^ nums[i];
+    }
+    return ans;
+};
+</code></pre>
+<h4 id="php"><a class="header" href="#php">PHP</a></h4>
+<pre><code class="language-php">class Solution {
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function missingNumber($nums) {
+        $n = count($nums);
+        $sumN = (($n + 1) * $n) / 2;
+        for ($i = 0; $i &lt; $n; $i++) {
+            $sumN -= $nums[$i];
+        }
+        return $sumN;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-mathematics"><a class="header" href="#solution-2-mathematics">Solution 2: Mathematics</a></h3>
+<p>We can also solve this problem using mathematics. By calculating the sum of $[0,..n]$, subtracting the sum of all numbers in the array, we can obtain the missing number.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def missingNumber(self, nums: List[int]) -&gt; int:
+        n = len(nums)
+        return (1 + n) * n // 2 - sum(nums)
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        int ans = n;
+        for (int i = 0; i &lt; n; ++i) {
+            ans += i - nums[i];
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int missingNumber(vector&lt;int&gt;&amp; nums) {
+        int n = nums.size();
+        return (1 + n) * n / 2 - accumulate(nums.begin(), nums.end(), 0);
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">func missingNumber(nums []int) (ans int) {
+	n := len(nums)
+	ans = n
+	for i, v := range nums {
+		ans += i - v
+	}
+	return
+}
+</code></pre>
+<h4 id="typescript-1"><a class="header" href="#typescript-1">TypeScript</a></h4>
+<pre><code class="language-ts">function missingNumber(nums: number[]): number {
+    const n = nums.length;
+    let ans = n;
+    for (let i = 0; i &lt; n; ++i) {
+        ans += i - nums[i];
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust-1"><a class="header" href="#rust-1">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn missing_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let n = nums.len() as i32;
+        let mut ans = n;
+        for (i, &amp;v) in nums.iter().enumerate() {
+            ans += (i as i32) - v;
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-1"><a class="header" href="#javascript-1">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+    const n = nums.length;
+    let ans = n;
+    for (let i = 0; i &lt; n; ++i) {
+        ans += i - nums[i];
+    }
+    return ans;
+};
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 找到缺失的数字
+// 测试链接 : https://leetcode.com/problems/missing-number/
+public class Code03_MissingNumber {
+
+	public static int missingNumber(int[] nums) {
+		int eorAll = 0, eorHas = 0;
+		for (int i = 0; i &lt; nums.length; i++) {
+			eorAll ^= i;
+			eorHas ^= nums[i];
+		}
+		eorAll ^= nums.length;
+		return eorAll ^ eorHas;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+<h2 id="biggest-single-number"><a class="header" href="#biggest-single-number">Biggest Single Number</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0600-0699/0619.Biggest%20Single%20Number/README_EN.md
+tags:
+    - Database
+</code></pre>
+<!-- problem:start -->
+<h1 id="619-biggest-single-number"><a class="header" href="#619-biggest-single-number"><a href="https://leetcode.com/problems/biggest-single-number">619. Biggest Single Number</a></a></h1>
+<p><a href="/solution/0600-0699/0619.Biggest%20Single%20Number/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>Table: <code>MyNumbers</code></p>
+<pre>
++-------------+------+
+| Column Name | Type |
++-------------+------+
+| num         | int  |
++-------------+------+
+This table may contain duplicates (In other words, there is no primary key for this table in SQL).
+Each row of this table contains an integer.
+</pre>
+<p>&nbsp;</p>
+<p>A <strong>single number</strong> is a number that appeared only once in the <code>MyNumbers</code> table.</p>
+<p>Find the largest <strong>single number</strong>. If there is no <strong>single number</strong>, report <code>null</code>.</p>
+<p>The result format is in the following example.</p>
+<ptable> </ptable>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> 
+MyNumbers table:
++-----+
+| num |
++-----+
+| 8   |
+| 8   |
+| 3   |
+| 3   |
+| 1   |
+| 4   |
+| 5   |
+| 6   |
++-----+
+<strong>Output:</strong> 
++-----+
+| num |
++-----+
+| 6   |
++-----+
+<strong>Explanation:</strong> The single numbers are 1, 4, 5, and 6.
+Since 6 is the largest single number, we return it.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> 
+MyNumbers table:
++-----+
+| num |
++-----+
+| 8   |
+| 8   |
+| 7   |
+| 7   |
+| 3   |
+| 3   |
+| 3   |
++-----+
+<strong>Output:</strong> 
++------+
+| num  |
++------+
+| null |
++------+
+<strong>Explanation:</strong> There are no single numbers in the input table so we return null.
+</pre>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-grouping-and-subquery"><a class="header" href="#solution-1-grouping-and-subquery">Solution 1: Grouping and Subquery</a></h3>
+<p>We can first group the <code>MyNumbers</code> table by <code>num</code> and count the number of occurrences of each number. Then, we can use a subquery to find the maximum number among the numbers that appear only once.</p>
+<!-- tabs:start -->
+<h4 id="mysql"><a class="header" href="#mysql">MySQL</a></h4>
+<pre><code class="language-sql"># Write your MySQL query statement below
+SELECT MAX(num) AS num
+FROM
+    (
+        SELECT num
+        FROM MyNumbers
+        GROUP BY 1
+        HAVING COUNT(1) = 1
+    ) AS t;
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-grouping-and-case-expression"><a class="header" href="#solution-2-grouping-and-case-expression">Solution 2: Grouping and <code>CASE</code> Expression</a></h3>
+<p>Similar to Solution 1, we can first group the <code>MyNumbers</code> table by <code>num</code> and count the number of occurrences of each number. Then, we can use a <code>CASE</code> expression to find the numbers that appear only once, sort them in descending order by number, and take the first one.</p>
+<!-- tabs:start -->
+<h4 id="mysql-1"><a class="header" href="#mysql-1">MySQL</a></h4>
+<pre><code class="language-sql"># Write your MySQL query statement below
+SELECT
+    CASE
+        WHEN COUNT(1) = 1 THEN num
+        ELSE NULL
+    END AS num
+FROM MyNumbers
+GROUP BY num
+ORDER BY 1 DESC
+LIMIT 1;
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 数组中1种数出现了奇数次，其他的数都出现了偶数次
+// 返回出现了奇数次的数
+// 测试链接 : https://leetcode.com/problems/single-number/
+public class Code04_SingleNumber {
+
+	public static int singleNumber(int[] nums) {
+		int eor = 0;
+		for (int num : nums) {
+			eor ^= num;
+		}
+		return eor;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+<h2 id="single-number-iii"><a class="header" href="#single-number-iii">Single Number III</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0260.Single%20Number%20III/README_EN.md
+tags:
+    - Bit Manipulation
+    - Array
+</code></pre>
+<!-- problem:start -->
+<h1 id="260-single-number-iii"><a class="header" href="#260-single-number-iii"><a href="https://leetcode.com/problems/single-number-iii">260. Single Number III</a></a></h1>
+<p><a href="/solution/0200-0299/0260.Single%20Number%20III/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>Given an integer array <code>nums</code>, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once. You can return the answer in <strong>any order</strong>.</p>
+<p>You must write an&nbsp;algorithm that runs in linear runtime complexity and uses&nbsp;only constant extra space.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [1,2,1,3,2,5]
+<strong>Output:</strong> [3,5]
+<strong>Explanation: </strong> [5, 3] is also a valid answer.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [-1,0]
+<strong>Output:</strong> [-1,0]
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> nums = [0,1]
+<strong>Output:</strong> [1,0]
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>2 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>
+	<li>Each integer in <code>nums</code> will appear twice, only two integers will appear once.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-bitwise-operation-1"><a class="header" href="#solution-1-bitwise-operation-1">Solution 1: Bitwise Operation</a></h3>
+<p>The XOR operation has the following properties:</p>
+<ul>
+<li>Any number XOR 0 is still the original number, i.e., $x \oplus 0 = x$;</li>
+<li>Any number XOR itself is 0, i.e., $x \oplus x = 0$;</li>
+</ul>
+<p>Since all numbers in the array appear twice except for two numbers, we can perform XOR operation on all numbers in the array to get the XOR result of the two numbers that only appear once.</p>
+<p>Since these two numbers are not equal, there is at least one bit that is 1 in the XOR result. We can use the <code>lowbit</code> operation to find the lowest bit of 1 in the XOR result, and divide all numbers in the array into two groups based on whether this bit is 1 or not. This way, the two numbers that only appear once are separated into different groups.</p>
+<p>Perform XOR operation on each group separately to obtain the two numbers $a$ and $b$ that only appear once.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; List[int]:
+        xs = reduce(xor, nums)
+        a = 0
+        lb = xs &amp; -xs
+        for x in nums:
+            if x &amp; lb:
+                a ^= x
+        b = xs ^ a
+        return [a, b]
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int[] singleNumber(int[] nums) {
+        int xs = 0;
+        for (int x : nums) {
+            xs ^= x;
+        }
+        int lb = xs &amp; -xs;
+        int a = 0;
+        for (int x : nums) {
+            if ((x &amp; lb) != 0) {
+                a ^= x;
+            }
+        }
+        int b = xs ^ a;
+        return new int[] {a, b};
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    vector&lt;int&gt; singleNumber(vector&lt;int&gt;&amp; nums) {
+        long long xs = 0;
+        for (int&amp; x : nums) {
+            xs ^= x;
+        }
+        int lb = xs &amp; -xs;
+        int a = 0;
+        for (int&amp; x : nums) {
+            if (x &amp; lb) {
+                a ^= x;
+            }
+        }
+        int b = xs ^ a;
+        return {a, b};
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">func singleNumber(nums []int) []int {
+	xs := 0
+	for _, x := range nums {
+		xs ^= x
+	}
+	lb := xs &amp; -xs
+	a := 0
+	for _, x := range nums {
+		if x&amp;lb != 0 {
+			a ^= x
+		}
+	}
+	b := xs ^ a
+	return []int{a, b}
+}
+</code></pre>
+<h4 id="typescript-2"><a class="header" href="#typescript-2">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number[] {
+    const xs = nums.reduce((a, b) =&gt; a ^ b);
+    const lb = xs &amp; -xs;
+    let a = 0;
+    for (const x of nums) {
+        if (x &amp; lb) {
+            a ^= x;
+        }
+    }
+    const b = xs ^ a;
+    return [a, b];
+}
+</code></pre>
+<h4 id="rust-2"><a class="header" href="#rust-2">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn single_number(nums: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; {
+        let xs = nums.iter().fold(0, |r, v| r ^ v);
+        let lb = xs &amp; -xs;
+        let mut a = 0;
+        for x in &amp;nums {
+            if (x &amp; lb) != 0 {
+                a ^= x;
+            }
+        }
+        let b = xs ^ a;
+        vec![a, b]
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-2"><a class="header" href="#javascript-2">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var singleNumber = function (nums) {
+    const xs = nums.reduce((a, b) =&gt; a ^ b);
+    const lb = xs &amp; -xs;
+    let a = 0;
+    for (const x of nums) {
+        if (x &amp; lb) {
+            a ^= x;
+        }
+    }
+    const b = xs ^ a;
+    return [a, b];
+};
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C#</a></h4>
+<pre><code class="language-cs">public class Solution {
+    public int[] SingleNumber(int[] nums) {
+        int xs = nums.Aggregate(0, (a, b) =&gt; a ^ b);
+        int lb = xs &amp; -xs;
+        int a = 0;
+        foreach(int x in nums) {
+            if ((x &amp; lb) != 0) {
+                a ^= x;
+            }
+        }
+        int b = xs ^ a;
+        return new int[] {a, b};
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-hash-table"><a class="header" href="#solution-2-hash-table">Solution 2: Hash Table</a></h3>
+<!-- tabs:start -->
+<h4 id="typescript-3"><a class="header" href="#typescript-3">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number[] {
+    const set = new Set&lt;number&gt;();
+
+    for (const x of nums) {
+        if (set.has(x)) set.delete(x);
+        else set.add(x);
+    }
+
+    return [...set];
+}
+</code></pre>
+<h4 id="javascript-3"><a class="header" href="#javascript-3">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+function singleNumber(nums) {
+    const set = new Set();
+
+    for (const x of nums) {
+        if (set.has(x)) set.delete(x);
+        else set.add(x);
+    }
+
+    return [...set];
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 数组中有2种数出现了奇数次，其他的数都出现了偶数次
+// 返回这2种出现了奇数次的数
+// 测试链接 : https://leetcode.com/problems/single-number-iii/
+public class Code05_DoubleNumber {
+
+	public static int[] singleNumber(int[] nums) {
+		int eor1 = 0;
+		for (int num : nums) {
+			// nums中有2种数a、b出现了奇数次，其他的数都出现了偶数次
+			eor1 ^= num;
+		}
+		// eor1 : a ^ b
+		// Brian Kernighan算法
+		// 提取出二进制里最右侧的1
+		int rightOne = eor1 &amp; (-eor1);
+		int eor2 = 0;
+		for (int num : nums) {
+			if ((num &amp; rightOne) == 0) {
+				eor2 ^= num;
+			}
+		}
+		return new int[] { eor2, eor1 ^ eor2 };
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+<h2 id="single-number-ii"><a class="header" href="#single-number-ii">Single Number II</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0137.Single%20Number%20II/README_EN.md
+tags:
+    - Bit Manipulation
+    - Array
+</code></pre>
+<!-- problem:start -->
+<h1 id="137-single-number-ii"><a class="header" href="#137-single-number-ii"><a href="https://leetcode.com/problems/single-number-ii">137. Single Number II</a></a></h1>
+<p><a href="/solution/0100-0199/0137.Single%20Number%20II/README.html">中文文档</a></p>
+<h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
+<!-- description:start -->
+<p>Given an integer array <code>nums</code> where&nbsp;every element appears <strong>three times</strong> except for one, which appears <strong>exactly once</strong>. <em>Find the single element and return it</em>.</p>
+<p>You must&nbsp;implement a solution with a linear runtime complexity and use&nbsp;only constant&nbsp;extra space.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> nums = [2,2,3,2]
+<strong>Output:</strong> 3
+</pre><p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> nums = [0,1,0,1,0,1,99]
+<strong>Output:</strong> 99
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>
+	<li>Each element in <code>nums</code> appears exactly <strong>three times</strong> except for one element which appears <strong>once</strong>.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-3"><a class="header" href="#solutions-3">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-bitwise-operation-2"><a class="header" href="#solution-1-bitwise-operation-2">Solution 1: Bitwise Operation</a></h3>
+<p>We can enumerate each binary bit $i$, and for each binary bit, we calculate the sum of all numbers on that bit. If the sum of the numbers on that bit can be divided by 3, then the number that only appears once on that bit is 0, otherwise it is 1.</p>
+<p>The time complexity is $O(n \times \log M)$, where $n$ and $M$ are the length of the array and the range of elements in the array, respectively. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        ans = 0
+        for i in range(32):
+            cnt = sum(num &gt;&gt; i &amp; 1 for num in nums)
+            if cnt % 3:
+                if i == 31:
+                    ans -= 1 &lt;&lt; i
+                else:
+                    ans |= 1 &lt;&lt; i
+        return ans
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int singleNumber(int[] nums) {
+        int ans = 0;
+        for (int i = 0; i &lt; 32; i++) {
+            int cnt = 0;
+            for (int num : nums) {
+                cnt += num &gt;&gt; i &amp; 1;
+            }
+            cnt %= 3;
+            ans |= cnt &lt;&lt; i;
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-4"><a class="header" href="#c-4">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int singleNumber(vector&lt;int&gt;&amp; nums) {
+        int ans = 0;
+        for (int i = 0; i &lt; 32; ++i) {
+            int cnt = 0;
+            for (int num : nums) {
+                cnt += ((num &gt;&gt; i) &amp; 1);
+            }
+            cnt %= 3;
+            ans |= cnt &lt;&lt; i;
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">func singleNumber(nums []int) int {
+	ans := int32(0)
+	for i := 0; i &lt; 32; i++ {
+		cnt := int32(0)
+		for _, num := range nums {
+			cnt += int32(num) &gt;&gt; i &amp; 1
+		}
+		cnt %= 3
+		ans |= cnt &lt;&lt; i
+	}
+	return int(ans)
+}
+</code></pre>
+<h4 id="typescript-4"><a class="header" href="#typescript-4">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number {
+    let ans = 0;
+    for (let i = 0; i &lt; 32; i++) {
+        const count = nums.reduce((r, v) =&gt; r + ((v &gt;&gt; i) &amp; 1), 0);
+        ans |= count % 3 &lt;&lt; i;
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="javascript-4"><a class="header" href="#javascript-4">JavaScript</a></h4>
+<pre><code class="language-js">function singleNumber(nums) {
+    let ans = 0;
+    for (let i = 0; i &lt; 32; i++) {
+        const count = nums.reduce((r, v) =&gt; r + ((v &gt;&gt; i) &amp; 1), 0);
+        ans |= count % 3 &lt;&lt; i;
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="rust-3"><a class="header" href="#rust-3">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn single_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let mut ans = 0;
+        for i in 0..32 {
+            let count = nums.iter().map(|v| (v &gt;&gt; i) &amp; 1).sum::&lt;i32&gt;();
+            ans |= count % 3 &lt;&lt; i;
+        }
+        ans
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="c-5"><a class="header" href="#c-5">C</a></h4>
+<pre><code class="language-c">int singleNumber(int* nums, int numsSize) {
+    int ans = 0;
+    for (int i = 0; i &lt; 32; i++) {
+        int count = 0;
+        for (int j = 0; j &lt; numsSize; j++) {
+            if (nums[j] &gt;&gt; i &amp; 1) {
+                count++;
+            }
+        }
+        ans |= (uint) (count % 3) &lt;&lt; i;
+    }
+    return ans;
+}
+</code></pre>
+<h4 id="swift"><a class="header" href="#swift">Swift</a></h4>
+<pre><code class="language-swift">class Solution {
+    func singleNumber(_ nums: [Int]) -&gt; Int {
+        var a = nums.sorted()
+        var n = a.count
+        for i in stride(from: 0, through: n - 2, by: 3) {
+            if a[i] != a[i + 1] {
+                return a[i]
+            }
+        }
+        return a[n - 1]
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-digital-circuit"><a class="header" href="#solution-2-digital-circuit">Solution 2: Digital Circuit</a></h3>
+<p>We can use a more efficient method that uses digital circuits to simulate the above bitwise operation.</p>
+<p>Each binary bit of an integer can only represent 2 states, 0 or 1. However, we need to represent the sum of the $i$-th bit of all integers traversed so far modulo 3. Therefore, we can use two integers $a$ and $b$ to represent it. There are three possible cases:</p>
+<ol>
+<li>The $i$-th bit of integer $a$ is 0 and the $i$-th bit of integer $b$ is 0, which means the modulo 3 result is 0;</li>
+<li>The $i$-th bit of integer $a$ is 0 and the $i$-th bit of integer $b$ is 1, which means the modulo 3 result is 1;</li>
+<li>The $i$-th bit of integer $a$ is 1 and the $i$-th bit of integer $b$ is 0, which means the modulo 3 result is 2.</li>
+</ol>
+<p>We use integer $c$ to represent the number to be read in, and the truth table is as follows:</p>
+<div class="table-wrapper"><table><thead><tr><th>$a_i$</th><th>$b_i$</th><th>$c_i$</th><th>New $a_i$</th><th>New $b_i$</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+</tbody></table>
+</div>
+<p>Based on the truth table, we can write the logical expression:</p>
+<p>$$
+a_i = a_i' b_i c_i + a_i b_i' c_i'
+$$</p>
+<p>and:</p>
+<p>$$
+b_i = a_i' b_i' c_i + a_i' b_i c_i' = a_i' (b_i \oplus c_i)
+$$</p>
+<p>The final result is $b$, because when the binary bit of $b$ is 1, it means that the number appears only once.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the array. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-4"><a class="header" href="#python3-4">Python3</a></h4>
+<pre><code class="language-python">class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        a = b = 0
+        for c in nums:
+            aa = (~a &amp; b &amp; c) | (a &amp; ~b &amp; ~c)
+            bb = ~a &amp; (b ^ c)
+            a, b = aa, bb
+        return b
+</code></pre>
+<h4 id="java-4"><a class="header" href="#java-4">Java</a></h4>
+<pre><code class="language-java">class Solution {
+    public int singleNumber(int[] nums) {
+        int a = 0, b = 0;
+        for (int c : nums) {
+            int aa = (~a &amp; b &amp; c) | (a &amp; ~b &amp; ~c);
+            int bb = ~a &amp; (b ^ c);
+            a = aa;
+            b = bb;
+        }
+        return b;
+    }
+}
+</code></pre>
+<h4 id="c-6"><a class="header" href="#c-6">C++</a></h4>
+<pre><code class="language-cpp">class Solution {
+public:
+    int singleNumber(vector&lt;int&gt;&amp; nums) {
+        int a = 0, b = 0;
+        for (int c : nums) {
+            int aa = (~a &amp; b &amp; c) | (a &amp; ~b &amp; ~c);
+            int bb = ~a &amp; (b ^ c);
+            a = aa;
+            b = bb;
+        }
+        return b;
+    }
+};
+</code></pre>
+<h4 id="go-4"><a class="header" href="#go-4">Go</a></h4>
+<pre><code class="language-go">func singleNumber(nums []int) int {
+	a, b := 0, 0
+	for _, c := range nums {
+		aa := (^a &amp; b &amp; c) | (a &amp; ^b &amp; ^c)
+		bb := ^a &amp; (b ^ c)
+		a, b = aa, bb
+	}
+	return b
+}
+</code></pre>
+<h4 id="typescript-5"><a class="header" href="#typescript-5">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number {
+    let a = 0;
+    let b = 0;
+    for (const c of nums) {
+        const aa = (~a &amp; b &amp; c) | (a &amp; ~b &amp; ~c);
+        const bb = ~a &amp; (b ^ c);
+        a = aa;
+        b = bb;
+    }
+    return b;
+}
+</code></pre>
+<h4 id="javascript-5"><a class="header" href="#javascript-5">JavaScript</a></h4>
+<pre><code class="language-js">function singleNumber(nums) {
+    let a = 0;
+    let b = 0;
+    for (const c of nums) {
+        const aa = (~a &amp; b &amp; c) | (a &amp; ~b &amp; ~c);
+        const bb = ~a &amp; (b ^ c);
+        a = aa;
+        b = bb;
+    }
+    return b;
+}
+</code></pre>
+<h4 id="rust-4"><a class="header" href="#rust-4">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Solution {
+    pub fn single_number(nums: Vec&lt;i32&gt;) -&gt; i32 {
+        let mut a = 0;
+        let mut b = 0;
+
+        for c in nums {
+            let aa = (!a &amp; b &amp; c) | (a &amp; !b &amp; !c);
+            let bb = !a &amp; (b ^ c);
+            a = aa;
+            b = bb;
+        }
+
+        return b;
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-3-set--math"><a class="header" href="#solution-3-set--math">Solution 3: Set + Math</a></h3>
+<!-- tabs:start -->
+<h4 id="typescript-6"><a class="header" href="#typescript-6">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number {
+    const sumOfUnique = [...new Set(nums)].reduce((a, b) =&gt; a + b, 0);
+    const sum = nums.reduce((a, b) =&gt; a + b, 0);
+    return (sumOfUnique * 3 - sum) / 2;
+}
+</code></pre>
+<h4 id="javascript-6"><a class="header" href="#javascript-6">JavaScript</a></h4>
+<pre><code class="language-js">function singleNumber(nums) {
+    const sumOfUnique = [...new Set(nums)].reduce((a, b) =&gt; a + b, 0);
+    const sum = nums.reduce((a, b) =&gt; a + b, 0);
+    return (sumOfUnique * 3 - sum) / 2;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-4-bit-manipulation"><a class="header" href="#solution-4-bit-manipulation">Solution 4: Bit Manipulation</a></h3>
+<!-- tabs:start -->
+<h4 id="typescript-7"><a class="header" href="#typescript-7">TypeScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums: number[]): number {
+    let [ans, acc] = [0, 0];
+
+    for (const x of nums) {
+        ans ^= x &amp; ~acc;
+        acc ^= x &amp; ~ans;
+    }
+
+    return ans;
+}
+</code></pre>
+<h4 id="javascript-7"><a class="header" href="#javascript-7">JavaScript</a></h4>
+<pre><code class="language-ts">function singleNumber(nums) {
+    let [ans, acc] = [0, 0];
+
+    for (const x of nums) {
+        ans ^= x &amp; ~acc;
+        acc ^= x &amp; ~ans;
+    }
+
+    return ans;
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class030;
+
+// 数组中只有1种数出现次数少于m次，其他数都出现了m次
+// 返回出现次数小于m次的那种数
+// 测试链接 : https://leetcode.com/problems/single-number-ii/
+// 注意 : 测试题目只是通用方法的一个特例，课上讲了更通用的情况
+public class Code06_OneKindNumberLessMtimes {
+
+	public static int singleNumber(int[] nums) {
+		return find(nums, 3);
+	}
+
+	// 更通用的方法
+	// 已知数组中只有1种数出现次数少于m次，其他数都出现了m次
+	// 返回出现次数小于m次的那种数
+	public static int find(int[] arr, int m) {
+		// cnts[0] : 0位上有多少个1
+		// cnts[i] : i位上有多少个1
+		// cnts[31] : 31位上有多少个1
+		int[] cnts = new int[32];
+		for (int num : arr) {
+			for (int i = 0; i &lt; 32; i++) {
+				cnts[i] += (num &gt;&gt; i) &amp; 1;
+			}
+		}
+		int ans = 0;
+		for (int i = 0; i &lt; 32; i++) {
+			if (cnts[i] % m != 0) {
+				ans |= 1 &lt;&lt; i;
+			}
+		}
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/WwYJVQuN_UI?start=0">
+    </iframe>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../binary-number/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../binary-number/bitwise-operation-problems-1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../binary-number/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../binary-number/bitwise-operation-problems-1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

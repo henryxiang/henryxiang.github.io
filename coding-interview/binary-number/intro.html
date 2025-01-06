@@ -162,11 +162,13 @@
 </ul>
 <p>For any number n, <code>-n == (~n + 1)</code></p>
 <h2 id="signed-integer-overflow-and-underflow"><a class="header" href="#signed-integer-overflow-and-underflow">Signed Integer Overflow and Underflow</a></h2>
-<p>The following are <code>true</code>:</p>
+<p>The following are all evaluated to <code>true</code>:</p>
 <ul>
 <li><code>Integer.MAX_VALUE + 1 == Integer.MIN_VALUE</code></li>
 <li><code>Integer.MIN_VALUE - 1 == Integer.MAX_VALUE</code></li>
+<li><code>(~Integer.MIN_VALUE + 1) == Intger.MIN_VALUE</code></li>
 <li><code>-Integer.MIN_VALUE == Intger.MIN_VALUE</code></li>
+<li><code>Math.abs(Integer.MIN_VALUE) == Intger.MIN_VALUE</code></li>
 </ul>
 <h2 id="bitwise-operators"><a class="header" href="#bitwise-operators">Bitwise Operators</a></h2>
 <ul>
@@ -182,7 +184,7 @@
 <ul>
 <li>set the i-th bit of a number <code>n |= (1 &lt;&lt; i)</code></li>
 <li>unset the i-th bit of a number <code>n &amp;= ~(1 &lt;&lt; i)</code></li>
-<li>clear the rightmost set bit <code>n &amp;= (n - 1)</code></li>
+<li>clear the rightmost set bit (Brian Kernighan Algorithm) <code>n &amp;= (n - 1)</code></li>
 <li>extract the rightmost set bit <code>a = n &amp; -n</code></li>
 <li>encryption/decryption with XOR <code>m ^ k = c; c ^ k</code></li>
 <li>swapping two integers <code>a = a ^ b; b = a ^ b; a = a ^ b;</code></li>

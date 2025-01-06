@@ -1,0 +1,3738 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Linked List - Data Structures and Algorithms for Coding Interviews</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Data Structures and Algorithms for Coding Interviews</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="linked-list"><a class="header" href="#linked-list">Linked List</a></h1>
+<h2 id="reverse-linked-list"><a class="header" href="#reverse-linked-list">Reverse Linked List</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0206.Reverse%20Linked%20List/README_EN.md
+tags:
+    - Recursion
+    - Linked List
+</code></pre>
+<!-- problem:start -->
+<h1 id="206-reverse-linked-list"><a class="header" href="#206-reverse-linked-list"><a href="https://leetcode.com/problems/reverse-linked-list">206. Reverse Linked List</a></a></h1>
+<p><a href="/solution/0200-0299/0206.Reverse%20Linked%20List/README.html">中文文档</a></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<!-- description:start -->
+<p>Given the <code>head</code> of a singly linked list, reverse the list, and return <em>the reversed list</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0200-0299/0206.Reverse%20Linked%20List/images/rev1ex1.jpg" style="width: 542px; height: 222px;" />
+<pre>
+<strong>Input:</strong> head = [1,2,3,4,5]
+<strong>Output:</strong> [5,4,3,2,1]
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0200-0299/0206.Reverse%20Linked%20List/images/rev1ex2.jpg" style="width: 182px; height: 222px;" />
+<pre>
+<strong>Input:</strong> head = [1,2]
+<strong>Output:</strong> [2,1]
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> head = []
+<strong>Output:</strong> []
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in the list is the range <code>[0, 5000]</code>.</li>
+	<li><code>-5000 &lt;= Node.val &lt;= 5000</code></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> A linked list can be reversed either iteratively or recursively. Could you implement both?</p>
+<!-- description:end -->
+<h2 id="solutions"><a class="header" href="#solutions">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1"><a class="header" href="#solution-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3"><a class="header" href="#python3">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: ListNode) -&gt; ListNode:
+        dummy = ListNode()
+        curr = head
+        while curr:
+            next = curr.next
+            curr.next = dummy.next
+            dummy.next = curr
+            curr = next
+        return dummy.next
+</code></pre>
+<h4 id="java"><a class="header" href="#java">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode dummy = new ListNode();
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = dummy.next;
+            dummy.next = curr;
+            curr = next;
+        }
+        return dummy.next;
+    }
+}
+</code></pre>
+<h4 id="c"><a class="header" href="#c">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* dummy = new ListNode();
+        ListNode* curr = head;
+        while (curr) {
+            ListNode* next = curr-&gt;next;
+            curr-&gt;next = dummy-&gt;next;
+            dummy-&gt;next = curr;
+            curr = next;
+        }
+        return dummy-&gt;next;
+    }
+};
+</code></pre>
+<h4 id="go"><a class="header" href="#go">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+	dummy := &amp;ListNode{}
+	curr := head
+	for curr != nil {
+		next := curr.Next
+		curr.Next = dummy.Next
+		dummy.Next = curr
+		curr = next
+	}
+	return dummy.Next
+}
+</code></pre>
+<h4 id="typescript"><a class="header" href="#typescript">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function reverseList(head: ListNode | null): ListNode | null {
+    if (head == null) {
+        return head;
+    }
+    let pre = null;
+    let cur = head;
+    while (cur != null) {
+        const next = cur.next;
+        cur.next = pre;
+        [pre, cur] = [cur, next];
+    }
+    return pre;
+}
+</code></pre>
+<h4 id="rust"><a class="header" href="#rust">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option&lt;Box&lt;ListNode&gt;&gt;
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -&gt; Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn reverse_list(head: Option&lt;Box&lt;ListNode&gt;&gt;) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        let mut head = head;
+        let mut pre = None;
+        while let Some(mut node) = head {
+            head = node.next.take();
+            node.next = pre.take();
+            pre = Some(node);
+        }
+        pre
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript"><a class="header" href="#javascript">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+    let dummy = new ListNode();
+    let curr = head;
+    while (curr) {
+        let next = curr.next;
+        curr.next = dummy.next;
+        dummy.next = curr;
+        curr = next;
+    }
+    return dummy.next;
+};
+</code></pre>
+<h4 id="c-1"><a class="header" href="#c-1">C#</a></h4>
+<pre><code class="language-cs">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+        ListNode pre = null;
+        for (ListNode p = head; p != null;)
+        {
+            ListNode t = p.next;
+            p.next = pre;
+            pre = p;
+            p = t;
+        }
+        return pre;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2"><a class="header" href="#solution-2">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-1"><a class="header" href="#python3-1">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: ListNode) -&gt; ListNode:
+        if head is None or head.next is None:
+            return head
+        ans = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return ans
+</code></pre>
+<h4 id="java-1"><a class="header" href="#java-1">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode ans = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-2"><a class="header" href="#c-2">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head-&gt;next) return head;
+        ListNode* ans = reverseList(head-&gt;next);
+        head-&gt;next-&gt;next = head;
+        head-&gt;next = nullptr;
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-1"><a class="header" href="#go-1">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	ans := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return ans
+}
+</code></pre>
+<h4 id="typescript-1"><a class="header" href="#typescript-1">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+const rev = (pre: ListNode | null, cur: ListNode | null): ListNode | null =&gt; {
+    if (cur == null) {
+        return pre;
+    }
+    const next = cur.next;
+    cur.next = pre;
+    return rev(cur, next);
+};
+
+function reverseList(head: ListNode | null): ListNode | null {
+    if (head == null) {
+        return head;
+    }
+    const next = head.next;
+    head.next = null;
+    return rev(head, next);
+}
+</code></pre>
+<h4 id="rust-1"><a class="header" href="#rust-1">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option&lt;Box&lt;ListNode&gt;&gt;
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -&gt; Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    fn rev(pre: Option&lt;Box&lt;ListNode&gt;&gt;, cur: Option&lt;Box&lt;ListNode&gt;&gt;) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        match cur {
+            None =&gt; pre,
+            Some(mut node) =&gt; {
+                let next = node.next;
+                node.next = pre;
+                Self::rev(Some(node), next)
+            }
+        }
+    }
+
+    pub fn reverse_list(head: Option&lt;Box&lt;ListNode&gt;&gt;) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        Self::rev(None, head)
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class009;
+
+// 按值传递、按引用传递
+// 从堆栈角度解释链表节点
+// 以堆栈视角来看链表反转
+public class ListReverse {
+
+	public static void main(String[] args) {
+		// int、long、byte、short
+		// char、float、double、boolean
+		// 还有String
+		// 都是按值传递
+		int a = 10;
+		f(a);
+		System.out.println(a);
+
+		// 其他类型按引用传递
+		// 比如下面的Number是自定义的类
+		Number b = new Number(5);
+		g1(b);
+		System.out.println(b.val);
+		g2(b);
+		System.out.println(b.val);
+
+		// 比如下面的一维数组
+		int[] c = { 1, 2, 3, 4 };
+		g3(c);
+		System.out.println(c[0]);
+		g4(c);
+		System.out.println(c[0]);
+	}
+
+	public static void f(int a) {
+		a = 0;
+	}
+
+	public static class Number {
+		public int val;
+
+		public Number(int v) {
+			val = v;
+		}
+	}
+
+	public static void g1(Number b) {
+		b = null;
+	}
+
+	public static void g2(Number b) {
+		b.val = 6;
+	}
+
+	public static void g3(int[] c) {
+		c = null;
+	}
+
+	public static void g4(int[] c) {
+		c[0] = 100;
+	}
+
+	// 单链表节点
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+
+		public ListNode(int val) {
+			this.val = val;
+		}
+
+		public ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
+
+	// 反转单链表测试链接 : https://leetcode.com/problems/reverse-linked-list/
+	class Solution {
+
+		public static ListNode reverseList(ListNode head) {
+			ListNode pre = null;
+			ListNode next = null;
+			while (head != null) {
+				next = head.next;
+				head.next = pre;
+				pre = head;
+				head = next;
+			}
+			return pre;
+		}
+
+	}
+
+	// 双链表节点
+	public static class DoubleListNode {
+		public int value;
+		public DoubleListNode last;
+		public DoubleListNode next;
+
+		public DoubleListNode(int v) {
+			value = v;
+		}
+	}
+
+	// 反转双链表
+	// 没有找到测试链接
+	// 如下方法是对的
+	public static DoubleListNode reverseDoubleList(DoubleListNode head) {
+		DoubleListNode pre = null;
+		DoubleListNode next = null;
+		while (head != null) {
+			next = head.next;
+			head.next = pre;
+			head.last = next;
+			pre = head;
+			head = next;
+		}
+		return pre;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/XO6sLSOQkN8?start=0">
+    </iframe>
+</details>
+<h2 id="merge-two-sorted-lists"><a class="header" href="#merge-two-sorted-lists">Merge Two Sorted Lists</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0021.Merge%20Two%20Sorted%20Lists/README_EN.md
+tags:
+    - Recursion
+    - Linked List
+</code></pre>
+<!-- problem:start -->
+<h1 id="21-merge-two-sorted-lists"><a class="header" href="#21-merge-two-sorted-lists"><a href="https://leetcode.com/problems/merge-two-sorted-lists">21. Merge Two Sorted Lists</a></a></h1>
+<p><a href="/solution/0000-0099/0021.Merge%20Two%20Sorted%20Lists/README.html">中文文档</a></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<!-- description:start -->
+<p>You are given the heads of two sorted linked lists <code>list1</code> and <code>list2</code>.</p>
+<p>Merge the two lists into one <strong>sorted</strong> list. The list should be made by splicing together the nodes of the first two lists.</p>
+<p>Return <em>the head of the merged linked list</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0000-0099/0021.Merge%20Two%20Sorted%20Lists/images/merge_ex1.jpg" style="width: 662px; height: 302px;" />
+<pre>
+<strong>Input:</strong> list1 = [1,2,4], list2 = [1,3,4]
+<strong>Output:</strong> [1,1,2,3,4,4]
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> list1 = [], list2 = []
+<strong>Output:</strong> []
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<pre>
+<strong>Input:</strong> list1 = [], list2 = [0]
+<strong>Output:</strong> [0]
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in both lists is in the range <code>[0, 50]</code>.</li>
+	<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+	<li>Both <code>list1</code> and <code>list2</code> are sorted in <strong>non-decreasing</strong> order.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-1"><a class="header" href="#solutions-1">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-recursion"><a class="header" href="#solution-1-recursion">Solution 1: Recursion</a></h3>
+<p>First, we judge whether the linked lists $l_1$ and $l_2$ are empty. If one of them is empty, we return the other linked list. Otherwise, we compare the head nodes of $l_1$ and $l_2$:</p>
+<ul>
+<li>If the value of the head node of $l_1$ is less than or equal to the value of the head node of $l_2$, we recursively call the function $mergeTwoLists(l_1.next, l_2)$, and connect the head node of $l_1$ with the returned linked list head node, and return the head node of $l_1$.</li>
+<li>Otherwise, we recursively call the function $mergeTwoLists(l_1, l_2.next)$, and connect the head node of $l_2$ with the returned linked list head node, and return the head node of $l_2$.</li>
+</ul>
+<p>The time complexity is $O(m + n)$, and the space complexity is $O(m + n)$. Here, $m$ and $n$ are the lengths of the two linked lists respectively.</p>
+<!-- tabs:start -->
+<h4 id="python3-2"><a class="header" href="#python3-2">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -&gt; Optional[ListNode]:
+        if list1 is None or list2 is None:
+            return list1 or list2
+        if list1.val &lt;= list2.val:
+            list1.next = self.mergeTwoLists(list1.next, list2)
+            return list1
+        else:
+            list2.next = self.mergeTwoLists(list1, list2.next)
+            return list2
+</code></pre>
+<h4 id="java-2"><a class="header" href="#java-2">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+        if (list1.val &lt;= list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
+        }
+    }
+}
+</code></pre>
+<h4 id="c-3"><a class="header" href="#c-3">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if (!list1) return list2;
+        if (!list2) return list1;
+        if (list1-&gt;val &lt;= list2-&gt;val) {
+            list1-&gt;next = mergeTwoLists(list1-&gt;next, list2);
+            return list1;
+        } else {
+            list2-&gt;next = mergeTwoLists(list1, list2-&gt;next);
+            return list2;
+        }
+    }
+};
+</code></pre>
+<h4 id="go-2"><a class="header" href="#go-2">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil {
+		return list2
+	}
+	if list2 == nil {
+		return list1
+	}
+	if list1.Val &lt;= list2.Val {
+		list1.Next = mergeTwoLists(list1.Next, list2)
+		return list1
+	} else {
+		list2.Next = mergeTwoLists(list1, list2.Next)
+		return list2
+	}
+}
+</code></pre>
+<h4 id="typescript-2"><a class="header" href="#typescript-2">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
+    if (list1 == null || list2 == null) {
+        return list1 || list2;
+    }
+    if (list1.val &lt; list2.val) {
+        list1.next = mergeTwoLists(list1.next, list2);
+        return list1;
+    } else {
+        list2.next = mergeTwoLists(list1, list2.next);
+        return list2;
+    }
+}
+</code></pre>
+<h4 id="rust-2"><a class="header" href="#rust-2">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option&lt;Box&lt;ListNode&gt;&gt;
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -&gt; Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn merge_two_lists(
+        list1: Option&lt;Box&lt;ListNode&gt;&gt;,
+        list2: Option&lt;Box&lt;ListNode&gt;&gt;,
+    ) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        match (list1, list2) {
+            (None, None) =&gt; None,
+            (Some(list), None) =&gt; Some(list),
+            (None, Some(list)) =&gt; Some(list),
+            (Some(mut list1), Some(mut list2)) =&gt; {
+                if list1.val &lt; list2.val {
+                    list1.next = Self::merge_two_lists(list1.next, Some(list2));
+                    Some(list1)
+                } else {
+                    list2.next = Self::merge_two_lists(Some(list1), list2.next);
+                    Some(list2)
+                }
+            }
+        }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-1"><a class="header" href="#javascript-1">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function (list1, list2) {
+    if (!list1 || !list2) {
+        return list1 || list2;
+    }
+    if (list1.val &lt;= list2.val) {
+        list1.next = mergeTwoLists(list1.next, list2);
+        return list1;
+    } else {
+        list2.next = mergeTwoLists(list1, list2.next);
+        return list2;
+    }
+};
+</code></pre>
+<h4 id="c-4"><a class="header" href="#c-4">C#</a></h4>
+<pre><code class="language-cs">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode MergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (list1 != null &amp;&amp; list2 != null)
+        {
+            if (list1.val &lt;= list2.val)
+            {
+                cur.next = list1;
+                list1 = list1.next;
+            }
+            else
+            {
+                cur.next = list2;
+                list2 = list2.next;
+            }
+            cur = cur.next;
+        }
+        cur.next = list1 == null ? list2 : list1;
+        return dummy.next;
+    }
+}
+</code></pre>
+<h4 id="ruby"><a class="header" href="#ruby">Ruby</a></h4>
+<pre><code class="language-rb"># Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+# @param {ListNode} list1
+# @param {ListNode} list2
+# @return {ListNode}
+def merge_two_lists(list1, list2)
+    dummy = ListNode.new()
+    cur = dummy
+    while list1 &amp;&amp; list2
+        if list1.val &lt;= list2.val
+            cur.next = list1
+            list1 = list1.next
+        else
+            cur.next = list2
+            list2 = list2.next
+        end
+        cur = cur.next
+    end
+    cur.next = list1 || list2
+    dummy.next
+end
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-iteration"><a class="header" href="#solution-2-iteration">Solution 2: Iteration</a></h3>
+<p>We can also use iteration to implement the merging of two sorted linked lists.</p>
+<p>First, we define a dummy head node $dummy$, then loop through the two linked lists, compare the head nodes of the two linked lists, add the smaller node to the end of $dummy$, until one of the linked lists is empty, then add the remaining part of the other linked list to the end of $dummy$.</p>
+<p>Finally, return $dummy.next$.</p>
+<p>The time complexity is $O(m + n)$, where $m$ and $n$ are the lengths of the two linked lists respectively. Ignoring the space consumption of the answer linked list, the space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-3"><a class="header" href="#python3-3">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -&gt; Optional[ListNode]:
+        dummy = ListNode()
+        curr = dummy
+        while list1 and list2:
+            if list1.val &lt;= list2.val:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
+        curr.next = list1 or list2
+        return dummy.next
+</code></pre>
+<h4 id="java-3"><a class="header" href="#java-3">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode curr = dummy;
+        while (list1 != null &amp;&amp; list2 != null) {
+            if (list1.val &lt;= list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            curr = curr.next;
+        }
+        curr.next = list1 == null ? list2 : list1;
+        return dummy.next;
+    }
+}
+</code></pre>
+<h4 id="c-5"><a class="header" href="#c-5">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode();
+        ListNode* curr = dummy;
+        while (list1 &amp;&amp; list2) {
+            if (list1-&gt;val &lt;= list2-&gt;val) {
+                curr-&gt;next = list1;
+                list1 = list1-&gt;next;
+            } else {
+                curr-&gt;next = list2;
+                list2 = list2-&gt;next;
+            }
+            curr = curr-&gt;next;
+        }
+        curr-&gt;next = list1 ? list1 : list2;
+        return dummy-&gt;next;
+    }
+};
+</code></pre>
+<h4 id="go-3"><a class="header" href="#go-3">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	dummy := &amp;ListNode{}
+	curr := dummy
+	for list1 != nil &amp;&amp; list2 != nil {
+		if list1.Val &lt;= list2.Val {
+			curr.Next = list1
+			list1 = list1.Next
+		} else {
+			curr.Next = list2
+			list2 = list2.Next
+		}
+		curr = curr.Next
+	}
+	if list1 != nil {
+		curr.Next = list1
+	} else {
+		curr.Next = list2
+	}
+	return dummy.Next
+}
+</code></pre>
+<h4 id="typescript-3"><a class="header" href="#typescript-3">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
+    const dummy = new ListNode(0);
+    let cur = dummy;
+    while (list1 != null &amp;&amp; list2 != null) {
+        if (list1.val &lt; list2.val) {
+            cur.next = list1;
+            list1 = list1.next;
+        } else {
+            cur.next = list2;
+            list2 = list2.next;
+        }
+        cur = cur.next;
+    }
+    cur.next = list1 || list2;
+    return dummy.next;
+}
+</code></pre>
+<h4 id="rust-3"><a class="header" href="#rust-3">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option&lt;Box&lt;ListNode&gt;&gt;
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -&gt; Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn merge_two_lists(
+        mut list1: Option&lt;Box&lt;ListNode&gt;&gt;,
+        mut list2: Option&lt;Box&lt;ListNode&gt;&gt;,
+    ) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        let mut new_list = ListNode::new(0);
+        let mut cur = &amp;mut new_list;
+        while list1.is_some() &amp;&amp; list2.is_some() {
+            let (l1, l2) = (list1.as_deref_mut().unwrap(), list2.as_deref_mut().unwrap());
+            if l1.val &lt; l2.val {
+                let next = l1.next.take();
+                cur.next = list1.take();
+                list1 = next;
+            } else {
+                let next = l2.next.take();
+                cur.next = list2.take();
+                list2 = next;
+            }
+            cur = cur.next.as_deref_mut().unwrap();
+        }
+        cur.next = list1.or(list2);
+        new_list.next
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-2"><a class="header" href="#javascript-2">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function (list1, list2) {
+    const dummy = new ListNode();
+    let curr = dummy;
+    while (list1 &amp;&amp; list2) {
+        if (list1.val &lt;= list2.val) {
+            curr.next = list1;
+            list1 = list1.next;
+        } else {
+            curr.next = list2;
+            list2 = list2.next;
+        }
+        curr = curr.next;
+    }
+    curr.next = list1 || list2;
+    return dummy.next;
+};
+</code></pre>
+<h4 id="php"><a class="header" href="#php">PHP</a></h4>
+<pre><code class="language-php"># Definition for singly-linked list.
+# class ListNode {
+#     public $val;
+#     public $next;
+#     public function __construct($val = 0, $next = null)
+#     {
+#         $this-&gt;val = $val;
+#         $this-&gt;next = $next;
+#     }
+# }
+
+class Solution {
+    /**
+     * @param ListNode $list1
+     * @param ListNode $list2
+     * @return ListNode
+     */
+
+    function mergeTwoLists($list1, $list2) {
+        $dummy = new ListNode(0);
+        $current = $dummy;
+
+        while ($list1 != null &amp;&amp; $list2 != null) {
+            if ($list1-&gt;val &lt;= $list2-&gt;val) {
+                $current-&gt;next = $list1;
+                $list1 = $list1-&gt;next;
+            } else {
+                $current-&gt;next = $list2;
+                $list2 = $list2-&gt;next;
+            }
+            $current = $current-&gt;next;
+        }
+        if ($list1 != null) {
+            $current-&gt;next = $list1;
+        } elseif ($list2 != null) {
+            $current-&gt;next = $list2;
+        }
+        return $dummy-&gt;next;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class010;
+
+// 将两个升序链表合并为一个新的 升序 链表并返回
+// 新链表是通过拼接给定的两个链表的所有节点组成的
+// 测试链接 : https://leetcode.com/problems/merge-two-sorted-lists/
+public class MergeTwoLists {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+
+		public ListNode(int val) {
+			this.val = val;
+		}
+
+		public ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
+
+	class Solution {
+
+		public static ListNode mergeTwoLists(ListNode head1, ListNode head2) {
+			if (head1 == null || head2 == null) {
+				return head1 == null ? head2 : head1;
+			}
+			ListNode head = head1.val &lt;= head2.val ? head1 : head2;
+			ListNode cur1 = head.next;
+			ListNode cur2 = head == head1 ? head2 : head1;
+			ListNode pre = head;
+			while (cur1 != null &amp;&amp; cur2 != null) {
+				if (cur1.val &lt;= cur2.val) {
+					pre.next = cur1;
+					cur1 = cur1.next;
+				} else {
+					pre.next = cur2;
+					cur2 = cur2.next;
+				}
+				pre = pre.next;
+			}
+			pre.next = cur1 != null ? cur1 : cur2;
+			return head;
+		}
+
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/LYbrGQNvZqg?start=0">
+    </iframe>
+</details>
+<h2 id="add-two-numbers"><a class="header" href="#add-two-numbers">Add Two Numbers</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class011;
+
+// 给你两个 非空 的链表，表示两个非负的整数
+// 它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字
+// 请你将两个数相加，并以相同形式返回一个表示和的链表。
+// 你可以假设除了数字 0 之外，这两个数都不会以 0 开头
+// 测试链接：https://leetcode.com/problems/add-two-numbers/
+public class AddTwoNumbers {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+
+		public ListNode(int val) {
+			this.val = val;
+		}
+
+		public ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
+
+	class Solution {
+
+		// 也可以复用老链表
+		// 不过这个实现没有这么做，都是生成的新节点(为了教学好懂)
+		public static ListNode addTwoNumbers(ListNode h1, ListNode h2) {
+			ListNode ans = null, cur = null;
+			int carry = 0;
+			for (int sum, val; // 声明变量
+					h1 != null || h2 != null; // 终止条件
+					h1 = h1 == null ? null : h1.next, // 每一步h1的跳转
+					h2 = h2 == null ? null : h2.next // 每一步h2的跳转
+					) {
+
+				sum = (h1 == null ? 0 : h1.val)
+						+ (h2 == null ? 0 : h2.val)
+						+ carry;
+
+				val = sum % 10;
+				carry = sum / 10;
+				if (ans == null) {
+					ans = new ListNode(val);
+					cur = ans;
+				} else {
+					cur.next = new ListNode(val);
+					cur = cur.next;
+				}
+			}
+			if (carry == 1) {
+				cur.next = new ListNode(1);
+			}
+			return ans;
+		}
+
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class011;
+
+// 给你两个 非空 的链表，表示两个非负的整数
+// 它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字
+// 请你将两个数相加，并以相同形式返回一个表示和的链表。
+// 你可以假设除了数字 0 之外，这两个数都不会以 0 开头
+// 测试链接：https://leetcode.com/problems/add-two-numbers/
+public class AddTwoNumbers {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+
+		public ListNode(int val) {
+			this.val = val;
+		}
+
+		public ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
+
+	class Solution {
+
+		// 也可以复用老链表
+		// 不过这个实现没有这么做，都是生成的新节点(为了教学好懂)
+		public static ListNode addTwoNumbers(ListNode h1, ListNode h2) {
+			ListNode ans = null, cur = null;
+			int carry = 0;
+			for (int sum, val; // 声明变量
+					h1 != null || h2 != null; // 终止条件
+					h1 = h1 == null ? null : h1.next, // 每一步h1的跳转
+					h2 = h2 == null ? null : h2.next // 每一步h2的跳转
+					) {
+
+				sum = (h1 == null ? 0 : h1.val)
+						+ (h2 == null ? 0 : h2.val)
+						+ carry;
+
+				val = sum % 10;
+				carry = sum / 10;
+				if (ans == null) {
+					ans = new ListNode(val);
+					cur = ans;
+				} else {
+					cur.next = new ListNode(val);
+					cur = cur.next;
+				}
+			}
+			if (carry == 1) {
+				cur.next = new ListNode(1);
+			}
+			return ans;
+		}
+
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/6Tp4R3Q-biY?start=0">
+    </iframe>
+</details>
+<h2 id="partition-list"><a class="header" href="#partition-list">Partition List</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0000-0099/0086.Partition%20List/README_EN.md
+tags:
+    - Linked List
+    - Two Pointers
+</code></pre>
+<!-- problem:start -->
+<h1 id="86-partition-list"><a class="header" href="#86-partition-list"><a href="https://leetcode.com/problems/partition-list">86. Partition List</a></a></h1>
+<p><a href="/solution/0000-0099/0086.Partition%20List/README.html">中文文档</a></p>
+<h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
+<!-- description:start -->
+<p>Given the <code>head</code> of a linked list and a value <code>x</code>, partition it such that all nodes <strong>less than</strong> <code>x</code> come before nodes <strong>greater than or equal</strong> to <code>x</code>.</p>
+<p>You should <strong>preserve</strong> the original relative order of the nodes in each of the two partitions.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0000-0099/0086.Partition%20List/images/partition.jpg" style="width: 662px; height: 222px;" />
+<pre>
+<strong>Input:</strong> head = [1,4,3,2,5,2], x = 3
+<strong>Output:</strong> [1,2,2,4,3,5]
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<pre>
+<strong>Input:</strong> head = [2,1], x = 2
+<strong>Output:</strong> [1,2]
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in the list is in the range <code>[0, 200]</code>.</li>
+	<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+	<li><code>-200 &lt;= x &lt;= 200</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-2"><a class="header" href="#solutions-2">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-simulation"><a class="header" href="#solution-1-simulation">Solution 1: Simulation</a></h3>
+<p>We create two linked lists, one to store nodes less than $x$, and the other to store nodes greater than or equal to $x$. Then we concatenate them.</p>
+<p>The time complexity is $O(n)$, where $n$ is the length of the original linked list. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-4"><a class="header" href="#python3-4">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def partition(self, head: Optional[ListNode], x: int) -&gt; Optional[ListNode]:
+        d1, d2 = ListNode(), ListNode()
+        t1, t2 = d1, d2
+        while head:
+            if head.val &lt; x:
+                t1.next = head
+                t1 = t1.next
+            else:
+                t2.next = head
+                t2 = t2.next
+            head = head.next
+        t1.next = d2.next
+        t2.next = None
+        return d1.next
+</code></pre>
+<h4 id="java-4"><a class="header" href="#java-4">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode d1 = new ListNode();
+        ListNode d2 = new ListNode();
+        ListNode t1 = d1, t2 = d2;
+        while (head != null) {
+            if (head.val &lt; x) {
+                t1.next = head;
+                t1 = t1.next;
+            } else {
+                t2.next = head;
+                t2 = t2.next;
+            }
+            head = head.next;
+        }
+        t1.next = d2.next;
+        t2.next = null;
+        return d1.next;
+    }
+}
+</code></pre>
+<h4 id="c-6"><a class="header" href="#c-6">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode* d1 = new ListNode();
+        ListNode* d2 = new ListNode();
+        ListNode* t1 = d1;
+        ListNode* t2 = d2;
+        while (head) {
+            if (head-&gt;val &lt; x) {
+                t1-&gt;next = head;
+                t1 = t1-&gt;next;
+            } else {
+                t2-&gt;next = head;
+                t2 = t2-&gt;next;
+            }
+            head = head-&gt;next;
+        }
+        t1-&gt;next = d2-&gt;next;
+        t2-&gt;next = nullptr;
+        return d1-&gt;next;
+    }
+};
+</code></pre>
+<h4 id="go-4"><a class="header" href="#go-4">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func partition(head *ListNode, x int) *ListNode {
+	d1, d2 := &amp;ListNode{}, &amp;ListNode{}
+	t1, t2 := d1, d2
+	for head != nil {
+		if head.Val &lt; x {
+			t1.Next = head
+			t1 = t1.Next
+		} else {
+			t2.Next = head
+			t2 = t2.Next
+		}
+		head = head.Next
+	}
+	t1.Next = d2.Next
+	t2.Next = nil
+	return d1.Next
+}
+</code></pre>
+<h4 id="rust-4"><a class="header" href="#rust-4">Rust</a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option&lt;Box&lt;ListNode&gt;&gt;
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -&gt; Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn partition(head: Option&lt;Box&lt;ListNode&gt;&gt;, x: i32) -&gt; Option&lt;Box&lt;ListNode&gt;&gt; {
+        let mut head = head;
+        let mut d1 = Some(Box::new(ListNode::new(0)));
+        let mut d2 = Some(Box::new(ListNode::new(0)));
+        let (mut t1, mut t2) = (&amp;mut d1, &amp;mut d2);
+        while let Some(mut node) = head {
+            head = node.next.take();
+            if node.val &lt; x {
+                t1.as_mut().unwrap().next = Some(node);
+                t1 = &amp;mut t1.as_mut().unwrap().next;
+            } else {
+                t2.as_mut().unwrap().next = Some(node);
+                t2 = &amp;mut t2.as_mut().unwrap().next;
+            }
+        }
+        t1.as_mut().unwrap().next = d2.unwrap().next;
+        d1.unwrap().next
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="javascript-3"><a class="header" href="#javascript-3">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function (head, x) {
+    const d1 = new ListNode();
+    const d2 = new ListNode();
+    let t1 = d1,
+        t2 = d2;
+    while (head) {
+        if (head.val &lt; x) {
+            t1.next = head;
+            t1 = t1.next;
+        } else {
+            t2.next = head;
+            t2 = t2.next;
+        }
+        head = head.next;
+    }
+    t1.next = d2.next;
+    t2.next = null;
+    return d1.next;
+};
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class012;
+
+// 给你一个链表的头节点 head 和一个特定值 x
+// 请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。
+// 你应当 保留 两个分区中每个节点的初始相对位置
+// 测试链接 : https://leetcode.com/problems/partition-list/
+public class PartitionList {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+
+		public ListNode(int val) {
+			this.val = val;
+		}
+
+		public ListNode(int val, ListNode next) {
+			this.val = val;
+			this.next = next;
+		}
+	}
+
+	class Solution {
+
+		public static ListNode partition(ListNode head, int x) {
+			ListNode leftHead = null, leftTail = null; // &lt; x的区域
+			ListNode rightHead = null, rightTail = null; // &gt;=x的区域
+			ListNode next = null;
+			while (head != null) {
+				next = head.next;
+				head.next = null;
+				if (head.val &lt; x) {
+					if (leftHead == null) {
+						leftHead = head;
+					} else {
+						leftTail.next = head;
+					}
+					leftTail = head;
+				} else {
+					if (rightHead == null) {
+						rightHead = head;
+					} else {
+						rightTail.next = head;
+					}
+					rightTail = head;
+				}
+				head = next;
+			}
+			if (leftHead == null) {
+				return rightHead;
+			}
+			// &lt; x的区域有内容！
+			leftTail.next = rightHead;
+			return leftHead;
+		}
+
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/zyDbzoiYBzU?start=0">
+    </iframe>
+</details>
+<h2 id="intersection-of-two-linked-lists"><a class="header" href="#intersection-of-two-linked-lists">Intersection of Two Linked Lists</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/README_EN.md
+tags:
+    - Hash Table
+    - Linked List
+    - Two Pointers
+</code></pre>
+<!-- problem:start -->
+<h1 id="160-intersection-of-two-linked-lists"><a class="header" href="#160-intersection-of-two-linked-lists"><a href="https://leetcode.com/problems/intersection-of-two-linked-lists">160. Intersection of Two Linked Lists</a></a></h1>
+<p><a href="/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/README.html">中文文档</a></p>
+<h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
+<!-- description:start -->
+<p>Given the heads of two singly linked-lists <code>headA</code> and <code>headB</code>, return <em>the node at which the two lists intersect</em>. If the two linked lists have no intersection at all, return <code>null</code>.</p>
+<p>For example, the following two linked lists begin to intersect at node <code>c1</code>:</p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/images/160_statement.png" style="width: 500px; height: 162px;" />
+<p>The test cases are generated such that there are no cycles anywhere in the entire linked structure.</p>
+<p><strong>Note</strong> that the linked lists must <strong>retain their original structure</strong> after the function returns.</p>
+<p><strong>Custom Judge:</strong></p>
+<p>The inputs to the <strong>judge</strong> are given as follows (your program is <strong>not</strong> given these inputs):</p>
+<ul>
+	<li><code>intersectVal</code> - The value of the node where the intersection occurs. This is <code>0</code> if there is no intersected node.</li>
+	<li><code>listA</code> - The first linked list.</li>
+	<li><code>listB</code> - The second linked list.</li>
+	<li><code>skipA</code> - The number of nodes to skip ahead in <code>listA</code> (starting from the head) to get to the intersected node.</li>
+	<li><code>skipB</code> - The number of nodes to skip ahead in <code>listB</code> (starting from the head) to get to the intersected node.</li>
+</ul>
+<p>The judge will then create the linked structure based on these inputs and pass the two heads, <code>headA</code> and <code>headB</code> to your program. If you correctly return the intersected node, then your solution will be <strong>accepted</strong>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/images/160_example_1_1.png" style="width: 500px; height: 162px;" />
+<pre>
+<strong>Input:</strong> intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+<strong>Output:</strong> Intersected at &#39;8&#39;
+<strong>Explanation:</strong> The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect).
+From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,6,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.
+- Note that the intersected node&#39;s value is not 1 because the nodes with value 1 in A and B (2<sup>nd</sup> node in A and 3<sup>rd</sup> node in B) are different node references. In other words, they point to two different locations in memory, while the nodes with value 8 in A and B (3<sup>rd</sup> node in A and 4<sup>th</sup> node in B) point to the same location in memory.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/images/160_example_2.png" style="width: 500px; height: 194px;" />
+<pre>
+<strong>Input:</strong> intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
+<strong>Output:</strong> Intersected at &#39;2&#39;
+<strong>Explanation:</strong> The intersected node&#39;s value is 2 (note that this must not be 0 if the two lists intersect).
+From the head of A, it reads as [1,9,1,2,4]. From the head of B, it reads as [3,2,4]. There are 3 nodes before the intersected node in A; There are 1 node before the intersected node in B.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/images/160_example_3.png" style="width: 300px; height: 189px;" />
+<pre>
+<strong>Input:</strong> intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
+<strong>Output:</strong> No intersection
+<strong>Explanation:</strong> From the head of A, it reads as [2,6,4]. From the head of B, it reads as [1,5]. Since the two lists do not intersect, intersectVal must be 0, while skipA and skipB can be arbitrary values.
+Explanation: The two lists do not intersect, so return null.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes of <code>listA</code> is in the <code>m</code>.</li>
+	<li>The number of nodes of <code>listB</code> is in the <code>n</code>.</li>
+	<li><code>1 &lt;= m, n &lt;= 3 * 10<sup>4</sup></code></li>
+	<li><code>1 &lt;= Node.val &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= skipA &lt;= m</code></li>
+	<li><code>0 &lt;= skipB &lt;= n</code></li>
+	<li><code>intersectVal</code> is <code>0</code> if <code>listA</code> and <code>listB</code> do not intersect.</li>
+	<li><code>intersectVal == listA[skipA] == listB[skipB]</code> if <code>listA</code> and <code>listB</code> intersect.</li>
+</ul>
+<p>&nbsp;</p>
+<strong>Follow up:</strong> Could you write a solution that runs in <code>O(m + n)</code> time and use only <code>O(1)</code> memory?
+<!-- description:end -->
+<h2 id="solutions-3"><a class="header" href="#solutions-3">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-two-pointers"><a class="header" href="#solution-1-two-pointers">Solution 1: Two Pointers</a></h3>
+<p>We use two pointers $a$ and $b$ to point to two linked lists $headA$ and $headB$ respectively.</p>
+<p>We traverse the linked lists simultaneously. When $a$ reaches the end of the linked list $headA$, it is repositioned to the head node of the linked list $headB$. When $b$ reaches the end of the linked list $headB$, it is repositioned to the head node of the linked list $headA$.</p>
+<p>If the two pointers meet, the node they point to is the first common node. If they don't meet, it means that the two linked lists have no common nodes. At this time, both pointers point to <code>null</code>, and we can return either one.</p>
+<p>The time complexity is $O(m+n)$, where $m$ and $n$ are the lengths of the linked lists $headA$ and $headB$ respectively. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-5"><a class="header" href="#python3-5">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -&gt; ListNode:
+        a, b = headA, headB
+        while a != b:
+            a = a.next if a else headB
+            b = b.next if b else headA
+        return a
+</code></pre>
+<h4 id="java-5"><a class="header" href="#java-5">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA, b = headB;
+        while (a != b) {
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
+        }
+        return a;
+    }
+}
+</code></pre>
+<h4 id="c-7"><a class="header" href="#c-7">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* getIntersectionNode(ListNode* headA, ListNode* headB) {
+        ListNode *a = headA, *b = headB;
+        while (a != b) {
+            a = a ? a-&gt;next : headB;
+            b = b ? b-&gt;next : headA;
+        }
+        return a;
+    }
+};
+</code></pre>
+<h4 id="go-5"><a class="header" href="#go-5">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	a, b := headA, headB
+	for a != b {
+		if a == nil {
+			a = headB
+		} else {
+			a = a.Next
+		}
+		if b == nil {
+			b = headA
+		} else {
+			b = b.Next
+		}
+	}
+	return a
+}
+</code></pre>
+<h4 id="typescript-4"><a class="header" href="#typescript-4">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
+    let a = headA;
+    let b = headB;
+    while (a != b) {
+        a = a ? a.next : headB;
+        b = b ? b.next : headA;
+    }
+    return a;
+}
+</code></pre>
+<h4 id="javascript-4"><a class="header" href="#javascript-4">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
+    let a = headA;
+    let b = headB;
+    while (a != b) {
+        a = a ? a.next : headB;
+        b = b ? b.next : headA;
+    }
+    return a;
+};
+</code></pre>
+<h4 id="swift"><a class="header" href="#swift">Swift</a></h4>
+<pre><code class="language-swift">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.next = nil
+ *     }
+ * }
+ */
+
+class Solution {
+    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -&gt; ListNode? {
+        var a = headA
+        var b = headB
+        while a !== b {
+            a = a == nil ? headB : a?.next
+            b = b == nil ? headA : b?.next
+        }
+        return a
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 返回两个无环链表相交的第一个节点
+// 测试链接 : https://leetcode.com/problems/intersection-of-two-linked-lists/
+public class Code01_IntersectionOfTwoLinkedLists {
+
+	// 提交时不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	public static ListNode getIntersectionNode(ListNode h1, ListNode h2) {
+		if (h1 == null || h2 == null) {
+			return null;
+		}
+		ListNode a = h1, b = h2;
+		int diff = 0;
+		while (a.next != null) {
+			a = a.next;
+			diff++;
+		}
+		while (b.next != null) {
+			b = b.next;
+			diff--;
+		}
+		if (a != b) {
+			return null;
+		}
+		if (diff &gt;= 0) {
+			a = h1;
+			b = h2;
+		} else {
+			a = h2;
+			b = h1;
+		}
+		diff = Math.abs(diff);
+		while (diff-- != 0) {
+			a = a.next;
+		}
+		while (a != b) {
+			a = a.next;
+			b = b.next;
+		}
+		return a;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+<h2 id="reverse-nodes-in-k-group"><a class="header" href="#reverse-nodes-in-k-group">Reverse Nodes in K-Group</a></h2>
+<details><summary>Description:</summary>
+<pre><code class="language-java">package class034;
+
+// 每k个节点一组翻转链表
+// 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
+public class Code02_ReverseNodesInkGroup {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	public static ListNode reverseKGroup(ListNode head, int k) {
+		ListNode start = head;
+		ListNode end = teamEnd(start, k);
+		if (end == null) {
+			return head;
+		}
+		// 第一组很特殊因为牵扯到换头的问题
+		head = end;
+		reverse(start, end);
+		// 翻转之后start变成了上一组的结尾节点
+		ListNode lastTeamEnd = start;
+		while (lastTeamEnd.next != null) {
+			start = lastTeamEnd.next;
+			end = teamEnd(start, k);
+			if (end == null) {
+				return head;
+			}
+			reverse(start, end);
+			lastTeamEnd.next = end;
+			lastTeamEnd = start;
+		}
+		return head;
+	}
+
+	// 当前组的开始节点是s，往下数k个找到当前组的结束节点返回
+	public static ListNode teamEnd(ListNode s, int k) {
+		while (--k != 0 &amp;&amp; s != null) {
+			s = s.next;
+		}
+		return s;
+	}
+
+	// s -&gt; a -&gt; b -&gt; c -&gt; e -&gt; 下一组的开始节点
+	// 上面的链表通过如下的reverse方法调整成 : e -&gt; c -&gt; b -&gt; a -&gt; s -&gt; 下一组的开始节点
+	public static void reverse(ListNode s, ListNode e) {
+		e = e.next;
+		ListNode pre = null, cur = s, next = null;
+		while (cur != e) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		s.next = e;
+	}
+
+}
+</code></pre>
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 每k个节点一组翻转链表
+// 测试链接：https://leetcode.com/problems/reverse-nodes-in-k-group/
+public class Code02_ReverseNodesInkGroup {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	public static ListNode reverseKGroup(ListNode head, int k) {
+		ListNode start = head;
+		ListNode end = teamEnd(start, k);
+		if (end == null) {
+			return head;
+		}
+		// 第一组很特殊因为牵扯到换头的问题
+		head = end;
+		reverse(start, end);
+		// 翻转之后start变成了上一组的结尾节点
+		ListNode lastTeamEnd = start;
+		while (lastTeamEnd.next != null) {
+			start = lastTeamEnd.next;
+			end = teamEnd(start, k);
+			if (end == null) {
+				return head;
+			}
+			reverse(start, end);
+			lastTeamEnd.next = end;
+			lastTeamEnd = start;
+		}
+		return head;
+	}
+
+	// 当前组的开始节点是s，往下数k个找到当前组的结束节点返回
+	public static ListNode teamEnd(ListNode s, int k) {
+		while (--k != 0 &amp;&amp; s != null) {
+			s = s.next;
+		}
+		return s;
+	}
+
+	// s -&gt; a -&gt; b -&gt; c -&gt; e -&gt; 下一组的开始节点
+	// 上面的链表通过如下的reverse方法调整成 : e -&gt; c -&gt; b -&gt; a -&gt; s -&gt; 下一组的开始节点
+	public static void reverse(ListNode s, ListNode e) {
+		e = e.next;
+		ListNode pre = null, cur = s, next = null;
+		while (cur != e) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		s.next = e;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+<h2 id="copy-list-with-random-pointer"><a class="header" href="#copy-list-with-random-pointer">Copy List with Random Pointer</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0138.Copy%20List%20with%20Random%20Pointer/README_EN.md
+tags:
+    - Hash Table
+    - Linked List
+</code></pre>
+<!-- problem:start -->
+<h1 id="138-copy-list-with-random-pointer"><a class="header" href="#138-copy-list-with-random-pointer"><a href="https://leetcode.com/problems/copy-list-with-random-pointer">138. Copy List with Random Pointer</a></a></h1>
+<p><a href="/solution/0100-0199/0138.Copy%20List%20with%20Random%20Pointer/README.html">中文文档</a></p>
+<h2 id="description-4"><a class="header" href="#description-4">Description</a></h2>
+<!-- description:start -->
+<p>A linked list of length <code>n</code> is given such that each node contains an additional random pointer, which could point to any node in the list, or <code>null</code>.</p>
+<p>Construct a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank"><strong>deep copy</strong></a> of the list. The deep copy should consist of exactly <code>n</code> <strong>brand new</strong> nodes, where each new node has its value set to the value of its corresponding original node. Both the <code>next</code> and <code>random</code> pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. <strong>None of the pointers in the new list should point to nodes in the original list</strong>.</p>
+<p>For example, if there are two nodes <code>X</code> and <code>Y</code> in the original list, where <code>X.random --&gt; Y</code>, then for the corresponding two nodes <code>x</code> and <code>y</code> in the copied list, <code>x.random --&gt; y</code>.</p>
+<p>Return <em>the head of the copied linked list</em>.</p>
+<p>The linked list is represented in the input/output as a list of <code>n</code> nodes. Each node is represented as a pair of <code>[val, random_index]</code> where:</p>
+<ul>
+	<li><code>val</code>: an integer representing <code>Node.val</code></li>
+	<li><code>random_index</code>: the index of the node (range from <code>0</code> to <code>n-1</code>) that the <code>random</code> pointer points to, or <code>null</code> if it does not point to any node.</li>
+</ul>
+<p>Your code will <strong>only</strong> be given the <code>head</code> of the original linked list.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0138.Copy%20List%20with%20Random%20Pointer/images/e1.png" style="width: 700px; height: 142px;" />
+<pre>
+<strong>Input:</strong> head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+<strong>Output:</strong> [[7,null],[13,0],[11,4],[10,2],[1,0]]
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0138.Copy%20List%20with%20Random%20Pointer/images/e2.png" style="width: 700px; height: 114px;" />
+<pre>
+<strong>Input:</strong> head = [[1,1],[2,1]]
+<strong>Output:</strong> [[1,1],[2,1]]
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<p><strong><img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0138.Copy%20List%20with%20Random%20Pointer/images/e3.png" style="width: 700px; height: 122px;" /></strong></p>
+<pre>
+<strong>Input:</strong> head = [[3,null],[3,0],[3,null]]
+<strong>Output:</strong> [[3,null],[3,0],[3,null]]
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li><code>0 &lt;= n &lt;= 1000</code></li>
+	<li><code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code></li>
+	<li><code>Node.random</code> is <code>null</code> or is pointing to some node in the linked list.</li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-4"><a class="header" href="#solutions-4">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-1"><a class="header" href="#solution-1-1">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-6"><a class="header" href="#python3-6">Python3</a></h4>
+<pre><code class="language-python">"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+
+class Solution:
+    def copyRandomList(self, head: "Node") -&gt; "Node":
+        d = {}
+        dummy = tail = Node(0)
+        cur = head
+        while cur:
+            tail.next = Node(cur.val)
+            tail = tail.next
+            d[cur] = tail
+            cur = cur.next
+        tail = dummy.next
+        cur = head
+        while cur:
+            tail.random = d.get(cur.random)
+            tail = tail.next
+            cur = cur.next
+        return dummy.next
+</code></pre>
+<h4 id="java-6"><a class="header" href="#java-6">Java</a></h4>
+<pre><code class="language-java">/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+class Solution {
+    public Node copyRandomList(Node head) {
+        Map&lt;Node, Node&gt; d = new HashMap&lt;&gt;();
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        for (Node cur = head; cur != null; cur = cur.next) {
+            tail.next = new Node(cur.val);
+            tail = tail.next;
+            d.put(cur, tail);
+        }
+        tail = dummy.next;
+        for (Node cur = head; cur != null; cur = cur.next) {
+            tail.random = d.get(cur.random);
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+}
+</code></pre>
+<h4 id="c-8"><a class="header" href="#c-8">C++</a></h4>
+<pre><code class="language-cpp">/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map&lt;Node*, Node*&gt; d;
+        Node* dummy = new Node(0);
+        Node* tail = dummy;
+        for (auto cur = head; cur; cur = cur-&gt;next) {
+            tail-&gt;next = new Node(cur-&gt;val);
+            tail = tail-&gt;next;
+            d[cur] = tail;
+        }
+        tail = dummy-&gt;next;
+        for (auto cur = head; cur; cur = cur-&gt;next) {
+            tail-&gt;random = d[cur-&gt;random];
+            tail = tail-&gt;next;
+        }
+        return dummy-&gt;next;
+    }
+};
+</code></pre>
+<h4 id="go-6"><a class="header" href="#go-6">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for a Node.
+ * type Node struct {
+ *     Val int
+ *     Next *Node
+ *     Random *Node
+ * }
+ */
+
+func copyRandomList(head *Node) *Node {
+	d := map[*Node]*Node{}
+	dummy := &amp;Node{}
+	tail := dummy
+	for cur := head; cur != nil; cur = cur.Next {
+		tail.Next = &amp;Node{Val: cur.Val}
+		tail = tail.Next
+		d[cur] = tail
+	}
+	tail = dummy.Next
+	for cur := head; cur != nil; cur = cur.Next {
+		tail.Random = d[cur.Random]
+		tail = tail.Next
+	}
+	return dummy.Next
+}
+</code></pre>
+<h4 id="typescript-5"><a class="header" href="#typescript-5">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for Node.
+ * class Node {
+ *     val: number
+ *     next: Node | null
+ *     random: Node | null
+ *     constructor(val?: number, next?: Node, random?: Node) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *         this.random = (random===undefined ? null : random)
+ *     }
+ * }
+ */
+
+function copyRandomList(head: Node | null): Node | null {
+    const map = new Map&lt;Node, Node&gt;();
+    let cur = head;
+    while (cur != null) {
+        map.set(cur, new Node(cur.val));
+        cur = cur.next;
+    }
+    cur = head;
+    while (cur != null) {
+        map.get(cur).next = map.get(cur.next) ?? null;
+        map.get(cur).random = map.get(cur.random) ?? null;
+        cur = cur.next;
+    }
+    return map.get(head);
+}
+</code></pre>
+<h4 id="javascript-5"><a class="header" href="#javascript-5">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function (head) {
+    const d = new Map();
+    const dummy = new Node(0);
+    let tail = dummy;
+    for (let cur = head; cur; cur = cur.next) {
+        tail.next = new Node(cur.val);
+        tail = tail.next;
+        d.set(cur, tail);
+    }
+    tail = dummy.next;
+    for (let cur = head; cur; cur = cur.next) {
+        tail.random = d.get(cur.random);
+        tail = tail.next;
+    }
+    return dummy.next;
+};
+</code></pre>
+<h4 id="c-9"><a class="header" href="#c-9">C#</a></h4>
+<pre><code class="language-cs">/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node(int _val) {
+        val = _val;
+        next = null;
+        random = null;
+    }
+}
+*/
+
+public class Solution {
+    public Node CopyRandomList(Node head) {
+        Dictionary&lt;Node, Node&gt; d = new Dictionary&lt;Node, Node&gt;();
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        for (Node cur = head; cur != null; cur = cur.next) {
+            tail.next = new Node(cur.val);
+            tail = tail.next;
+            d[cur] = tail;
+        }
+        tail = dummy.next;
+        for (Node cur = head; cur != null; cur = cur.next) {
+            tail.random = cur.random == null ? null : d[cur.random];
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- solution:start -->
+<h3 id="solution-2-1"><a class="header" href="#solution-2-1">Solution 2</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-7"><a class="header" href="#python3-7">Python3</a></h4>
+<pre><code class="language-python">"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+
+class Solution:
+    def copyRandomList(self, head: "Node") -&gt; "Node":
+        if head is None:
+            return None
+        cur = head
+        while cur:
+            node = Node(cur.val, cur.next)
+            cur.next = node
+            cur = node.next
+
+        cur = head
+        while cur:
+            if cur.random:
+                cur.next.random = cur.random.next
+            cur = cur.next.next
+
+        ans = head.next
+        cur = head
+        while cur:
+            nxt = cur.next
+            if nxt:
+                cur.next = nxt.next
+            cur = nxt
+        return ans
+</code></pre>
+<h4 id="java-7"><a class="header" href="#java-7">Java</a></h4>
+<pre><code class="language-java">/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        for (Node cur = head; cur != null;) {
+            Node node = new Node(cur.val, cur.next);
+            cur.next = node;
+            cur = node.next;
+        }
+        for (Node cur = head; cur != null; cur = cur.next.next) {
+            if (cur.random != null) {
+                cur.next.random = cur.random.next;
+            }
+        }
+        Node ans = head.next;
+        for (Node cur = head; cur != null;) {
+            Node nxt = cur.next;
+            if (nxt != null) {
+                cur.next = nxt.next;
+            }
+            cur = nxt;
+        }
+        return ans;
+    }
+}
+</code></pre>
+<h4 id="c-10"><a class="header" href="#c-10">C++</a></h4>
+<pre><code class="language-cpp">/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) {
+            return nullptr;
+        }
+        for (Node* cur = head; cur;) {
+            Node* node = new Node(cur-&gt;val);
+            node-&gt;next = cur-&gt;next;
+            cur-&gt;next = node;
+            cur = node-&gt;next;
+        }
+        for (Node* cur = head; cur; cur = cur-&gt;next-&gt;next) {
+            if (cur-&gt;random) {
+                cur-&gt;next-&gt;random = cur-&gt;random-&gt;next;
+            }
+        }
+        Node* ans = head-&gt;next;
+        for (Node* cur = head; cur;) {
+            Node* nxt = cur-&gt;next;
+            if (nxt) {
+                cur-&gt;next = nxt-&gt;next;
+            }
+            cur = nxt;
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h4 id="go-7"><a class="header" href="#go-7">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for a Node.
+ * type Node struct {
+ *     Val int
+ *     Next *Node
+ *     Random *Node
+ * }
+ */
+
+func copyRandomList(head *Node) *Node {
+	if head == nil {
+		return nil
+	}
+	for cur := head; cur != nil; {
+		node := &amp;Node{cur.Val, cur.Next, nil}
+		cur.Next = node
+		cur = node.Next
+	}
+	for cur := head; cur != nil; cur = cur.Next.Next {
+		if cur.Random != nil {
+			cur.Next.Random = cur.Random.Next
+		}
+	}
+	ans := head.Next
+	for cur := head; cur != nil; {
+		nxt := cur.Next
+		if nxt != nil {
+			cur.Next = nxt.Next
+		}
+		cur = nxt
+	}
+	return ans
+}
+</code></pre>
+<h4 id="javascript-6"><a class="header" href="#javascript-6">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function (head) {
+    if (!head) {
+        return null;
+    }
+    for (let cur = head; cur; ) {
+        const node = new Node(cur.val, cur.next, null);
+        cur.next = node;
+        cur = node.next;
+    }
+    for (let cur = head; cur; cur = cur.next.next) {
+        if (cur.random) {
+            cur.next.random = cur.random.next;
+        }
+    }
+    const ans = head.next;
+    for (let cur = head; cur; ) {
+        const nxt = cur.next;
+        if (nxt) {
+            cur.next = nxt.next;
+        }
+        cur = nxt;
+    }
+    return ans;
+};
+</code></pre>
+<h4 id="c-11"><a class="header" href="#c-11">C#</a></h4>
+<pre><code class="language-cs">/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node(int _val) {
+        val = _val;
+        next = null;
+        random = null;
+    }
+}
+*/
+
+public class Solution {
+    public Node CopyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        for (Node cur = head; cur != null; ) {
+            Node node = new Node(cur.val, cur.next);
+            cur.next = node;
+            cur = node.next;
+        }
+        for (Node cur = head; cur != null; cur = cur.next.next) {
+            if (cur.random != null) {
+                cur.next.random = cur.random.next;
+            }
+        }
+        Node ans = head.next;
+        for (Node cur = head; cur != null; ) {
+            Node nxt = cur.next;
+            if (nxt != null) {
+                cur.next = nxt.next;
+            }
+            cur = nxt;
+        }
+        return ans;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 复制带随机指针的链表
+// 测试链接 : https://leetcode.com/problems/copy-list-with-random-pointer/
+public class Code03_CopyListWithRandomPointer {
+
+	// 不要提交这个类
+	public static class Node {
+		public int val;
+		public Node next;
+		public Node random;
+
+		public Node(int v) {
+			val = v;
+		}
+	}
+
+	// 提交如下的方法
+	public static Node copyRandomList(Node head) {
+		if (head == null) {
+			return null;
+		}
+		Node cur = head;
+		Node next = null;
+		// 1 -&gt; 2 -&gt; 3 -&gt; ...
+		// 变成 : 1 -&gt; 1' -&gt; 2 -&gt; 2' -&gt; 3 -&gt; 3' -&gt; ...
+		while (cur != null) {
+			next = cur.next;
+			cur.next = new Node(cur.val);
+			cur.next.next = next;
+			cur = next;
+		}
+		cur = head;
+		Node copy = null;
+		// 利用上面新老节点的结构关系，设置每一个新节点的random指针
+		while (cur != null) {
+			next = cur.next.next;
+			copy = cur.next;
+			copy.random = cur.random != null ? cur.random.next : null;
+			cur = next;
+		}
+		Node ans = head.next;
+		cur = head;
+		// 新老链表分离 : 老链表重新连在一起，新链表重新连在一起
+		while (cur != null) {
+			next = cur.next.next;
+			copy = cur.next;
+			cur.next = next;
+			copy.next = next != null ? next.next : null;
+			cur = next;
+		}
+		// 返回新链表的头节点
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+<h2 id="palindrome-linked-list"><a class="header" href="#palindrome-linked-list">Palindrome Linked List</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Easy
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0200-0299/0234.Palindrome%20Linked%20List/README_EN.md
+tags:
+    - Stack
+    - Recursion
+    - Linked List
+    - Two Pointers
+</code></pre>
+<!-- problem:start -->
+<h1 id="234-palindrome-linked-list"><a class="header" href="#234-palindrome-linked-list"><a href="https://leetcode.com/problems/palindrome-linked-list">234. Palindrome Linked List</a></a></h1>
+<p><a href="/solution/0200-0299/0234.Palindrome%20Linked%20List/README.html">中文文档</a></p>
+<h2 id="description-5"><a class="header" href="#description-5">Description</a></h2>
+<!-- description:start -->
+<p>Given the <code>head</code> of a singly linked list, return <code>true</code><em> if it is a </em><span data-keyword="palindrome-sequence"><em>palindrome</em></span><em> or </em><code>false</code><em> otherwise</em>.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0200-0299/0234.Palindrome%20Linked%20List/images/pal1linked-list.jpg" style="width: 422px; height: 62px;" />
+<pre>
+<strong>Input:</strong> head = [1,2,2,1]
+<strong>Output:</strong> true
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0200-0299/0234.Palindrome%20Linked%20List/images/pal2linked-list.jpg" style="width: 182px; height: 62px;" />
+<pre>
+<strong>Input:</strong> head = [1,2]
+<strong>Output:</strong> false
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in the list is in the range <code>[1, 10<sup>5</sup>]</code>.</li>
+	<li><code>0 &lt;= Node.val &lt;= 9</code></li>
+</ul>
+<p>&nbsp;</p>
+<strong>Follow up:</strong> Could you do it in <code>O(n)</code> time and <code>O(1)</code> space?
+<!-- description:end -->
+<h2 id="solutions-5"><a class="header" href="#solutions-5">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-2"><a class="header" href="#solution-1-2">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-8"><a class="header" href="#python3-8">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -&gt; bool:
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        pre, cur = None, slow.next
+        while cur:
+            t = cur.next
+            cur.next = pre
+            pre, cur = cur, t
+        while pre:
+            if pre.val != head.val:
+                return False
+            pre, head = pre.next, head.next
+        return True
+</code></pre>
+<h4 id="java-8"><a class="header" href="#java-8">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null &amp;&amp; fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode cur = slow.next;
+        slow.next = null;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode t = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = t;
+        }
+        while (pre != null) {
+            if (pre.val != head.val) {
+                return false;
+            }
+            pre = pre.next;
+            head = head.next;
+        }
+        return true;
+    }
+}
+</code></pre>
+<h4 id="c-12"><a class="header" href="#c-12">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head-&gt;next;
+        while (fast &amp;&amp; fast-&gt;next) {
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+        }
+        ListNode* pre = nullptr;
+        ListNode* cur = slow-&gt;next;
+        while (cur) {
+            ListNode* t = cur-&gt;next;
+            cur-&gt;next = pre;
+            pre = cur;
+            cur = t;
+        }
+        while (pre) {
+            if (pre-&gt;val != head-&gt;val) return false;
+            pre = pre-&gt;next;
+            head = head-&gt;next;
+        }
+        return true;
+    }
+};
+</code></pre>
+<h4 id="go-8"><a class="header" href="#go-8">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func isPalindrome(head *ListNode) bool {
+	slow, fast := head, head.Next
+	for fast != nil &amp;&amp; fast.Next != nil {
+		slow, fast = slow.Next, fast.Next.Next
+	}
+	var pre *ListNode
+	cur := slow.Next
+	for cur != nil {
+		t := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = t
+	}
+	for pre != nil {
+		if pre.Val != head.Val {
+			return false
+		}
+		pre, head = pre.Next, head.Next
+	}
+	return true
+}
+</code></pre>
+<h4 id="typescript-6"><a class="header" href="#typescript-6">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function isPalindrome(head: ListNode | null): boolean {
+    let slow: ListNode = head,
+        fast: ListNode = head.next;
+    while (fast != null &amp;&amp; fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    let cur: ListNode = slow.next;
+    slow.next = null;
+    let prev: ListNode = null;
+    while (cur != null) {
+        let t: ListNode = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = t;
+    }
+    while (prev != null) {
+        if (prev.val != head.val) return false;
+        prev = prev.next;
+        head = head.next;
+    }
+    return true;
+}
+</code></pre>
+<h4 id="javascript-7"><a class="header" href="#javascript-7">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function (head) {
+    let slow = head;
+    let fast = head.next;
+    while (fast &amp;&amp; fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    let cur = slow.next;
+    slow.next = null;
+    let pre = null;
+    while (cur) {
+        let t = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = t;
+    }
+    while (pre) {
+        if (pre.val !== head.val) {
+            return false;
+        }
+        pre = pre.next;
+        head = head.next;
+    }
+    return true;
+};
+</code></pre>
+<h4 id="c-13"><a class="header" href="#c-13">C#</a></h4>
+<pre><code class="language-cs">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool IsPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null &amp;&amp; fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode cur = slow.next;
+        slow.next = null;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode t = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = t;
+        }
+        while (pre != null) {
+            if (pre.val != head.val) {
+                return false;
+            }
+            pre = pre.next;
+            head = head.next;
+        }
+        return true;
+    }
+}
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 判断链表是否是回文结构
+// 测试链接 : https://leetcode.com/problems/palindrome-linked-list/
+public class Code04_PalindromeLinkedList {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	public static boolean isPalindrome(ListNode head) {
+		if (head == null || head.next == null) {
+			return true;
+		}
+		ListNode slow = head, fast = head;
+		// 找中点
+		while (fast.next != null &amp;&amp; fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		// 现在中点就是slow，从中点开始往后的节点逆序
+		ListNode pre = slow;
+		ListNode cur = pre.next;
+		ListNode next = null;
+		pre.next = null;
+		while (cur != null) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		// 上面的过程已经把链表调整成从左右两侧往中间指
+		// head -&gt; ... -&gt; slow &lt;- ... &lt;- pre
+		boolean ans = true;
+		ListNode left = head;
+		ListNode right = pre;
+		// left往右、right往左，每一步比对值是否一样，如果某一步不一样答案就是false
+		while (left != null &amp;&amp; right != null) {
+			if (left.val != right.val) {
+				ans = false;
+				break;
+			}
+			left = left.next;
+			right = right.next;
+		}
+		// 本着不坑的原则，把链表调整回原来的样子再返回判断结果
+		cur = pre.next;
+		pre.next = null;
+		next = null;
+		while (cur != null) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		return ans;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+<h2 id="linked-list-cycle-ii"><a class="header" href="#linked-list-cycle-ii">Linked List Cycle II</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0142.Linked%20List%20Cycle%20II/README_EN.md
+tags:
+    - Hash Table
+    - Linked List
+    - Two Pointers
+</code></pre>
+<!-- problem:start -->
+<h1 id="142-linked-list-cycle-ii"><a class="header" href="#142-linked-list-cycle-ii"><a href="https://leetcode.com/problems/linked-list-cycle-ii">142. Linked List Cycle II</a></a></h1>
+<p><a href="/solution/0100-0199/0142.Linked%20List%20Cycle%20II/README.html">中文文档</a></p>
+<h2 id="description-6"><a class="header" href="#description-6">Description</a></h2>
+<!-- description:start -->
+<p>Given the <code>head</code> of a linked list, return <em>the node where the cycle begins. If there is no cycle, return </em><code>null</code>.</p>
+<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the <code>next</code> pointer. Internally, <code>pos</code> is used to denote the index of the node that tail&#39;s <code>next</code> pointer is connected to (<strong>0-indexed</strong>). It is <code>-1</code> if there is no cycle. <strong>Note that</strong> <code>pos</code> <strong>is not passed as a parameter</strong>.</p>
+<p><strong>Do not modify</strong> the linked list.</p>
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0142.Linked%20List%20Cycle%20II/images/circularlinkedlist.png" style="height: 145px; width: 450px;" />
+<pre>
+<strong>Input:</strong> head = [3,2,0,-4], pos = 1
+<strong>Output:</strong> tail connects to node index 1
+<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the second node.
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0142.Linked%20List%20Cycle%20II/images/circularlinkedlist_test2.png" style="height: 105px; width: 201px;" />
+<pre>
+<strong>Input:</strong> head = [1,2], pos = 0
+<strong>Output:</strong> tail connects to node index 0
+<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the first node.
+</pre>
+<p><strong class="example">Example 3:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0142.Linked%20List%20Cycle%20II/images/circularlinkedlist_test3.png" style="height: 65px; width: 65px;" />
+<pre>
+<strong>Input:</strong> head = [1], pos = -1
+<strong>Output:</strong> no cycle
+<strong>Explanation:</strong> There is no cycle in the linked list.
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of the nodes in the list is in the range <code>[0, 10<sup>4</sup>]</code>.</li>
+	<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>
+	<li><code>pos</code> is <code>-1</code> or a <strong>valid index</strong> in the linked-list.</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> Can you solve it using <code>O(1)</code> (i.e. constant) memory?</p>
+<!-- description:end -->
+<h2 id="solutions-6"><a class="header" href="#solutions-6">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-two-pointers-1"><a class="header" href="#solution-1-two-pointers-1">Solution 1: Two Pointers</a></h3>
+<p>We first use the fast and slow pointers to judge whether the linked list has a ring. If there is a ring, the fast and slow pointers will definitely meet, and the meeting node must be in the ring.</p>
+<p>If there is no ring, the fast pointer will reach the tail of the linked list first, and return <code>null</code> directly.</p>
+<p>If there is a ring, we then define an answer pointer $ans$ to point to the head of the linked list, and then let $ans$ and the slow pointer move forward together, moving one step at a time, until $ans$ and the slow pointer meet, and the meeting node is the ring entrance node.</p>
+<p>Why can this find the entrance node of the ring?</p>
+<p>Let's assume that the distance from the head node of the linked list to the entrance of the ring is $x$, the distance from the entrance of the ring to the meeting node is $y$, and the distance from the meeting node to the entrance of the ring is $z$. Then the distance traveled by the slow pointer is $x + y$, and the distance traveled by the fast pointer is $x + y + k \times (y + z)$, where $k$ is the number of times the fast pointer goes around the ring.</p>
+<p><img src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0142.Linked%20List%20Cycle%20II/images/linked-list-cycle-ii.png" /></p>
+<p>Because the speed of the fast pointer is twice that of the slow pointer, it is $2 \times (x + y) = x + y + k \times (y + z)$, which can be deduced that $x + y = k \times (y + z)$, that is $x = (k - 1) \times (y + z) + z$.</p>
+<p>That is to say, if we define an answer pointer $ans$ to point to the head of the linked list, and the $ans$ and the slow pointer move forward together, they will definitely meet at the ring entrance.</p>
+<p>The time complexity is $O(n)$, where $n$ is the number of nodes in the linked list. The space complexity is $O(1)$.</p>
+<!-- tabs:start -->
+<h4 id="python3-9"><a class="header" href="#python3-9">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:
+        fast = slow = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                ans = head
+                while ans != slow:
+                    ans = ans.next
+                    slow = slow.next
+                return ans
+</code></pre>
+<h4 id="java-9"><a class="header" href="#java-9">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (fast != null &amp;&amp; fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                ListNode ans = head;
+                while (ans != slow) {
+                    ans = ans.next;
+                    slow = slow.next;
+                }
+                return ans;
+            }
+        }
+        return null;
+    }
+}
+</code></pre>
+<h4 id="c-14"><a class="header" href="#c-14">C++</a></h4>
+<pre><code class="language-cpp">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* detectCycle(ListNode* head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while (fast &amp;&amp; fast-&gt;next) {
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            if (slow == fast) {
+                ListNode* ans = head;
+                while (ans != slow) {
+                    ans = ans-&gt;next;
+                    slow = slow-&gt;next;
+                }
+                return ans;
+            }
+        }
+        return nullptr;
+    }
+};
+</code></pre>
+<h4 id="go-9"><a class="header" href="#go-9">Go</a></h4>
+<pre><code class="language-go">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func detectCycle(head *ListNode) *ListNode {
+	fast, slow := head, head
+	for fast != nil &amp;&amp; fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			ans := head
+			for ans != slow {
+				ans = ans.Next
+				slow = slow.Next
+			}
+			return ans
+		}
+	}
+	return nil
+}
+</code></pre>
+<h4 id="typescript-7"><a class="header" href="#typescript-7">TypeScript</a></h4>
+<pre><code class="language-ts">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function detectCycle(head: ListNode | null): ListNode | null {
+    let [slow, fast] = [head, head];
+    while (fast &amp;&amp; fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) {
+            let ans = head;
+            while (ans !== slow) {
+                ans = ans.next;
+                slow = slow.next;
+            }
+            return ans;
+        }
+    }
+    return null;
+}
+</code></pre>
+<h4 id="javascript-8"><a class="header" href="#javascript-8">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+    let [slow, fast] = [head, head];
+    while (fast &amp;&amp; fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow === fast) {
+            let ans = head;
+            while (ans !== slow) {
+                ans = ans.next;
+                slow = slow.next;
+            }
+            return ans;
+        }
+    }
+    return null;
+};
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 返回链表的第一个入环节点
+// 测试链接 : https://leetcode.com/problems/linked-list-cycle-ii/
+public class Code05_LinkedListCycleII {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	public static ListNode detectCycle(ListNode head) {
+		if (head == null || head.next == null || head.next.next == null) {
+			return null;
+		}
+		ListNode slow = head.next;
+		ListNode fast = head.next.next;
+		while (slow != fast) {
+			if (fast.next == null || fast.next.next == null) {
+				return null;
+			}
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		fast = head;
+		while (slow != fast) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+		return slow;
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+<h2 id="insertion-sort-list"><a class="header" href="#insertion-sort-list">Insertion Sort List</a></h2>
+<details><summary>Description:</summary>
+<pre><code>comments: true
+difficulty: Medium
+edit_url: https://github.com/doocs/leetcode/edit/main/solution/0100-0199/0147.Insertion%20Sort%20List/README_EN.md
+tags:
+    - Linked List
+    - Sorting
+</code></pre>
+<!-- problem:start -->
+<h1 id="147-insertion-sort-list"><a class="header" href="#147-insertion-sort-list"><a href="https://leetcode.com/problems/insertion-sort-list">147. Insertion Sort List</a></a></h1>
+<p><a href="/solution/0100-0199/0147.Insertion%20Sort%20List/README.html">中文文档</a></p>
+<h2 id="description-7"><a class="header" href="#description-7">Description</a></h2>
+<!-- description:start -->
+<p>Given the <code>head</code> of a singly linked list, sort the list using <strong>insertion sort</strong>, and return <em>the sorted list&#39;s head</em>.</p>
+<p>The steps of the <strong>insertion sort</strong> algorithm:</p>
+<ol>
+	<li>Insertion sort iterates, consuming one input element each repetition and growing a sorted output list.</li>
+	<li>At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list and inserts it there.</li>
+	<li>It repeats until no input elements remain.</li>
+</ol>
+<p>The following is a graphical example of the insertion sort algorithm. The partially sorted list (black) initially contains only the first element in the list. One element (red) is removed from the input data and inserted in-place into the sorted list with each iteration.</p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0147.Insertion%20Sort%20List/images/Insertion-sort-example-300px.gif" style="height:180px; width:300px" />
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0147.Insertion%20Sort%20List/images/sort1linked-list.jpg" style="width: 422px; height: 222px;" />
+<pre>
+<strong>Input:</strong> head = [4,2,1,3]
+<strong>Output:</strong> [1,2,3,4]
+</pre>
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/solution/0100-0199/0147.Insertion%20Sort%20List/images/sort2linked-list.jpg" style="width: 542px; height: 222px;" />
+<pre>
+<strong>Input:</strong> head = [-1,5,3,4,0]
+<strong>Output:</strong> [-1,0,3,4,5]
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+	<li>The number of nodes in the list is in the range <code>[1, 5000]</code>.</li>
+	<li><code>-5000 &lt;= Node.val &lt;= 5000</code></li>
+</ul>
+<!-- description:end -->
+<h2 id="solutions-7"><a class="header" href="#solutions-7">Solutions</a></h2>
+<!-- solution:start -->
+<h3 id="solution-1-3"><a class="header" href="#solution-1-3">Solution 1</a></h3>
+<!-- tabs:start -->
+<h4 id="python3-10"><a class="header" href="#python3-10">Python3</a></h4>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def insertionSortList(self, head: ListNode) -&gt; ListNode:
+        if head is None or head.next is None:
+            return head
+        dummy = ListNode(head.val, head)
+        pre, cur = dummy, head
+        while cur:
+            if pre.val &lt;= cur.val:
+                pre, cur = cur, cur.next
+                continue
+            p = dummy
+            while p.next.val &lt;= cur.val:
+                p = p.next
+            t = cur.next
+            cur.next = p.next
+            p.next = cur
+            pre.next = t
+            cur = t
+        return dummy.next
+</code></pre>
+<h4 id="java-10"><a class="header" href="#java-10">Java</a></h4>
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(head.val, head);
+        ListNode pre = dummy, cur = head;
+        while (cur != null) {
+            if (pre.val &lt;= cur.val) {
+                pre = cur;
+                cur = cur.next;
+                continue;
+            }
+            ListNode p = dummy;
+            while (p.next.val &lt;= cur.val) {
+                p = p.next;
+            }
+            ListNode t = cur.next;
+            cur.next = p.next;
+            p.next = cur;
+            pre.next = t;
+            cur = t;
+        }
+        return dummy.next;
+    }
+}
+</code></pre>
+<h4 id="javascript-9"><a class="header" href="#javascript-9">JavaScript</a></h4>
+<pre><code class="language-js">/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var insertionSortList = function (head) {
+    if (head == null || head.next == null) return head;
+    let dummy = new ListNode(head.val, head);
+    let prev = dummy,
+        cur = head;
+    while (cur != null) {
+        if (prev.val &lt;= cur.val) {
+            prev = cur;
+            cur = cur.next;
+            continue;
+        }
+        let p = dummy;
+        while (p.next.val &lt;= cur.val) {
+            p = p.next;
+        }
+        let t = cur.next;
+        cur.next = p.next;
+        p.next = cur;
+        prev.next = t;
+        cur = t;
+    }
+    return dummy.next;
+};
+</code></pre>
+<!-- tabs:end -->
+<!-- solution:end -->
+<!-- problem:end -->
+</details>
+<details><summary>Solution:</summary>
+<pre><code class="language-java">package class034;
+
+// 排序链表
+// 要求时间复杂度O(n*logn)，额外空间复杂度O(1)，还要求稳定性
+// 数组排序做不到，链表排序可以
+// 测试链接 : https://leetcode.com/problems/sort-list/
+public class Code06_SortList {
+
+	// 不要提交这个类
+	public static class ListNode {
+		public int val;
+		public ListNode next;
+	}
+
+	// 提交如下的方法
+	// 时间复杂度O(n*logn)，额外空间复杂度O(1)，有稳定性
+	// 注意为了额外空间复杂度O(1)，所以不能使用递归
+	// 因为mergeSort递归需要O(log n)的额外空间
+	public static ListNode sortList(ListNode head) {
+		int n = 0;
+		ListNode cur = head;
+		while (cur != null) {
+			n++;
+			cur = cur.next;
+		}
+		// l1...r1 每组的左部分
+		// l2...r2 每组的右部分
+		// next 下一组的开头
+		// lastTeamEnd 上一组的结尾
+		ListNode l1, r1, l2, r2, next, lastTeamEnd;
+		for (int step = 1; step &lt; n; step &lt;&lt;= 1) {
+			// 第一组很特殊，因为要决定整个链表的头，所以单独处理
+			l1 = head;
+			r1 = findEnd(l1, step);
+			l2 = r1.next;
+			r2 = findEnd(l2, step);
+			next = r2.next;
+			r1.next = null;
+			r2.next = null;
+			merge(l1, r1, l2, r2);
+			head = start;
+			lastTeamEnd = end;
+			while (next != null) {
+				l1 = next;
+				r1 = findEnd(l1, step);
+				l2 = r1.next;
+				if (l2 == null) {
+					lastTeamEnd.next = l1;
+					break;
+				}
+				r2 = findEnd(l2, step);
+				next = r2.next;
+				r1.next = null;
+				r2.next = null;
+				merge(l1, r1, l2, r2);
+				lastTeamEnd.next = start;
+				lastTeamEnd = end;
+			}
+		}
+		return head;
+	}
+
+	// 包括s在内，往下数k个节点返回
+	// 如果不够，返回最后一个数到的非空节点
+	public static ListNode findEnd(ListNode s, int k) {
+		while (s.next != null &amp;&amp; --k != 0) {
+			s = s.next;
+		}
+		return s;
+	}
+
+	public static ListNode start;
+
+	public static ListNode end;
+
+	// l1...r1 -&gt; null : 有序的左部分
+	// l2...r2 -&gt; null : 有序的右部分
+	// 整体merge在一起，保证有序
+	// 并且把全局变量start设置为整体的头，全局变量end设置为整体的尾
+	public static void merge(ListNode l1, ListNode r1, ListNode l2, ListNode r2) {
+		ListNode pre;
+		if (l1.val &lt;= l2.val) {
+			start = l1;
+			pre = l1;
+			l1 = l1.next;
+		} else {
+			start = l2;
+			pre = l2;
+			l2 = l2.next;
+		}
+		while (l1 != null &amp;&amp; l2 != null) {
+			if (l1.val &lt;= l2.val) {
+				pre.next = l1;
+				pre = l1;
+				l1 = l1.next;
+			} else {
+				pre.next = l2;
+				pre = l2;
+				l2 = l2.next;
+			}
+		}
+		if (l1 != null) {
+			pre.next = l1;
+			end = r1;
+		} else {
+			pre.next = l2;
+			end = r2;
+		}
+	}
+
+}
+</code></pre>
+</details>
+<details>
+    <summary>YouTube Video:</summary>
+    <iframe frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/drKlVMcnEwk?start=0">
+    </iframe>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../data-structures/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../data-structures/disjoint-set-1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../data-structures/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../data-structures/disjoint-set-1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
